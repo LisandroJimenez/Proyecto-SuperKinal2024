@@ -10,8 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="950.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.TicketSoporteController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.TicketSoporteController">
    <children>
       <ImageView fitHeight="600.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -33,5 +32,6 @@
         </columns>
       </TableView>
       <Button fx:id="btnBack" layoutX="50.0" layoutY="496.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />
+      <Button fx:id="btnGuardar" layoutX="152.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Guardar" />
    </children>
 </AnchorPane>
