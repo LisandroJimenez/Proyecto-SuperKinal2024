@@ -48,7 +48,7 @@ public class TicketSoporteController implements Initializable {
     @FXML
     TextArea textDescripcion;
     @FXML
-    Button btnBack, btnGuardar;
+    Button btnBack, btnGuardar, btnVaciarForm;
     @FXML
     ComboBox cmbEstatus, cmbClientes, cmbFactura;
 
@@ -73,6 +73,29 @@ public class TicketSoporteController implements Initializable {
         colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("facturaId"));
         tblTicketSoporte.getSortOrder().add(colTicketId);
 
+    }
+    
+    public void cargarDatosEditar(){
+        TicketSoporte ts = (TicketSoporte)tblTicketSoporte.getSelectionModel().getSelectedItem();
+        if(ts != null){
+            textId.setText(Integer.toString(ts.getTicketSoporteId()));
+            textDescripcion.setText(ts.getDescripcionTicket());
+            cmbEstatus.getSelectionModel().select(0);
+            cmbClientes.getSelectionModel().select(obtenerIndexCliente());
+        }
+    }
+    
+    public int obtenerIndexCliente(){
+        int index = 0;
+        for(int i = 0; i<= cmbClientes.getItems().size(); i++){
+            String clienteCmb = cmbClientes.getItems().get(i).toString();
+            String clienteTbl = ((TicketSoporte)tblTicketSoporte.getSelectionModel().getSelectedItem()).getCliente();
+            if(clienteCmb.equals(clienteTbl)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public ObservableList<TicketSoporte> listarTickets() {
@@ -140,6 +163,35 @@ public class TicketSoporteController implements Initializable {
             }
         }
     }
+    
+    public void editarTicket(){
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_editarTicketSoporte(?,?,?)";
+            statement = conexion.prepareStatement(sql);
+            statement.setInt(1, Integer.parseInt(textId.getText()));
+            statement.setString(2, textDescripcion.getText());
+            statement.setString(3, cmbEstatus.getSelectionModel().getSelectedItem().toString());
+            statement.setInt(4, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
+            statement.setInt(5, 1);
+            statement.execute();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+
+            }
+        }
+    }
 
     public ObservableList<Cliente> listarClientes() {
         ArrayList<Cliente> clientes = new ArrayList<>();
@@ -179,7 +231,13 @@ public class TicketSoporteController implements Initializable {
         }
         return FXCollections.observableList(clientes);
     }
-
+    
+    public void vaciarCampos(){
+        textId.clear();
+        textDescripcion.clear();
+        cmbEstatus.getSelectionModel().clearSelection();
+        cmbClientes.getSelectionModel().clearSelection();
+    }
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnBack) {
@@ -188,7 +246,12 @@ public class TicketSoporteController implements Initializable {
             if(textId.getText().equals("")){
                 agregarTicket();
                 cargarDatos();
+            }else{
+                editarTicket();
+                cargarDatos();
             }
+        }else if(event.getSource()== btnVaciarForm){
+            vaciarCampos();
         }
     }
 

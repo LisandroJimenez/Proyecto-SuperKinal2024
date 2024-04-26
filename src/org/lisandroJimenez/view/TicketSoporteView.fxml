@@ -22,7 +22,7 @@
       <TextArea fx:id="textDescripcion" layoutX="41.0" layoutY="225.0" prefHeight="177.0" prefWidth="179.0" wrapText="true" />
       <ComboBox fx:id="cmbClientes" layoutX="325.0" layoutY="127.0" prefWidth="150.0" />
       <ComboBox fx:id="cmbFactura" layoutX="551.0" layoutY="127.0" prefWidth="150.0" />
-      <TableView fx:id="tblTicketSoporte" layoutX="285.0" layoutY="200.0" prefHeight="323.0" prefWidth="542.0">
+      <TableView fx:id="tblTicketSoporte" layoutX="285.0" layoutY="200.0" onMouseClicked="#cargarDatosEditar" prefHeight="323.0" prefWidth="542.0">
         <columns>
           <TableColumn fx:id="colTicketId" prefWidth="75.0" text="TicketId" />
           <TableColumn fx:id="colDescripcion" prefWidth="150.0" text="Descripcion" />
@@ -33,5 +33,6 @@
       </TableView>
       <Button fx:id="btnBack" layoutX="50.0" layoutY="496.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />
       <Button fx:id="btnGuardar" layoutX="152.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Guardar" />
+      <Button fx:id="btnVaciarForm" layoutX="850.0" layoutY="248.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="vaciar Form" />
    </children>
 </AnchorPane>

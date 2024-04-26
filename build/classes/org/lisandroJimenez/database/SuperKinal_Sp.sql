@@ -272,10 +272,10 @@ delimiter ;
 --  ------------------------------------------------------Facturas--------------------------------------------------------------------
 -- Agregar
 delimiter $$
-create procedure sp_agregarFacturas(in fe date, in ho time, in tot decimal(10, 2), in cliId int, in empId int)
+create procedure sp_agregarFactura(in fe date, in ho time,in cliId int, in empId int)
 	begin
-		insert into Facturas (fe, ho, tot, cliId, empId) values
-			(fecha, hora, total, clienteId, empleadoId);
+		insert into Facturas (fecha, hora, clienteId, empleadoId) values
+			(fe, ho, cliId, empId);
     end $$
 delimiter ; 
 -- listar
@@ -574,4 +574,7 @@ delimiter ;
 call sp_listarCliente();
 call sp_agregarCliente('Jose','Perales', '18283', 'zona 1', 'hdhdhdh');
 set global time_zone = '-6:00'; 
-call sp_agregarTicketSoporte('descripcion', '');
+call sp_agregarFactura('2024-04-02','16:00',1,1);
+call sp_agregarTicketSoporte('descripcion', 1, 1);
+insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
+		('asdfas','Recien Creado',1,2);
