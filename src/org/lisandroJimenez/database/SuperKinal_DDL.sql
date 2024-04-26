@@ -141,5 +141,3 @@ create table DetalleCompra( --  Lisandro
 );
 
 set global time_zone = '-6:00';
-
-insert into TicketSoporte('hola', 'descripcionTicket', 'estatus', 1, 1)  values

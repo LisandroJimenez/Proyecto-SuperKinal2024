@@ -80,7 +80,7 @@ public class TicketSoporteController implements Initializable {
 
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_listarTicketSoporte()";
+            String sql = "call sp_ListarTicketSoporte()";
             statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
