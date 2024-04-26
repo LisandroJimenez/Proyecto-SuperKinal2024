@@ -12,7 +12,7 @@ create table Cargos( -- Cristian
     primary key PK_cargoId(cargoId)
 );
 
-create table Compras( -- Lisandro
+create table compras( -- Lisandro
 	compraId int not null auto_increment,
     fechaCompra date not null,
     totalCompra decimal(10,2),
@@ -83,9 +83,9 @@ create table TicketSoporte( -- aldair
     clienteId int not null,
     facturaId int,
     primary key PK_ticketSoporteId(ticketSoporteId),
-	constraint FK_TicketSoporte_Clientes foreign key (clienteId)
+	constraint FK_TicketSoporte_Clientes foreign key(clienteId)
 		references Clientes(clienteId),
-	constraint FK_TicketSoporte_Facturas foreign key (facturaId)
+	constraint FK_TicketSoporte_Facturas foreign key(facturaId)
 		references Facturas(facturaId)
 );
 
@@ -142,30 +142,5 @@ create table DetalleCompra( --  Lisandro
 
 set global time_zone = '-6:00';
 
-insert into Cargos(nombreCargo, descripcionCargo)values
-('Gerente', 'hola gerente');
-
-insert into Compras(fechaCompra, totalCompra)values
-('2024-02-04', null);
-
-insert into CategoriaProductos (nombreCategoria, descripcionCategoria)values
-('Ropa', 'Ropa de moda para hombres, mujeres y niños');
-
-insert into Distribuidores (nombreDistribuidor, direccionDistribuidor, nitDistribuidor, telefonoDistribuidor, web) values 
-    ('Distribuidor XYZ', 'Calle Principal 123', '123456-7', '+1234567890', 'www.distribuidorxyz.com');
-insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId) values 
-    ('Juan', 'Pérez', 2000.00, '08:00:00', '17:00:00', 1, NULL);
-insert into Clientes (nombre, apellido, telefono, direccion, nit) values 
-    ('Juan', 'Pérez', '123456789', 'Calle Principal 123', '123-456-789');
-insert into Facturas (fecha, hora, clienteId, empleadoId, total) values 
-    ('2024-04-26', '10:30:00', 1, 1, 100.00);
-insert into TicketSoporte (descripcionTicket, estatus, clienteId, facturaId) values 
-    ('Problema con la conexión a internet', 'Pendiente', 1, NULL);
-insert into Productos (nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, distribuidorId, categoriaProductosId) values 
-    ('Laptop', 'Laptop de última generación', 10, 800.00, 750.00, 600.00, 1, 1);
-insert into Promociones (precioPromocion, descripcionPromocion, fechaInicio, fechaFinalizacion, productoId) values 
-    (700.00, '¡Oferta especial por tiempo limitado!', '2024-04-26', '2024-05-31', 1);
-insert into DetalleFactura (facturaId, productoId) values 
-    (1, 1);
-insert into DetalleCompra (cantidadCompra, productoId, compraId) values 
-    (2, 1, 1);
+insert into TicketSoporte(descripcionTicket, estatus)  values
+('hola', 'estatus', 1, 1);

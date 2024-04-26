@@ -15,11 +15,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.dto.ClienteDTO;
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.system.Main;
+import org.lisandroJimenez.utils.SuperKinalAlert;
 
 /**
  *
@@ -48,12 +50,26 @@ public class FormClientesController implements Initializable{
             stage.MenuClientesView();
         }else if (event.getSource() == btnGuardar){
             if (op == 1){
-                AgregarClientes();
-                stage.MenuClientesView();
+                if(!textNombre.getText().equals("") && !textApellido.getText().equals("") && !textDireccion.getText().equals("")){
+                    AgregarClientes();
+                    stage.MenuClientesView();
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                    textNombre.requestFocus();
+                    return;
+                }
             }else if(op == 2){
-                EditarClientes();
+                if(!textNombre.getText().equals("") && !textApellido.getText().equals("") && !textDireccion.getText().equals("")){
+                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK){
+                        EditarClientes();               
                 ClienteDTO.getClienteDTO().setCliente(null);
                 stage.MenuClientesView();
+                    }
+                }else{
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                }
+                
             }
         }
     }

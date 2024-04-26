@@ -272,10 +272,10 @@ delimiter ;
 --  ------------------------------------------------------Facturas--------------------------------------------------------------------
 -- Agregar
 delimiter $$
-create procedure sp_agregarFactura(in fe date, in ho time,in cliId int, in empId int)
+create procedure sp_agregarFacturas(in fe date, in ho time, in tot decimal(10, 2), in cliId int, in empId int)
 	begin
-		insert into Facturas (fecha, hora, clienteId, empleadoId) values
-			(fe, ho, cliId, empId);
+		insert into Facturas (fe, ho, tot, cliId, empId) values
+			(fecha, hora, total, clienteId, empleadoId);
     end $$
 delimiter ; 
 -- listar
@@ -323,7 +323,7 @@ DELIMITER $$
 create procedure sp_AgregarTicketSoporte(in des varchar(250), in cliId int, in facId int)
 begin
 	insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		(des,'Recien Creado',cliId,facId);
+		(des,'recien Creado',cliId,facId);
 end $$
 DELIMITER ;
 -- listar
@@ -336,9 +336,6 @@ begin
     Join Clientes  C on TS.clienteId = C.clienteId;
 end $$
 DELIMITER ;
-
-call sp_ListarTicketSoporte();
-
 -- eliminar
 DELIMITER $$
 create procedure sp_EliminarTicketSoporte(in tikId int)
@@ -574,7 +571,3 @@ delimiter ;
 call sp_listarCliente();
 call sp_agregarCliente('Jose','Perales', '18283', 'zona 1', 'hdhdhdh');
 set global time_zone = '-6:00'; 
-call sp_agregarFactura('2024-04-02','16:00',1,1);
-call sp_agregarTicketSoporte('descripcion', 1, 1);
-insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		('asdfas','Recien Creado',1,2);

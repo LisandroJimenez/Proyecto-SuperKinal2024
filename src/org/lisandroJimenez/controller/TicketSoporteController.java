@@ -167,7 +167,7 @@ public class TicketSoporteController implements Initializable {
     public void editarTicket(){
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarTicketSoporte(?,?,?)";
+            String sql = "call sp_editarTicketSoporte(?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(textId.getText()));
             statement.setString(2, textDescripcion.getText());
