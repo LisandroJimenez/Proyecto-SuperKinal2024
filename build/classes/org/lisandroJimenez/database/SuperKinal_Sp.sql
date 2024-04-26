@@ -320,10 +320,10 @@ delimiter ;
 -- ----------------------------------------------------ticket Soporte-----------------------------------------------------------------
 -- agregar
 DELIMITER $$
-create procedure sp_AgregarTicketSoporte(in des varchar(250), in est varchar(30), in cliId int, in facId int)
+create procedure sp_AgregarTicketSoporte(in des varchar(250), in cliId int, in facId int)
 begin
 	insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		(des,est,cliId,facId);
+		(des,'Recien Creado',cliId,facId);
 end $$
 DELIMITER ;
 -- listar
@@ -336,6 +336,9 @@ begin
     Join Clientes  C on TS.clienteId = C.clienteId;
 end $$
 DELIMITER ;
+
+call sp_ListarTicketSoporte();
+
 -- eliminar
 DELIMITER $$
 create procedure sp_EliminarTicketSoporte(in tikId int)
@@ -571,3 +574,4 @@ delimiter ;
 call sp_listarCliente();
 call sp_agregarCliente('Jose','Perales', '18283', 'zona 1', 'hdhdhdh');
 set global time_zone = '-6:00'; 
+call sp_agregarTicketSoporte('descripcion', '');

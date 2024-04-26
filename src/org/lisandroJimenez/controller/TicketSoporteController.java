@@ -40,7 +40,7 @@ public class TicketSoporteController implements Initializable {
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
     @FXML
-    TableColumn colTicketId, colDescripcion, colEstatus, colCliente, colFacturaId;
+    TableColumn colTicketId, colDescripcion, colEstatus, colCliente, colFactura;
     @FXML
     TableView tblTicketSoporte;
     @FXML
@@ -66,11 +66,11 @@ public class TicketSoporteController implements Initializable {
 
     public void cargarDatos() {
         tblTicketSoporte.setItems(listarTickets());
-        colTicketId.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("ticketId"));
-        colDescripcion.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("Descripcion"));
-        colEstatus.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("Estatus"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("Cliente"));
-        colFacturaId.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("Factura"));
+        colTicketId.setCellValueFactory(new PropertyValueFactory<TicketSoporte, Integer>("ticketSoporteId"));
+        colDescripcion.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("descripcionTicket"));
+        colEstatus.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("Status"));
+        colCliente.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("cliente"));
+        colFactura.setCellValueFactory(new PropertyValueFactory<TicketSoporte, String>("facturaId"));
         tblTicketSoporte.getSortOrder().add(colTicketId);
 
     }
@@ -117,8 +117,9 @@ public class TicketSoporteController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_agregarTicketSoporte(?,?,?)";
-            statement.setString(1, textDescripcion.getText());
+
             statement = conexion.prepareStatement(sql);
+            statement.setString(1, textDescripcion.getText());
             statement.setInt(2, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(3, 1);
             statement.execute();
