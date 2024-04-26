@@ -51,10 +51,10 @@ delimiter $$
 delimiter ;
  -- agregar
 delimiter $$
- create procedure sp_agregarCompra(in fecCom date, in totCom decimal (10,2))
+ create procedure sp_agregarCompra(in totCom decimal (10,2))
 	begin 
 		insert into Compras (fechaCompra, totalCompra) values
-			(fecCom, totCom);
+			(date(now()), totCom);
     end $$
 delimiter ;
  -- buscar
