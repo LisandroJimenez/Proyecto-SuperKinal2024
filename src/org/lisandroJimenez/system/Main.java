@@ -20,6 +20,7 @@ import org.lisandroJimenez.controller.EliminarClientesController;
 import org.lisandroJimenez.controller.FormCargosController;
 import org.lisandroJimenez.controller.FormClientesController;
 import org.lisandroJimenez.controller.MenuCargosController;
+import org.lisandroJimenez.controller.MenuCategoriaProductosController;
 import org.lisandroJimenez.controller.MenuClientesController;
 import org.lisandroJimenez.controller.MenuPrincipalController;
 import org.lisandroJimenez.controller.MenuTicketSoporteController;
@@ -114,6 +115,15 @@ public class Main extends Application {
             formCargosView.setOp(op);
             formCargosView.setStage(this);
             
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void MenuCategoriaProductosView(){
+        try{
+            MenuCategoriaProductosController menuCategoriaProductosView = (MenuCategoriaProductosController)switchScene("MenuCategoriaProductosView.fxml", 1100, 625);
+            menuCategoriaProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

@@ -56,7 +56,7 @@ public class FormCargosController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnCancelar) {
             CargoDTO.getCargoDTO().setCargo(null);
-            stage.MenuClientesView();
+            stage.MenuCargosView();
         } else if (event.getSource() == btnGuardar) {
             if (op == 1) {
                 if (!tfNombreCargo.getText().equals("") && !taDescripcionCargo.getText().equals("")) {

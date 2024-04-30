@@ -20,7 +20,7 @@ import org.lisandroJimenez.system.Main;
 public class MenuPrincipalController implements Initializable {
     private Main stage;
     @FXML
-    MenuItem btnMenuClientes, btnTicketSoporte, btnCargos;
+    MenuItem btnMenuClientes, btnTicketSoporte, btnCargos, btnCategoriaProductos;
 
     public Main getStage() {
         return stage;
@@ -42,6 +42,8 @@ public class MenuPrincipalController implements Initializable {
             stage.MenuTicketSoporteView();
         }else if(event.getSource() == btnCargos){
             stage.MenuCargosView();
+        }else if(event.getSource() == btnCategoriaProductos){
+            stage.MenuCategoriaProductosView();
         }
     }
     

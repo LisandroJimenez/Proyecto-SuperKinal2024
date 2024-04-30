@@ -10,7 +10,7 @@ create procedure sp_agregarCargo(nomCar varchar(30), desCar varchar(100))
 delimiter ;
 -- listar 
 delimiter $$
-create procedure sp_listarCargos()
+create procedure sp_listarCargo()
 	begin 
 		select * from Cargos;
     end $$
@@ -567,7 +567,10 @@ create procedure sp_editarDetalleCompra(in detCId int, in canC int, in proId int
     end $$
 delimiter ;
 -- ----------------------------------------------------------------------------------------------
+call sp_listarCargo();
 call sp_agregarCargo('Gerente', 'Supervisar las compras');
+call sp_editarCargo(1,'xd','xd');
+call sp_buscarCargo(1);
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarCompra(10.8);
 -- ----------------------------------------------------------------------------------------------
