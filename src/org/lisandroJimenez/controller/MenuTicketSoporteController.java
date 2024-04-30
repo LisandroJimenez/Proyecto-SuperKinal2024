@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,15 +26,17 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.lisandroJimenez.dao.Conexion;
+import org.lisandroJimenez.dto.ClienteDTO;
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.model.TicketSoporte;
 import org.lisandroJimenez.system.Main;
+import org.lisandroJimenez.utils.SuperKinalAlert;
 
 /**
  *
  * @author informatica
  */
-public class TicketSoporteController implements Initializable {
+public class MenuTicketSoporteController implements Initializable {
 
     private Main stage;
     private static Connection conexion = null;
@@ -44,9 +47,9 @@ public class TicketSoporteController implements Initializable {
     @FXML
     TableView tblTicketSoporte;
     @FXML
-    TextField textId;
+    TextField tfTicketId;
     @FXML
-    TextArea textDescripcion;
+    TextArea taDescripcion;
     @FXML
     Button btnBack, btnGuardar, btnVaciarForm;
     @FXML
@@ -78,8 +81,8 @@ public class TicketSoporteController implements Initializable {
     public void cargarDatosEditar(){
         TicketSoporte ts = (TicketSoporte)tblTicketSoporte.getSelectionModel().getSelectedItem();
         if(ts != null){
-            textId.setText(Integer.toString(ts.getTicketSoporteId()));
-            textDescripcion.setText(ts.getDescripcionTicket());
+            tfTicketId.setText(Integer.toString(ts.getTicketSoporteId()));
+            taDescripcion.setText(ts.getDescripcionTicket());
             cmbEstatus.getSelectionModel().select(0);
             cmbClientes.getSelectionModel().select(obtenerIndexCliente());
         }
@@ -142,7 +145,7 @@ public class TicketSoporteController implements Initializable {
             String sql = "call sp_agregarTicketSoporte(?,?,?)";
 
             statement = conexion.prepareStatement(sql);
-            statement.setString(1, textDescripcion.getText());
+            statement.setString(1, taDescripcion.getText());
             statement.setInt(2, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(3, 1);
             statement.execute();
@@ -167,10 +170,10 @@ public class TicketSoporteController implements Initializable {
     public void editarTicket(){
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarTicketSoporte(?,?,?)";
+            String sql = "call sp_editarTicketSoporte(?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(textId.getText()));
-            statement.setString(2, textDescripcion.getText());
+            statement.setInt(1, Integer.parseInt(tfTicketId.getText()));
+            statement.setString(2, taDescripcion.getText());
             statement.setString(3, cmbEstatus.getSelectionModel().getSelectedItem().toString());
             statement.setInt(4, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(5, 1);
@@ -233,8 +236,8 @@ public class TicketSoporteController implements Initializable {
     }
     
     public void vaciarCampos(){
-        textId.clear();
-        textDescripcion.clear();
+        tfTicketId.clear();
+        taDescripcion.clear();
         cmbEstatus.getSelectionModel().clearSelection();
         cmbClientes.getSelectionModel().clearSelection();
     }
@@ -243,12 +246,19 @@ public class TicketSoporteController implements Initializable {
         if (event.getSource() == btnBack) {
             stage.MenuPrincipalView();
         }else if(event.getSource() == btnGuardar){
-            if(textId.getText().equals("")){
+            if(tfTicketId.getText().equals("")){      
                 agregarTicket();
                 cargarDatos();
-            }else{
-                editarTicket();
-                cargarDatos();
+                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+            }else{     
+                if (!taDescripcion.getText().equals("")) {
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
+                        editarTicket();
+                        cargarDatos();
+                    }
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                }
             }
         }else if(event.getSource()== btnVaciarForm){
             vaciarCampos();

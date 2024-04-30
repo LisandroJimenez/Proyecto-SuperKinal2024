@@ -17,10 +17,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.lisandroJimenez.controller.EliminarClientesController;
+import org.lisandroJimenez.controller.FormCargosController;
 import org.lisandroJimenez.controller.FormClientesController;
+import org.lisandroJimenez.controller.MenuCargosController;
 import org.lisandroJimenez.controller.MenuClientesController;
 import org.lisandroJimenez.controller.MenuPrincipalController;
-import org.lisandroJimenez.controller.TicketSoporteController;
+import org.lisandroJimenez.controller.MenuTicketSoporteController;
 
 /**
  *
@@ -90,8 +92,28 @@ public class Main extends Application {
     
     public void MenuTicketSoporteView(){
         try{
-            TicketSoporteController menuTicketSoporteView = (TicketSoporteController)switchScene("TicketSoporteView.fxml",950, 600);
+            MenuTicketSoporteController menuTicketSoporteView = (MenuTicketSoporteController)switchScene("MenuTicketSoporteView.fxml",950, 600);
             menuTicketSoporteView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void MenuCargosView(){
+        try{
+            MenuCargosController menuCargosView = (MenuCargosController)switchScene ("MenuCargosView.fxml", 1100, 625);
+            menuCargosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void FormCargosView(int op){
+        try{
+            FormCargosController formCargosView = (FormCargosController)switchScene("FormCargosView.fxml", 450, 620);
+            formCargosView.setOp(op);
+            formCargosView.setStage(this);
+            
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

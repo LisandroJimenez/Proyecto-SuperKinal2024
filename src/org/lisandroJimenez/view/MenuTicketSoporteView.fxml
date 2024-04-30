@@ -18,8 +18,8 @@
          </image>
       </ImageView>
       <ComboBox fx:id="cmbEstatus" layoutX="41.0" layoutY="448.0" prefWidth="150.0" />
-      <TextField fx:id="textId" editable="false" layoutX="42.0" layoutY="127.0" promptText="Ticket ID" />
-      <TextArea fx:id="textDescripcion" layoutX="41.0" layoutY="225.0" prefHeight="177.0" prefWidth="179.0" wrapText="true" />
+      <TextField fx:id="tfTicketId" editable="false" layoutX="42.0" layoutY="127.0" promptText="Ticket ID" />
+      <TextArea fx:id="taDescripcion" layoutX="41.0" layoutY="225.0" prefHeight="177.0" prefWidth="179.0" wrapText="true" />
       <ComboBox fx:id="cmbClientes" layoutX="325.0" layoutY="127.0" prefWidth="150.0" />
       <ComboBox fx:id="cmbFactura" layoutX="551.0" layoutY="127.0" prefWidth="150.0" />
       <TableView fx:id="tblTicketSoporte" layoutX="285.0" layoutY="200.0" onMouseClicked="#cargarDatosEditar" prefHeight="323.0" prefWidth="542.0">

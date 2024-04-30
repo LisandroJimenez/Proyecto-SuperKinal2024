@@ -5,12 +5,12 @@
 create procedure sp_agregarCargo(nomCar varchar(30), desCar varchar(100)) 
 	begin
 		insert into Cargos(nombreCargo, descripcionCargo) values
-        (nomC,desCar);
+        (nomCar,desCar);
 	end$$
 delimiter ;
 -- listar 
 delimiter $$
-create procedure sp_listarCargos()
+create procedure sp_listarCargo()
 	begin 
 		select * from Cargos;
     end $$
@@ -51,10 +51,10 @@ delimiter $$
 delimiter ;
  -- agregar
 delimiter $$
- create procedure sp_agregarCompra(in fecCom date, in totCom decimal (10,2))
+ create procedure sp_agregarCompra(in totCom decimal (10,2))
 	begin 
 		insert into Compras (fechaCompra, totalCompra) values
-			(fecCom, totCom);
+			(date(now()), totCom);
     end $$
 delimiter ;
  -- buscar
@@ -87,7 +87,7 @@ delimiter ;
 -- --------------------------------------------------Categoria producto---------------------------------------------------------------
 -- agregar
 delimiter $$
-create procedure sp_agregarCategoriaProductos(nomCat varchar(30),desCat varchar(100))
+create procedure sp_agregarCategoriaProducto(nomCat varchar(30),desCat varchar(100))
 	begin 
 		insert into CategoriaProductos(nombreCategoria,descripcionCategoria) values
 			(nomCat,desCat);
@@ -176,10 +176,10 @@ delimiter ;
 --  -------------------------------------------------------Empleados-----------------------------------------------------------------
 -- Agregar
 delimiter $$
-create procedure sp_agregarEmpleados(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encarId int)
+create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encarId int)
 	begin
-		insert into Empleados (nomEmp, apeEmp, sue, hoEn, hoSa, carid, encarId) values
-			(nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId);
+		insert into Empleados (nombreEmpleado, apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId) values
+			(nomEmp, apeEmp, sue, hoEn, hoSa, carid, encarId);
     end $$
 delimiter ;
 -- listar
@@ -272,10 +272,10 @@ delimiter ;
 --  ------------------------------------------------------Facturas--------------------------------------------------------------------
 -- Agregar
 delimiter $$
-create procedure sp_agregarFactura(in fe date, in ho time,in cliId int, in empId int)
+create procedure sp_agregarFactura(in fe date, in ho time, in tot decimal(10, 2), in cliId int, in empId int)
 	begin
-		insert into Facturas (fecha, hora, clienteId, empleadoId) values
-			(fe, ho, cliId, empId);
+		insert into Facturas (fecha, hora, total, clienteId, empleadoId) values
+			(fe, ho, tot, cliId, empId);
     end $$
 delimiter ; 
 -- listar
@@ -323,7 +323,7 @@ DELIMITER $$
 create procedure sp_AgregarTicketSoporte(in des varchar(250), in cliId int, in facId int)
 begin
 	insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		(des,'Recien Creado',cliId,facId);
+		(des,'recien Creado',cliId,facId);
 end $$
 DELIMITER ;
 -- listar
@@ -336,9 +336,6 @@ begin
     Join Clientes  C on TS.clienteId = C.clienteId;
 end $$
 DELIMITER ;
-
-call sp_ListarTicketSoporte();
-
 -- eliminar
 DELIMITER $$
 create procedure sp_EliminarTicketSoporte(in tikId int)
@@ -380,7 +377,7 @@ DELIMITER ;
 delimiter $$
  create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int)
 	begin
-		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
+		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
 			(nom, des, can, preU, preM, preC, ima, disId, catId);
 	end $$
 delimiter ;
@@ -429,10 +426,10 @@ delimiter ;
 -- ------------------------------------------------------Promociones-------------------------------------------------------------------
 -- Agregar
 delimiter $$
-create procedure sp_agregarPromociones(in prePro decimal(10, 2), in descPro varchar(100), in feIni date, in feFina date, in proId int)
+create procedure sp_agregarPromocion(in prePro decimal(10, 2), in descPro varchar(100), in feIni date, in feFina date, in proId int)
 	begin
-		insert into Promociones (prePro, descPro, feIni, feFina, proId) values
-			(precioPromocion, descripcionPromocion, fechaInicio, fechaFinalizacione, productoId);
+		insert into Promociones (precioPromocion, descripcionPromocion, fechaInicio, fechaFinalizacion, productoId) values 
+			(prePro, descPro, feIni, feFina, proId);
     end $$
 delimiter ;
 -- listar
@@ -569,12 +566,29 @@ create procedure sp_editarDetalleCompra(in detCId int, in canC int, in proId int
                 where detalleCompraId = detCId;
     end $$
 delimiter ;
-
-
+-- ----------------------------------------------------------------------------------------------
+call sp_listarCargo();
+call sp_agregarCargo('Gerente', 'Supervisar las compras');
+call sp_editarCargo(1,'xd','xd');
+call sp_buscarCargo(1);
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarCompra(10.8);
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarcategoriaProducto('Hogar','Silla  de lujo 4x4');
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarDistribuidor('Las sillas', 'San Juan', '29384085-9', '2384-4875','LasSillas.com');
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,null);
+-- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
-call sp_agregarCliente('Jose','Perales', '18283', 'zona 1', 'hdhdhdh');
+call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarFactura('2024-05-05', '14:51',null, 1, 1);
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarTicketSoporte('Problemas con la red',1,1);
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarProducto('Silla de madera', 'silla de madera con diseños', 80 ,  80.7, 70.00, 85.00 ,null ,  1 ,  1 );
+-- ----------------------------------------------------------------------------------------------
+call sp_agregarPromocion(50.00, 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
+-- ----------------------------------------------------------------------------------------------
 set global time_zone = '-6:00'; 
-call sp_agregarFactura('2024-04-02','16:00',1,1);
-call sp_agregarTicketSoporte('descripcion', 1, 1);
-insert into TicketSoporte(descripcionTicket,estatus,clienteId,facturaId) values
-		('asdfas','Recien Creado',1,2);

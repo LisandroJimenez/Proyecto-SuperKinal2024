@@ -47,7 +47,7 @@
             <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Regresar" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <TextField fx:id="textBuscar" layoutX="561.0" layoutY="87.0" prefHeight="25.0" prefWidth="251.0" promptText="Ingrese la ID del cliente a Buscar" />
+      <TextField fx:id="tfBuscar" layoutX="561.0" layoutY="87.0" prefHeight="25.0" prefWidth="251.0" promptText="Ingrese la ID del cliente a Buscar" />
       <Button fx:id="btnBuscar" layoutX="819.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="30.0">
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.FormCargosController">
+   <children>
+      <ImageView fitHeight="620.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/FormularioCargos.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfCargoId" layoutX="52.0" layoutY="123.0" prefHeight="36.0" prefWidth="216.0" />
+      <TextField fx:id="tfNombreCargo" layoutX="52.0" layoutY="211.0" prefHeight="36.0" prefWidth="216.0" />
+      <TextArea fx:id="taDescripcionCargo" layoutX="52.0" layoutY="298.5" prefHeight="182.5" prefWidth="216.0" />
+      <GridPane layoutX="321.0" layoutY="263.0" prefHeight="57.0" prefWidth="100.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Button fx:id="btnGuardar" alignment="CENTER" layoutX="119.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-color: #DAEEE0; -fx-background-radius: 10;" text="Guardar">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancelar" alignment="CENTER" layoutX="227.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-color: #DAEEE0; -fx-background-radius: 10;" text="Cancelar">
+         <font>
+            <Font name="Arial Unicode MS" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

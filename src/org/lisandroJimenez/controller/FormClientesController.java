@@ -15,121 +15,138 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.dto.ClienteDTO;
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.system.Main;
+import org.lisandroJimenez.utils.SuperKinalAlert;
 
 /**
  *
  * @author informatica
  */
-public class FormClientesController implements Initializable{
+public class FormClientesController implements Initializable {
+
     private Main stage;
     private int op;
     @FXML
     Button btnGuardar, btnCancelar;
     @FXML
-    TextField textId, textNombre, textApellido, textTelefono, textDireccion, textNit;
+    TextField tfClienteId, tfNombre, tfApellido, tfTelefono, tfDireccion, tfNit;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(ClienteDTO.getClienteDTO().getCliente() != null){
+        if (ClienteDTO.getClienteDTO().getCliente() != null) {
             cargarDatos(ClienteDTO.getClienteDTO().getCliente());
         }
     }
-    public void handleButtonAction(ActionEvent event){
-        if(event.getSource()== btnCancelar){
+    @FXML
+    public void handleButtonAction(ActionEvent event) {
+        if (event.getSource() == btnCancelar) {
             ClienteDTO.getClienteDTO().setCliente(null);
             stage.MenuClientesView();
-        }else if (event.getSource() == btnGuardar){
-            if (op == 1){
-                AgregarClientes();
-                stage.MenuClientesView();
-            }else if(op == 2){
-                EditarClientes();
-                ClienteDTO.getClienteDTO().setCliente(null);
-                stage.MenuClientesView();
+        } else if (event.getSource() == btnGuardar) {
+            if (op == 1) {
+                if (!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")) {
+                    AgregarClientes();
+                    stage.MenuClientesView();
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                    tfNombre.requestFocus();
+                    return;
+                }
+            } else if (op == 2) {
+                if (!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")) {
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
+                        EditarClientes();
+                        stage.MenuClientesView();
+                    }
+                } else {
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                }
+
             }
         }
     }
-    
-    public void AgregarClientes(){
-     
-    try{
-        conexion = Conexion.getInstance().obtenerConexion();
-        String sql = "call sp_agregarCliente(?, ?, ?, ?, ?)";
-        PreparedStatement statement = conexion.prepareStatement(sql);
-        statement.setString(1, textNombre.getText());
-        statement.setString(2, textApellido.getText());
-        statement.setString(3, textTelefono.getText());
-        statement.setString(4, textDireccion.getText());
-        statement.setString(5, textNit.getText()); 
-        statement.executeUpdate();
-    }catch(SQLException e){
-        System.out.println(e.getMessage());
-    }finally{
-        try{
-            if(resultSet != null){
-                resultSet.close();
-            }
-            if(statement != null){
-                statement.close();
-            }
-            if(conexion != null){
-                conexion.close();
-            }
-        }catch(SQLException e){
+
+    public void AgregarClientes() {
+
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_agregarCliente(?, ?, ?, ?, ?)";
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, tfNombre.getText());
+            statement.setString(2, tfApellido.getText());
+            statement.setString(3, tfTelefono.getText());
+            statement.setString(4, tfDireccion.getText());
+            statement.setString(5, tfNit.getText());
+            statement.executeUpdate();
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
+
     }
-    
-    }
-    
-    
-    public void EditarClientes(){
-        try{
+
+    public void EditarClientes() {
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_editarCliente(?,?,?,?,?,?)";
-            statement = conexion.prepareStatement(sql); 
+            statement = conexion.prepareStatement(sql);
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(textId.getText()));
-            statement.setString(2, textNombre.getText());
-            statement.setString(3, textApellido.getText());
-            statement.setString(4, textTelefono.getText());
-            statement.setString(5, textDireccion.getText());
-            statement.setString(6, textNit.getText()); 
+            statement.setInt(1, Integer.parseInt(tfClienteId.getText()));
+            statement.setString(1, tfNombre.getText());
+            statement.setString(2, tfApellido.getText());
+            statement.setString(3, tfTelefono.getText());
+            statement.setString(4, tfDireccion.getText());
+            statement.setString(5, tfNit.getText());
             statement.execute();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-            if(statement != null){
-                statement.close();
-            }
-            if(conexion != null){
-                conexion.close();
-            }
-            }catch(SQLException e){
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
 
             }
         }
-    
+
     }
-    
-    public void cargarDatos(Cliente cliente){
-        textId.setText(Integer.toString(cliente.getClienteId()));
-        textNombre.setText(cliente.getNombre());
-        textApellido.setText(cliente.getApellido());
-        textTelefono.setText(cliente.getTelefono());
-        textDireccion.setText(cliente.getDireccion());
-        textNit.setText(cliente.getNit());
+
+    public void cargarDatos(Cliente cliente) {
+        tfClienteId.setText(Integer.toString(cliente.getClienteId()));
+        tfNombre.setText(cliente.getNombre());
+        tfApellido.setText(cliente.getApellido());
+        tfTelefono.setText(cliente.getTelefono());
+        tfDireccion.setText(cliente.getDireccion());
+        tfNit.setText(cliente.getNit());
     }
+
     public Main getStage() {
         return stage;
     }

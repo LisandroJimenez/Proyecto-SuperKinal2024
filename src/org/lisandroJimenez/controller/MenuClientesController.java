@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -26,6 +27,7 @@ import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.dto.ClienteDTO;
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.system.Main;
+import org.lisandroJimenez.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -44,7 +46,7 @@ public class MenuClientesController implements Initializable {
     @FXML
     TableColumn colClienteId, colNombre, colApellido, colTelefono, colDireccion, colNit;
     @FXML
-    TextField textBuscar;
+    TextField tfBuscar;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarLista();
@@ -60,12 +62,15 @@ public class MenuClientesController implements Initializable {
             ClienteDTO.getClienteDTO().setCliente((Cliente)tblClientes.getSelectionModel().getSelectedItem());
             stage.FormClientesView(2);
         }else if(event.getSource() == btnEliminar){
-            int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
+            if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK){
+                int cliId = ((Cliente)tblClientes.getSelectionModel().getSelectedItem()).getClienteId();
             eliminarCliente(cliId);
             cargarLista();
+            }
+            
         }else if(event.getSource() == btnBuscar){
             tblClientes.getItems().clear();
-            if (textBuscar.getText().equals("")){
+            if (tfBuscar.getText().equals("")){
                 cargarLista();
             }else{
                 tblClientes.getItems().add(buscarCliente());
@@ -158,7 +163,7 @@ public class MenuClientesController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_buscarCliente(?)";
             statement = conexion.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(textBuscar.getText()));
+            statement.setInt(1, Integer.parseInt(tfBuscar.getText()));
             resultSet = statement.executeQuery();
             
             if(resultSet.next()){
