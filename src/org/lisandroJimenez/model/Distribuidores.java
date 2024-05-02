@@ -29,6 +29,16 @@ public class Distribuidores {
         this.web = web;
     }
 
+    public Distribuidores(int distribuidorId, String nombreDistribuidor, String direccionDistribuidor, String nitDistribuidor, String telefonoDistribuidor) {
+        this.distribuidorId = distribuidorId;
+        this.nombreDistribuidor = nombreDistribuidor;
+        this.direccionDistribuidor = direccionDistribuidor;
+        this.nitDistribuidor = nitDistribuidor;
+        this.telefonoDistribuidor = telefonoDistribuidor;
+    }
+    
+    
+
     public int getDistribuidorId() {
         return distribuidorId;
     }
