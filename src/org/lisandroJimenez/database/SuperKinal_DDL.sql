@@ -1,3 +1,4 @@
+
 drop database if exists superkinalin5cvdb;
 
 create database if not exists superkinalin5cvdb;
@@ -142,4 +143,3 @@ create table DetalleCompra( --  Lisandro
 
 set global time_zone = '-6:00';
 
--- aaaa
