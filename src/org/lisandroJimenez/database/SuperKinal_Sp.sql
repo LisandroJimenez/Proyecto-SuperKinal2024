@@ -596,3 +596,5 @@ call sp_agregarProducto('Silla de madera', 'silla de madera con diseños', 80 , 
 call sp_agregarPromocion(50.00, 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
 -- ----------------------------------------------------------------------------------------------
 set global time_zone = '-6:00'; 
+
+-- aaaa
