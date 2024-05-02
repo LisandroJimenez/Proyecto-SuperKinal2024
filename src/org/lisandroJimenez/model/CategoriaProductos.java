@@ -10,41 +10,41 @@ package org.lisandroJimenez.model;
  * @author informatica
  */
 public class CategoriaProductos {
-    int categoriaProductoId;
-    String nombreCategoriaProducto;
-    String descripcionCategoriaProducto;
+    private int categoriaProductosId;
+    private String nombreCategoria;
+    private String descripcionCategoria;
 
     public CategoriaProductos() {
     }
 
-    public CategoriaProductos(int categoriaProductoId, String nombreCategoriaProducto, String descripcionCategoriaProducto) {
-        this.categoriaProductoId = categoriaProductoId;
-        this.nombreCategoriaProducto = nombreCategoriaProducto;
-        this.descripcionCategoriaProducto = descripcionCategoriaProducto;
+    public CategoriaProductos(int categoriaProductosId, String nombreCategoria, String descripcionCategoria) {
+        this.categoriaProductosId = categoriaProductosId;
+        this.nombreCategoria = nombreCategoria;
+        this.descripcionCategoria = descripcionCategoria;
     }
 
-    public int getCategoriaProductoId() {
-        return categoriaProductoId;
+    public int getCategoriaProductosId() {
+        return categoriaProductosId;
     }
 
-    public void setCategoriaProductoId(int categoriaProductoId) {
-        this.categoriaProductoId = categoriaProductoId;
+    public void setCategoriaProductosId(int categoriaProductosId) {
+        this.categoriaProductosId = categoriaProductosId;
     }
 
-    public String getNombreCategoriaProducto() {
-        return nombreCategoriaProducto;
+    public String getNombreCategoria() {
+        return nombreCategoria;
     }
 
-    public void setNombreCategoriaProducto(String nombreCategoriaProducto) {
-        this.nombreCategoriaProducto = nombreCategoriaProducto;
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
     }
 
-    public String getDescripcionCategoriaProducto() {
-        return descripcionCategoriaProducto;
+    public String getDescripcionCategoria() {
+        return descripcionCategoria;
     }
 
-    public void setDescripcionCategoriaProducto(String descripcionCategoriaProducto) {
-        this.descripcionCategoriaProducto = descripcionCategoriaProducto;
+    public void setDescripcionCategoria(String descripcionCategoria) {
+        this.descripcionCategoria = descripcionCategoria;
     }
 
     

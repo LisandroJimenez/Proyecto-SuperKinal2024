@@ -16,8 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.lisandroJimenez.controller.EliminarClientesController;
 import org.lisandroJimenez.controller.FormCargosController;
+import org.lisandroJimenez.controller.FormCategoriaProductosController;
 import org.lisandroJimenez.controller.FormClientesController;
 import org.lisandroJimenez.controller.MenuCargosController;
 import org.lisandroJimenez.controller.MenuCategoriaProductosController;
@@ -124,6 +124,16 @@ public class Main extends Application {
         try{
             MenuCategoriaProductosController menuCategoriaProductosView = (MenuCategoriaProductosController)switchScene("MenuCategoriaProductosView.fxml", 1100, 625);
             menuCategoriaProductosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void FormCategoriaProductosView(int op){
+        try{
+            FormCategoriaProductosController formCategoriaProductosView = (FormCategoriaProductosController)switchScene("FormCategoriaProductosView.fxml", 450, 620);
+            formCategoriaProductosView.setOp(op);
+            formCategoriaProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

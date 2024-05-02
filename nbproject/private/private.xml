@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/utils/SuperKinalAlert.java</file>
             <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/system/Main.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuClientesController.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/TicketSoporteController.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/model/TicketSoporte.java</file>
-            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/FormClientesController.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/view/MenuClientesView.fxml</file>
         </group>
     </open-files>
 </project-private>

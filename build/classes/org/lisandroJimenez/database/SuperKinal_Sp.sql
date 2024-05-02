@@ -95,30 +95,30 @@ create procedure sp_agregarCategoriaProducto(nomCat varchar(30),desCat varchar(1
 delimiter ;
 -- listar
 delimiter $$
-create procedure sp_listarCategoriaProductos()
+create procedure sp_listarCategoriaProducto()
 	begin
 		select * from CategoriaProductos;
     end$$
 delimiter ;
 -- buscar
 delimiter $$
-create procedure sp_buscarCategoriaProductos(catProId int)
+create procedure sp_buscarCategoriaProducto(catProId int)
 	begin
-		select * from CategoriaProductos CP
-        where catProId = CP.categoriaProductoId;
+		select * from CategoriaProductos
+        where catProId = categoriaProductosId;
     end$$
 delimiter ;
 -- eliminar
 delimiter $$
-create procedure sp_eliminarCategoriaProductos(catProId int)
+create procedure sp_eliminarCategoriaProducto(catProId int)
 	begin 
 		delete from CategoriaProductos
-        where catProId = categoriaProductoId;
+        where catProId = categoriaProductosId;
     end $$
 delimiter ;
 -- editar
 delimiter $$
-create procedure sp_editarCategoriaProductos(catProId int,nomCat varchar(30),desCat varchar(100) )
+create procedure sp_editarCategoriaProducto(catProId int,nomCat varchar(30),desCat varchar(100) )
 	begin
 		update CategoriaProductos CP set
 		CP.nombreCategoria = nomCat,
@@ -574,7 +574,11 @@ call sp_buscarCargo(1);
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarCompra(10.8);
 -- ----------------------------------------------------------------------------------------------
+call sp_listarCategoriaProducto();
 call sp_agregarcategoriaProducto('Hogar','Silla  de lujo 4x4');
+call sp_editarCategoriaProducto(1, 'Hola', 'si');
+call sp_buscarCategoriaProducto(1);
+call sp_eliminarCategoriaProducto(2);
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarDistribuidor('Las sillas', 'San Juan', '29384085-9', '2384-4875','LasSillas.com');
 -- ----------------------------------------------------------------------------------------------
