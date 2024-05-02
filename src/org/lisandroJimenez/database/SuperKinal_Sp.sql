@@ -138,7 +138,7 @@ create procedure sp_agregarDistribuidor(nomDis varchar(30), dirDis varchar(200),
 delimiter ;
 -- listar
 delimiter $$
-create procedure sp_listarDistribuidores()
+create procedure sp_listarDistribuidor()
 	begin
 		select * from Distribuidores;
     end$$
@@ -572,6 +572,7 @@ call sp_agregarCargo('Gerente', 'Supervisar las compras');
 call sp_editarCargo(1,'xd','xd');
 call sp_buscarCargo(1);
 -- ----------------------------------------------------------------------------------------------
+call sp_listarCompra();
 call sp_agregarCompra(10.8);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCategoriaProducto();
@@ -580,7 +581,9 @@ call sp_editarCategoriaProducto(1, 'Hola', 'si');
 call sp_buscarCategoriaProducto(1);
 call sp_eliminarCategoriaProducto(2);
 -- ----------------------------------------------------------------------------------------------
+call sp_listarDistribuidor();
 call sp_agregarDistribuidor('Las sillas', 'San Juan', '29384085-9', '2384-4875','LasSillas.com');
+call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,null);
 -- ----------------------------------------------------------------------------------------------

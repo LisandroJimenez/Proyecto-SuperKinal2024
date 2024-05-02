@@ -20,8 +20,8 @@
       </ImageView>
       <TableView fx:id="tblCategoriaProductos" layoutX="90.0" layoutY="169.0" prefHeight="427.0" prefWidth="726.0">
          <columns>
-            <TableColumn fx:id="colCategoriaId" prefWidth="125.0" text="categoriaProductosId" />
-            <TableColumn fx:id="colNombreCategoria" prefWidth="250.0" text="nombreCategoria" />
+            <TableColumn fx:id="colCategoriaId" prefWidth="138.0" text="categoriaProductosId" />
+            <TableColumn fx:id="colNombreCategoria" prefWidth="237.0" text="nombreCategoria" />
             <TableColumn fx:id="colDescripcionCategoria" prefWidth="350.0" text="descripcionCategoria" />
          </columns>
       </TableView>
