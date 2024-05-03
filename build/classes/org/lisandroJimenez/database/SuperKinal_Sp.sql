@@ -584,6 +584,8 @@ call sp_eliminarCategoriaProducto(2);
 call sp_listarDistribuidor();
 call sp_agregarDistribuidor('Las sillas', 'San Juan', '29384085-9', '2384-4875','LasSillas.com');
 call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
+call sp_buscarDistribuidor(1);
+call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,null);
 -- ----------------------------------------------------------------------------------------------

@@ -18,14 +18,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.lisandroJimenez.dao.Conexion;
+import org.lisandroJimenez.dto.DistribuidorDTO;
+
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.model.Distribuidores;
 import org.lisandroJimenez.system.Main;
+import org.lisandroJimenez.utils.SuperKinalAlert;
 
 /**
  * FXML Controller class
@@ -52,7 +56,21 @@ public class MenuDistribuidoresController implements Initializable {
     
     @FXML
     public void handleButtonAction(ActionEvent event){
-        
+        if (event.getSource() == btnBack) {
+            stage.MenuPrincipalView();
+
+        } else if (event.getSource() == btnEliminar) {
+            if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK) {
+                int disId = ((Distribuidores) tblDistribuidores.getSelectionModel().getSelectedItem()).getDistribuidorId();
+                eliminarDistribuidor(disId);
+                cargarLista();
+            }
+        }else if(event.getSource() == btnAgregar){
+            stage.FormDistribuidoresView(1);
+        }else if(event.getSource() == btnEditar){
+            DistribuidorDTO.getDistribuidorDTO().setDistribuidor((Distribuidores)tblDistribuidores.getSelectionModel().getSelectedItem());
+            stage.FormDistribuidoresView(2);
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

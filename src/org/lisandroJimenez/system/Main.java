@@ -6,7 +6,6 @@
 package org.lisandroJimenez.system;
 
 import java.io.InputStream;
-import java.util.Set;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +24,7 @@ import org.lisandroJimenez.controller.MenuClientesController;
 import org.lisandroJimenez.controller.MenuPrincipalController;
 import org.lisandroJimenez.controller.MenuTicketSoporteController;
 import org.lisandroJimenez.controller.MenuDistribuidoresController;
+import org.lisandroJimenez.controller.FormDistribuidoresController;
 
 /**
  *
@@ -144,6 +144,17 @@ public class Main extends Application {
         try{
             MenuDistribuidoresController menuDistribuidoresView = (MenuDistribuidoresController)switchScene ("MenuDistribuidoresView.fxml", 1100, 625);
             menuDistribuidoresView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void FormDistribuidoresView(int op){
+        try{
+            FormDistribuidoresController formDitribuidoresView = (FormDistribuidoresController)switchScene("FormDistribuidoresView.fxml", 450, 650);
+            formDitribuidoresView.setOp(op);
+            formDitribuidoresView.setStage(this);
+            
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

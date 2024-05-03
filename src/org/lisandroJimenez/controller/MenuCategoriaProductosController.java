@@ -25,7 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.dto.CategoriaProductoDTO;
-import org.lisandroJimenez.model.Cargos;
 import org.lisandroJimenez.model.CategoriaProductos;
 import org.lisandroJimenez.system.Main;
 import org.lisandroJimenez.utils.SuperKinalAlert;
