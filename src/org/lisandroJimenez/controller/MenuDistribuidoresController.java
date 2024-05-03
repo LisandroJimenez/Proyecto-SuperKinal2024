@@ -53,9 +53,9 @@ public class MenuDistribuidoresController implements Initializable {
     TableColumn colDistribuidorId, colNombreDistribuidor, colDireccionDistribuidor, colNitDistribuidor, colTelefonoDistribuidor, colWeb;
     @FXML
     TextField tfBuscar;
-    
+
     @FXML
-    public void handleButtonAction(ActionEvent event){
+    public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnBack) {
             stage.MenuPrincipalView();
 
@@ -65,135 +65,151 @@ public class MenuDistribuidoresController implements Initializable {
                 eliminarDistribuidor(disId);
                 cargarLista();
             }
-        }else if(event.getSource() == btnAgregar){
+        } else if (event.getSource() == btnAgregar) {
             stage.FormDistribuidoresView(1);
-        }else if(event.getSource() == btnEditar){
-            DistribuidorDTO.getDistribuidorDTO().setDistribuidor((Distribuidores)tblDistribuidores.getSelectionModel().getSelectedItem());
+        } else if (event.getSource() == btnEditar) {
+            DistribuidorDTO.getDistribuidorDTO().setDistribuidor((Distribuidores) tblDistribuidores.getSelectionModel().getSelectedItem());
             stage.FormDistribuidoresView(2);
+        } else if (event.getSource() == btnEliminar) {
+            if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(405).get() == ButtonType.OK) {
+                int DisId = ((Distribuidores) tblDistribuidores.getSelectionModel().getSelectedItem()).getDistribuidorId();
+                eliminarDistribuidor(DisId);
+                cargarLista();
+            }
+
+        }else if(event.getSource() == btnBuscar){
+            tblDistribuidores.getItems().clear();
+            if (tfBuscar.getText().equals("")){
+                cargarLista();
+            }else{
+                tblDistribuidores.getItems().add(buscarDistribuidor());
+                colDistribuidorId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("distribuidorId"));
+                colNombreDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombreDistribuidor"));
+                colDireccionDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccionDistribuidor"));
+                colNitDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nitDistribuidor"));
+                colTelefonoDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefonoDistribuidor"));
+                colWeb.setCellValueFactory(new PropertyValueFactory<Cliente, String>("web"));
+            }
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         cargarLista();
-    }    
-    
-    public void cargarLista(){
+        cargarLista();
+    }
+
+    public void cargarLista() {
         tblDistribuidores.setItems(listarDistribuidor());
         colDistribuidorId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("distribuidorId"));
-        colNombreDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String> ("nombreDistribuidor")); 
-        colDireccionDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String> ("direccionDistribuidor")); 
-        colNitDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String> ("nitDistribuidor")); 
-        colTelefonoDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String> ("telefonoDistribuidor")); 
-        colWeb.setCellValueFactory(new PropertyValueFactory<Cliente, String> ("web"));
+        colNombreDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nombreDistribuidor"));
+        colDireccionDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccionDistribuidor"));
+        colNitDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("nitDistribuidor"));
+        colTelefonoDistribuidor.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefonoDistribuidor"));
+        colWeb.setCellValueFactory(new PropertyValueFactory<Cliente, String>("web"));
     }
-    
-    public ObservableList<Distribuidores>listarDistribuidor(){
+
+    public ObservableList<Distribuidores> listarDistribuidor() {
         ArrayList<Distribuidores> distribuidores = new ArrayList<>();
-        
-        try{
+
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_listarDistribuidor()";
-            statement = conexion.prepareStatement(sql); 
+            statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int distribuidorId = resultSet.getInt("distribuidorId");
                 String nombreDistribuidor = resultSet.getString("nombreDistribuidor");
                 String direccionDistribuidor = resultSet.getString("direccionDistribuidor");
                 String nitDistribuidor = resultSet.getString("nitDistribuidor");
                 String telefonoDistribuidor = resultSet.getString("telefonoDistribuidor");
-                String web = resultSet.getString("web"); 
-                
+                String web = resultSet.getString("web");
+
                 distribuidores.add(new Distribuidores(distribuidorId, nombreDistribuidor, direccionDistribuidor, nitDistribuidor, telefonoDistribuidor, web));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-            if(resultSet != null){
-                resultSet.close();
-            }
-            if(statement != null){
-                statement.close();
-            }
-            if(conexion != null){
-                conexion.close();
-            }
-            }catch(SQLException e){
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
 
             }
         }
         return FXCollections.observableList(distribuidores);
     }
-    
-    public void eliminarDistribuidor (int DisId){
-        try{
-        conexion = Conexion.getInstance().obtenerConexion();
-        String sql = "call sp_eliminarDistribuidor(?)";
-        PreparedStatement statement = conexion.prepareStatement(sql);
-        statement.setInt(1, DisId);
-        statement.executeUpdate();
-        }catch(SQLException e){
-        System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(statement != null){
+
+    public void eliminarDistribuidor(int DisId) {
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_eliminarDistribuidor(?)";
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setInt(1, DisId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
-    
-     public Distribuidores buscarDistribuidor(){
+
+    public Distribuidores buscarDistribuidor() {
         Distribuidores distribuidores = null;
-        try{
+        try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_buscarDistribuidor(?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfBuscar.getText()));
             resultSet = statement.executeQuery();
-            
-            if(resultSet.next()){
+
+            if (resultSet.next()) {
                 int distribuidorId = resultSet.getInt("distribuidorId");
                 String nombreDistribuidor = resultSet.getString("nombreDistribuidor");
                 String direccionDistribuidor = resultSet.getString("direccionDistribuidor");
                 String nitDistribuidor = resultSet.getString("nitDistribuidor");
                 String telefonoDistribuidor = resultSet.getString("telefonoDistribuidor");
-                String web = resultSet.getString("web"); 
-                
+                String web = resultSet.getString("web");
+
                 distribuidores = (new Distribuidores(distribuidorId, nombreDistribuidor, direccionDistribuidor, nitDistribuidor, telefonoDistribuidor, web));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally{
-            try{
-                if(resultSet != null){
+        } finally {
+            try {
+                if (resultSet != null) {
                     resultSet.close();
                 }
-                if(statement != null){
+                if (statement != null) {
                     statement.close();
                 }
-                if(conexion != null){
+                if (conexion != null) {
                     conexion.close();
                 }
-            }catch(SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
-        
+
         return distribuidores;
     }
-    
-    
-    
-    
-    
-    
+
     public Main getStage() {
         return stage;
     }
@@ -202,8 +218,4 @@ public class MenuDistribuidoresController implements Initializable {
         this.stage = stage;
     }
 
-    
-    
-    
-    
 }

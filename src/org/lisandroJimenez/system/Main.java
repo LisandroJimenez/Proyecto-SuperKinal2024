@@ -25,6 +25,7 @@ import org.lisandroJimenez.controller.MenuPrincipalController;
 import org.lisandroJimenez.controller.MenuTicketSoporteController;
 import org.lisandroJimenez.controller.MenuDistribuidoresController;
 import org.lisandroJimenez.controller.FormDistribuidoresController;
+import org.lisandroJimenez.controller.MenuPromocionesController;
 
 /**
  *
@@ -100,6 +101,14 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+    public void MenuPromocionesView(){
+        try{
+            MenuPromocionesController menuPromocionesView = (MenuPromocionesController)switchScene("MenuPromocionesView.fxml", 1100, 625);
+            menuPromocionesView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
     
     public void MenuCargosView(){
         try{
@@ -159,6 +168,7 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+    
     /**
      * @param args the command line arguments
      */

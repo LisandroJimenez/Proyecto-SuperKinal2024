@@ -434,14 +434,16 @@ create procedure sp_agregarPromocion(in prePro decimal(10, 2), in descPro varcha
 delimiter ;
 -- listar
 delimiter $$
-create procedure sp_listarPromociones()
+create procedure sp_listarPromocion()
 	begin
-		select * from Promociones;
+		select P.promocionId, P.precioPromocion, P.descripcionPromocion, P.fechaInicio, P.fechaFinalizacion,
+				CONCAT('Id: ', PR.productoId, ' | ', PR.nombreProducto) as 'Producto' from Promociones P
+        Join Productos PR on P.productoId = PR.productoId;
     end $$
 delimiter ;
 -- buscar
 delimiter $$
-create procedure sp_buscarPromociones(in promoId int)
+create procedure sp_buscarPromocion(in promoId int)
 	begin
 		select * from Promociones
 			where promocionId = promoId;
@@ -449,7 +451,7 @@ create procedure sp_buscarPromociones(in promoId int)
 delimiter ;
 -- eliminar
 delimiter $$
-create procedure sp_eliminarPromociones(in promoId int)
+create procedure sp_eliminarPromocion(in promoId int)
 	begin
 		delete 
 			from Promociones
@@ -458,7 +460,7 @@ create procedure sp_eliminarPromociones(in promoId int)
 delimiter ;
 -- editar
 delimiter $$
-create procedure sp_editarPromociones(in promoId int, in prePro decimal(10, 2), in descPro varchar(100), in feIni date, in feFina date, in proId int)
+create procedure sp_editarPromocion(in promoId int, in prePro decimal(10, 2), in descPro varchar(100), in feIni date, in feFina date, in proId int)
 	begin
 		update Promociones
 			set 
@@ -587,7 +589,7 @@ call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 call sp_buscarDistribuidor(1);
 call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,null);
+call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
@@ -596,10 +598,27 @@ call sp_agregarFactura('2024-05-05', '14:51',null, 1, 1);
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarTicketSoporte('Problemas con la red',1,1);
 -- ----------------------------------------------------------------------------------------------
+call sp_listarProducto();	
+
 call sp_agregarProducto('Silla de madera', 'silla de madera con diseños', 80 ,  80.7, 70.00, 85.00 ,null ,  1 ,  1 );
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarPromocion(50.00, 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
+call sp_listarPromocion();
+call sp_agregarPromocion('50.00', 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
+
 -- ----------------------------------------------------------------------------------------------
 set global time_zone = '-6:00'; 
 
+
+delimiter $$
+create procedure sp_listarEmpleado()
+	begin
+		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+        C.nombreCargo,
+        E2.nombreEmpleado from Empleados E1
+        join Cargos C on C.cargoId = E1.cargoId
+        left join Empleados E2 on E1.encargadoId = E2.empleadoId;
+    end $$
+delimiter ;
+
+call sp_listarEmpleado();
 -- aaaa
