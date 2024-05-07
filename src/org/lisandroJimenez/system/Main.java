@@ -25,6 +25,7 @@ import org.lisandroJimenez.controller.MenuPrincipalController;
 import org.lisandroJimenez.controller.MenuTicketSoporteController;
 import org.lisandroJimenez.controller.MenuDistribuidoresController;
 import org.lisandroJimenez.controller.FormDistribuidoresController;
+import org.lisandroJimenez.controller.MenuProductosController;
 import org.lisandroJimenez.controller.MenuPromocionesController;
 
 /**
@@ -169,6 +170,15 @@ public class Main extends Application {
         }
     }
     
+    
+    public void MenuProductosView(){
+        try{
+            MenuProductosController menuProductosView = (MenuProductosController)switchScene("MenuProductosView.fxml", 1300,780);
+            menuProductosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */

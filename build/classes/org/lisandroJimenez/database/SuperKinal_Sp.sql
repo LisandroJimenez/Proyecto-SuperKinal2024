@@ -385,7 +385,11 @@ delimiter ;
 delimiter $$
  create procedure sp_listarProducto()
 	begin 
-		select * from Productos;
+		select P.productoId, P.nombreProducto, P.descripcionProducto, P.cantidadStock, P.precioVentaUnitario, P.precioVentaMayor, P.precioCompra, P.imagenProducto,
+        Concat('Id: ', D.distribuidorId, ' | ', D.nombreDistribuidor) as 'Distribuidor',
+        Concat('Id: ', C.categoriaProductosId, ' | ', C.nombreCategoria)as 'CategoriaProdcuto' from Productos P
+        Join Distribuidores D on P.distribuidorId = D.distribuidorId
+        Join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId;
     end $$
 delimiter ;
  -- eliminar 
@@ -436,7 +440,7 @@ delimiter ;
 delimiter $$
 create procedure sp_listarPromocion()
 	begin
-		select P.promocionId, P.precioPromocion, P.descripcionPromocion, P.fechaInicio, P.fechaFinalizacion,
+		select P.promocionId,P.precioPromocion, P.descripcionPromocion, P.fechaInicio, P.fechaFinalizacion,
 				CONCAT('Id: ', PR.productoId, ' | ', PR.nombreProducto) as 'Producto' from Promociones P
         Join Productos PR on P.productoId = PR.productoId;
     end $$

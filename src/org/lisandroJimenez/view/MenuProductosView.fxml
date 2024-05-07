@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="780.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.MenuProductosController">
+   <children>
+      <ImageView fitHeight="780.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/MenuProductos.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfProductoId" layoutX="31.0" layoutY="92.0" />
+      <TextField fx:id="tfStock" layoutX="286.0" layoutY="105.0" />
+      <TextField fx:id="tfPrecio" layoutX="460.0" layoutY="105.0" />
+      <TextField fx:id="tfPrecioU" layoutX="658.0" layoutY="105.0" />
+      <TextField fx:id="tfPrecioM" layoutX="940.0" layoutY="118.0" />
+      <TextField fx:id="tfNombre" layoutX="25.0" layoutY="191.0" />
+      <TextArea fx:id="taDescripcion" layoutX="29.0" layoutY="292.0" prefHeight="116.0" prefWidth="132.0" />
+      <ImageView fx:id="ivProducto" fitHeight="134.6" fitWidth="133.3" layoutX="25.4" layoutY="456.4" pickOnBounds="true" preserveRatio="true" />
+      <ComboBox fx:id="cmbDistribuidor" layoutX="27.0" layoutY="645.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbCategoria" layoutX="236.0" layoutY="646.0" prefWidth="150.0" />
+      <TableView fx:id="tblProductos" layoutX="249.0" layoutY="174.0" onMouseClicked="#cargarDatosEditar" prefHeight="456.0" prefWidth="1000.0">
+        <columns>
+          <TableColumn fx:id="colProductoId" prefWidth="69.66665649414062" text="productoId" />
+          <TableColumn fx:id="colNombre" prefWidth="107.33334350585938" text="nombreProducto" />
+            <TableColumn fx:id="colDescripcion" prefWidth="169.33331298828125" text="Descripcion" />
+            <TableColumn fx:id="colStock" prefWidth="70.66668701171875" text="stock" />
+            <TableColumn fx:id="colPrecio" prefWidth="85.0" text="precioCompra" />
+            <TableColumn fx:id="colPrecioU" prefWidth="86.6666259765625" text="precioUnidad" />
+            <TableColumn fx:id="colPrecioM" prefWidth="85.0" text="precioMayor" />
+            <TableColumn fx:id="colDistribuidor" prefWidth="163.66668701171875" text="distribuidor" />
+            <TableColumn fx:id="colCategoria" prefWidth="163.66668701171875" text="categoria" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnBack" layoutX="561.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleButtonAction" text="cancelar" />
+      <Button fx:id="btnGuardar" layoutX="474.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleButtonAction" text="guardar" />
+      <Button fx:id="btnVaciarForm" layoutX="646.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleButtonAction" text="vaciar" />
+   </children>
+</AnchorPane>

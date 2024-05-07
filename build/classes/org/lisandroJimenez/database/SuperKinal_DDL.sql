@@ -6,14 +6,14 @@ create database if not exists superkinalin5cvdb;
 use superkinalin5cvdb;
 
 
-create table Cargos( -- Cristian
+create table Cargos( -- Cristian  O
 	cargoId int not null auto_increment,
     nombreCargo varchar(30) not null,
     descripcionCargo varchar(100)not null,
     primary key PK_cargoId(cargoId)
 );
 
-create table compras( -- Lisandro
+create table compras( -- Lisandro  
 	compraId int not null auto_increment,
     fechaCompra date not null,
     totalCompra decimal(10,2),
