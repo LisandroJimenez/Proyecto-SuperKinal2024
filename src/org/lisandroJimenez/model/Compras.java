@@ -5,19 +5,21 @@
  */
 package org.lisandroJimenez.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author informatica
  */
 public class Compras {
     private int compraId;
-    private String fechaCompra;
-    private String totalCompra;
+    private Date fechaCompra;
+    private Double totalCompra;
 
     public Compras() {
     }
 
-    public Compras(int compraId, String fechaCompra, String totalCompra) {
+    public Compras(int compraId, Date fechaCompra, Double totalCompra) {
         this.compraId = compraId;
         this.fechaCompra = fechaCompra;
         this.totalCompra = totalCompra;
@@ -31,21 +33,28 @@ public class Compras {
         this.compraId = compraId;
     }
 
-    public String getFechaCompra() {
+    public Date getFechaCompra() {
         return fechaCompra;
     }
 
-    public void setFechaCompra(String fechaCompra) {
+    public void setFechaCompra(Date fechaCompra) {
         this.fechaCompra = fechaCompra;
     }
 
-    public String getTotalCompra() {
+    public Double getTotalCompra() {
         return totalCompra;
     }
 
-    public void setTotalCompra(String totalCompra) {
+    public void setTotalCompra(Double totalCompra) {
         this.totalCompra = totalCompra;
     }
+
+    @Override
+    public String toString() {
+        return "Compras{" + '}';
+    }
+    
+    
     
      
 }

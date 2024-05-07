@@ -6,8 +6,12 @@
 package org.lisandroJimenez.controller;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import org.lisandroJimenez.system.Main;
 
 /**
  * FXML Controller class
@@ -15,13 +19,15 @@ import javafx.fxml.Initializable;
  * @author Usuario
  */
 public class MenuComprasController implements Initializable {
-
-    /**
-     * Initializes the controller class.
-     */
+    private Main stage;
+    private static Connection conexion = null;
+    private static PreparedStatement statement = null;
+    private static ResultSet resultSet = null;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
+    
+    
     
 }
