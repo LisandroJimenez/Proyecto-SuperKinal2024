@@ -10,27 +10,27 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="950.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.ComprasController">
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.ComprasController">
    <children>
       <ImageView fitHeight="625.0" fitWidth="950.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/MenuCompras.png" />
          </image>
       </ImageView>
-      <DatePicker layoutX="25.0" layoutY="98.0" prefHeight="40.0" prefWidth="220.0" />
-      <TextField editable="false" layoutX="412.0" layoutY="98.0" prefHeight="40.0" prefWidth="220.0" text="Q." />
-      <TextField layoutX="25.0" layoutY="270.0" prefHeight="30.0" prefWidth="160.0" />
-      <TableView layoutX="240.0" layoutY="185.0" prefHeight="320.0" prefWidth="608.0">
+      <DatePicker fx:id="dpFecha" layoutX="14.0" layoutY="118.0" prefHeight="40.0" prefWidth="220.0" />
+      <TextField fx:id="tfTotal" layoutX="394.0" layoutY="118.0" prefHeight="40.0" prefWidth="220.0" text="Q." />
+      <TextField layoutX="25.0" layoutY="352.0" prefHeight="30.0" prefWidth="160.0" />
+      <TableView layoutX="201.0" layoutY="183.0" prefHeight="368.0" prefWidth="728.0">
          <columns>
             <TableColumn prefWidth="75.0" text="compraId" />
-            <TableColumn prefWidth="308.0" text="Producto" />
-            <TableColumn minWidth="0.0" prefWidth="122.0" text="cantidad" />
-            <TableColumn minWidth="0.0" prefWidth="117.0" text="Total" />
+            <TableColumn prefWidth="154.0" text="Producto" />
+            <TableColumn minWidth="0.0" prefWidth="207.0" text="Fecha" />
+            <TableColumn minWidth="0.0" prefWidth="119.0" text="Cantidad" />
+            <TableColumn minWidth="0.0" prefWidth="172.0" text="Total" />
          </columns>
       </TableView>
-      <ComboBox layoutX="25.0" layoutY="220.0" prefHeight="30.0" prefWidth="160.0" />
-      <Button fx:id="btnBack" layoutX="71.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />
+      <ComboBox layoutX="25.0" layoutY="268.0" prefHeight="30.0" prefWidth="160.0" />
+      <Button fx:id="btnBack" layoutX="70.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />
       <Button fx:id="btnGuardar" layoutX="70.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Guardar" />
    </children>
 </AnchorPane>

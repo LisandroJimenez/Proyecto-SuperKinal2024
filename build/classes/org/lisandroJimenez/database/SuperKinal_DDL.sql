@@ -135,7 +135,7 @@ create table DetalleCompra( --  Lisandro
 	detalleCompraId int not null auto_increment,
     cantidadCompra int not null,
     productoId int not null,
-    compraId int not null,
+    compraId int not null, 
     primary key PK_detalleCompraId(detalleCompraId),
     constraint FK_DetalleCompra_Productos foreign key (productoId)
 		references Productos(productoId)

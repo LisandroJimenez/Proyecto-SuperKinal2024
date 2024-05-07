@@ -387,7 +387,7 @@ delimiter $$
 	begin 
 		select P.productoId, P.nombreProducto, P.descripcionProducto, P.cantidadStock, P.precioVentaUnitario, P.precioVentaMayor, P.precioCompra, P.imagenProducto,
         Concat('Id: ', D.distribuidorId, ' | ', D.nombreDistribuidor) as 'Distribuidor',
-        Concat('Id: ', C.categoriaProductosId, ' | ', C.nombreCategoria)as 'CategoriaProdcuto' from Productos P
+        Concat('Id: ', C.categoriaProductosId, ' | ', C.nombreCategoria)as 'CategoriaProducto' from Productos P
         Join Distribuidores D on P.distribuidorId = D.distribuidorId
         Join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId;
     end $$
@@ -416,7 +416,7 @@ delimiter ;
 		update Productos	
 			set 
             nombreProducto = nom,
-            descripcionProduto = des,
+            descripcionProducto = des,
             cantidadStock = can,
             precioVentaUnitario = preU,
             precioVentaMayor = preM,
@@ -603,7 +603,7 @@ call sp_agregarFactura('2024-05-05', '14:51',null, 1, 1);
 call sp_agregarTicketSoporte('Problemas con la red',1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarProducto();	
-
+call sp_editarProducto(1, 's', 'i', 9.00, 5.00,5.77,4.66, null, 1, 1);
 call sp_agregarProducto('Silla de madera', 'silla de madera con diseños', 80 ,  80.7, 70.00, 85.00 ,null ,  1 ,  1 );
 -- ----------------------------------------------------------------------------------------------
 call sp_listarPromocion();
