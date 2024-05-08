@@ -375,7 +375,7 @@ DELIMITER ;
  -- ------------------------------------------------------Productos-------------------------------------------------------------------
   -- agregar
 delimiter $$
- create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int)
+ create procedure sp_agregarProducto(in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima longblob, in disId int, in catId int)
 	begin
 		insert into Productos(nombreProducto, descripcionProducto, cantidadStock, precioVentaUnitario, precioVentaMayor, precioCompra, imagenProducto, distribuidorId, categoriaProductosId ) values
 			(nom, des, can, preU, preM, preC, ima, disId, catId);
@@ -411,7 +411,7 @@ delimiter $$
 delimiter ;
  -- editar
  delimiter $$
- create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima blob, in disId int, in catId int )
+ create procedure sp_editarProducto(in proId int, in nom varchar(50),in des varchar(100),in can int, in preU decimal(10,2),in preM decimal(10,2),in preC decimal(10,2), in ima longblob, in disId int, in catId int )
 	begin
 		update Productos	
 			set 
@@ -597,6 +597,7 @@ call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
+call sp_editarCliente(1,'2','2','2','2','2');
 -- ----------------------------------------------------------------------------------------------
 call sp_agregarFactura('2024-05-05', '14:51',null, 1, 1);
 -- ----------------------------------------------------------------------------------------------

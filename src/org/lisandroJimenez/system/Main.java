@@ -173,8 +173,17 @@ public class Main extends Application {
     
     public void MenuProductosView(){
         try{
-            MenuProductosController menuProductosView = (MenuProductosController)switchScene("MenuProductosView.fxml", 1300,780);
+            MenuProductosController menuProductosView = (MenuProductosController)switchScene("MenuProductosView.fxml", 1300,650);
             menuProductosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void CargarImagenView(){
+        try{
+            MenuProductosController cargarImagenView = (MenuProductosController)switchScene("cargarImagenView.fxml", 600,400);
+            cargarImagenView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

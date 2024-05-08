@@ -5,6 +5,9 @@
  */
 package org.lisandroJimenez.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -12,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +30,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.model.CategoriaProductos;
 import org.lisandroJimenez.model.Distribuidores;
@@ -40,14 +47,16 @@ import org.lisandroJimenez.utils.SuperKinalAlert;
  * @author Usuario
  */
 public class MenuProductosController implements Initializable {
+
     private Main stage;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
+    private List<File> files = null;
     @FXML
     TableView tblProductos;
     @FXML
-    TableColumn colProductoId, colNombre, colDescripcion, colStock, colPrecio, colPrecioU, colPrecioM,colDistribuidor, colCategoria;
+    TableColumn colProductoId, colNombre, colDescripcion, colStock, colPrecio, colPrecioU, colPrecioM, colDistribuidor, colCategoria;
     @FXML
     TextField tfProductoId, tfNombre, tfStock, tfPrecio, tfPrecioU, tfPrecioM;
     @FXML
@@ -55,19 +64,39 @@ public class MenuProductosController implements Initializable {
     @FXML
     ComboBox cmbDistribuidor, cmbCategoria;
     @FXML
-    Button btnBack, btnGuardar, btnVaciarForm;
+    Button btnBack, btnGuardar, btnVaciarForm, btnCargar, btnCargarImagen;
     @FXML
-    ImageView ivProducto;
+    ImageView imgCargar;
+
+    @FXML
+    public void handleOnDrag(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    @FXML
+    public void handleOnDrop(DragEvent event) {
+        try {
+            files = event.getDragboard().getFiles();
+            FileInputStream file = new FileInputStream(files.get(0));
+            Image image = new Image(file);
+            imgCargar.setImage(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnBack) {
             stage.MenuPrincipalView();
-        }else if(event.getSource() == btnGuardar){
-            if(tfNombre.getText().equals("")){      
+        } else if (event.getSource() == btnGuardar) {
+            if (tfProductoId.getText().equals("")) {
                 agregarProducto();
                 cargarDatos();
                 SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-            }else{     
+            } else {
                 if (!tfNombre.getText().equals("") && !tfStock.getText().equals("") && !tfPrecio.getText().equals("") && !tfPrecioU.getText().equals("") && !tfPrecioM.getText().equals("")) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         editarProducto();
@@ -77,7 +106,7 @@ public class MenuProductosController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
                 }
             }
-        }else if(event.getSource()== btnVaciarForm){
+        } else if (event.getSource() == btnVaciarForm) {
             vaciarCampos();
         }
     }
@@ -87,10 +116,11 @@ public class MenuProductosController implements Initializable {
         cmbDistribuidor.setItems(listarDistribuidor());
         cmbCategoria.setItems(listarCategoriasProducto());
         cargarDatos();
-    }   
-    public void cargarDatosEditar(){
-        Productos p = (Productos)tblProductos.getSelectionModel().getSelectedItem();
-        if(p != null){
+    }
+
+    public void cargarDatosEditar() {
+        Productos p = (Productos) tblProductos.getSelectionModel().getSelectedItem();
+        if (p != null) {
             tfProductoId.setText(Integer.toString(p.getProductoId()));
             tfNombre.setText(p.getNombreProducto());
             tfStock.setText(Integer.toString(p.getCantidadStock()));
@@ -100,34 +130,49 @@ public class MenuProductosController implements Initializable {
             taDescripcion.setText(p.getDescripcionProducto());
             cmbDistribuidor.getSelectionModel().select(obtenerIndexDistribuidor());
             cmbCategoria.getSelectionModel().select(obtenerIndexCategoria());
+            Blob blobImagen = p.getImagenProducto();
+            if (blobImagen != null) {
+                try {
+                    InputStream inputStream = blobImagen.getBinaryStream();
+                    Image image = new Image(inputStream);
+                    imgCargar.setImage(image);
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }else{
+                imgCargar.setImage(null);
+            }
+        }else{
+            imgCargar.setImage(null);
         }
     }
-    public int obtenerIndexDistribuidor(){
+
+    public int obtenerIndexDistribuidor() {
         int index = 0;
-        for(int i = 0; i< cmbDistribuidor.getItems().size(); i++){
+        for (int i = 0; i < cmbDistribuidor.getItems().size(); i++) {
             String distribuidorCmb = cmbDistribuidor.getItems().get(i).toString();
-            String distribuidorTbl = ((Productos)tblProductos.getSelectionModel().getSelectedItem()).getDistribuidor();
-            if(distribuidorCmb.equals(distribuidorTbl)){
+            String distribuidorTbl = ((Productos) tblProductos.getSelectionModel().getSelectedItem()).getDistribuidor();
+            if (distribuidorCmb.equals(distribuidorTbl)) {
                 index = i;
                 break;
             }
         }
         return index;
     }
-    
-    public int obtenerIndexCategoria(){
+
+    public int obtenerIndexCategoria() {
         int index = 0;
-        for(int i = 0; i< cmbCategoria.getItems().size(); i++){
+        for (int i = 0; i < cmbCategoria.getItems().size(); i++) {
             String categoriaCmb = cmbCategoria.getItems().get(i).toString();
-            String categoriaTbl = ((Productos)tblProductos.getSelectionModel().getSelectedItem()).getCategoriaProductos();
-            if(categoriaCmb.equals(categoriaTbl)){
+            String categoriaTbl = ((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCategoriaProductos();
+            if (categoriaCmb.equals(categoriaTbl)) {
                 index = i;
                 break;
             }
         }
         return index;
     }
-    
+
     public ObservableList<Productos> listarProducto() {
         ArrayList<Productos> productos = new ArrayList<>();
 
@@ -170,6 +215,7 @@ public class MenuProductosController implements Initializable {
         }
         return FXCollections.observableList(productos);
     }
+
     public void cargarDatos() {
         tblProductos.setItems(listarProducto());
         colProductoId.setCellValueFactory(new PropertyValueFactory<Productos, Integer>("productoId"));
@@ -184,7 +230,7 @@ public class MenuProductosController implements Initializable {
         tblProductos.getSortOrder().add(colProductoId);
 
     }
-    
+
     public void agregarProducto() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
@@ -196,12 +242,13 @@ public class MenuProductosController implements Initializable {
             statement.setDouble(4, Double.parseDouble(tfPrecio.getText()));
             statement.setDouble(5, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(6, Double.parseDouble(tfPrecioM.getText()));
-            statement.setNull(7, 0);
-            statement.setInt(8, ((Distribuidores)cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
-            statement.setInt(9, ((CategoriaProductos)cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId()); 
+            InputStream img = new FileInputStream(files.get(0));
+            statement.setBinaryStream(7, img);
+            statement.setInt(8, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
+            statement.setInt(9, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());
             statement.execute();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -217,8 +264,8 @@ public class MenuProductosController implements Initializable {
             }
         }
     }
-    
-    public void editarProducto(){
+
+    public void editarProducto() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_editarProducto(?,?,?,?,?,?,?,?,?,?)";
@@ -230,12 +277,13 @@ public class MenuProductosController implements Initializable {
             statement.setDouble(5, Double.parseDouble(tfPrecio.getText()));
             statement.setDouble(6, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(7, Double.parseDouble(tfPrecioM.getText()));
-            statement.setNull(8, 0);
-            statement.setInt(9, ((Distribuidores)cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
-            statement.setInt(10, ((CategoriaProductos)cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId()); 
+            InputStream img = new FileInputStream(files.get(0));
+            statement.setBinaryStream(8, img);
+            statement.setInt(9, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
+            statement.setInt(10, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());
             statement.execute();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             try {
@@ -251,8 +299,8 @@ public class MenuProductosController implements Initializable {
             }
         }
     }
-    
-        public void vaciarCampos(){
+
+    public void vaciarCampos() {
         tfProductoId.clear();
         tfNombre.clear();
         tfStock.clear();
@@ -262,9 +310,9 @@ public class MenuProductosController implements Initializable {
         taDescripcion.clear();
         cmbDistribuidor.getSelectionModel().clearSelection();
         cmbCategoria.getSelectionModel().clearSelection();
+        imgCargar.setImage(null);
     }
 
-        
     public ObservableList<CategoriaProductos> listarCategoriasProducto() {
         ArrayList<CategoriaProductos> categoriaProductos = new ArrayList<>();
 
@@ -275,7 +323,7 @@ public class MenuProductosController implements Initializable {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int categoriaProductoId = resultSet.getInt("categoriaProductosId");
-                String nombreCategoria= resultSet.getString("nombreCategoria");
+                String nombreCategoria = resultSet.getString("nombreCategoria");
                 String descripcionCategoria = resultSet.getString("descripcionCategoria");
                 categoriaProductos.add(new CategoriaProductos(categoriaProductoId, nombreCategoria, descripcionCategoria));
             }
@@ -299,7 +347,7 @@ public class MenuProductosController implements Initializable {
         }
         return FXCollections.observableList(categoriaProductos);
     }
-    
+
     public ObservableList<Distribuidores> listarDistribuidor() {
         ArrayList<Distribuidores> distribuidores = new ArrayList<>();
 
@@ -338,6 +386,7 @@ public class MenuProductosController implements Initializable {
         }
         return FXCollections.observableList(distribuidores);
     }
+
     public Main getStage() {
         return stage;
     }
@@ -345,5 +394,5 @@ public class MenuProductosController implements Initializable {
     public void setStage(Main stage) {
         this.stage = stage;
     }
-    
+
 }

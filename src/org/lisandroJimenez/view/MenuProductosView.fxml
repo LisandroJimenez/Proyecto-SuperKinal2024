@@ -10,10 +10,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="780.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.MenuProductosController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.MenuProductosController">
    <children>
-      <ImageView fitHeight="780.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="650.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/MenuProductos.png" />
          </image>
@@ -22,13 +21,12 @@
       <TextField fx:id="tfStock" layoutX="286.0" layoutY="105.0" />
       <TextField fx:id="tfPrecio" layoutX="460.0" layoutY="105.0" />
       <TextField fx:id="tfPrecioU" layoutX="658.0" layoutY="105.0" />
-      <TextField fx:id="tfPrecioM" layoutX="940.0" layoutY="118.0" />
+      <TextField fx:id="tfPrecioM" layoutX="940.0" layoutY="103.0" />
       <TextField fx:id="tfNombre" layoutX="25.0" layoutY="191.0" />
       <TextArea fx:id="taDescripcion" layoutX="29.0" layoutY="292.0" prefHeight="116.0" prefWidth="132.0" />
-      <ImageView fx:id="ivProducto" fitHeight="134.6" fitWidth="133.3" layoutX="25.4" layoutY="456.4" pickOnBounds="true" preserveRatio="true" />
-      <ComboBox fx:id="cmbDistribuidor" layoutX="27.0" layoutY="645.0" prefWidth="150.0" />
-      <ComboBox fx:id="cmbCategoria" layoutX="236.0" layoutY="646.0" prefWidth="150.0" />
-      <TableView fx:id="tblProductos" layoutX="249.0" layoutY="174.0" onMouseClicked="#cargarDatosEditar" prefHeight="456.0" prefWidth="1000.0">
+      <ComboBox fx:id="cmbDistribuidor" layoutX="27.0" layoutY="533.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbCategoria" layoutX="27.0" layoutY="599.0" prefWidth="150.0" />
+      <TableView fx:id="tblProductos" layoutX="184.0" layoutY="184.0" onMouseClicked="#cargarDatosEditar" prefHeight="456.0" prefWidth="1000.0">
         <columns>
           <TableColumn fx:id="colProductoId" prefWidth="69.66665649414062" text="productoId" />
           <TableColumn fx:id="colNombre" prefWidth="107.33334350585938" text="nombreProducto" />
@@ -41,8 +39,11 @@
             <TableColumn fx:id="colCategoria" prefWidth="163.66668701171875" text="categoria" />
         </columns>
       </TableView>
-      <Button fx:id="btnBack" layoutX="561.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleButtonAction" text="cancelar" />
-      <Button fx:id="btnGuardar" layoutX="474.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleButtonAction" text="guardar" />
-      <Button fx:id="btnVaciarForm" layoutX="646.0" layoutY="645.0" mnemonicParsing="false" onAction="#handleButtonAction" text="vaciar" />
+      <Button fx:id="btnBack" layoutX="1196.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleButtonAction" text="cancelar" />
+      <Button fx:id="btnGuardar" layoutX="1202.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleButtonAction" text="guardar" />
+      <Button fx:id="btnVaciarForm" layoutX="1207.0" layoutY="417.0" mnemonicParsing="false" onAction="#handleButtonAction" text="vaciar" />
+      <Button fx:id="btnCargarImagen" layoutX="38.0" layoutY="452.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Cargar Imagen" />
+      <ImageView fx:id="imgMostrar" fitHeight="181.0" fitWidth="185.0" layoutX="1115.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgCargar" fitHeight="181.0" fitWidth="185.0" layoutX="1115.0" layoutY="-1.0" onDragDropped="#handleOnDrop" onDragOver="#handleOnDrag" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
