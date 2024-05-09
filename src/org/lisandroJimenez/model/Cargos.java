@@ -10,9 +10,9 @@ package org.lisandroJimenez.model;
  * @author Usuario
  */
 public class Cargos {
-    int cargoId;
-    String nombreCargo;
-    String descripcionCargo;
+    private int cargoId;
+    private String nombreCargo;
+    private String descripcionCargo;
 
     public Cargos() {
     }

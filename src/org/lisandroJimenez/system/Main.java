@@ -25,6 +25,7 @@ import org.lisandroJimenez.controller.MenuPrincipalController;
 import org.lisandroJimenez.controller.MenuTicketSoporteController;
 import org.lisandroJimenez.controller.MenuDistribuidoresController;
 import org.lisandroJimenez.controller.FormDistribuidoresController;
+import org.lisandroJimenez.controller.FormProductosController;
 import org.lisandroJimenez.controller.MenuProductosController;
 import org.lisandroJimenez.controller.MenuPromocionesController;
 
@@ -180,10 +181,11 @@ public class Main extends Application {
         }
     }
     
-    public void CargarImagenView(){
+    public void FormProductosView(int op){
         try{
-            MenuProductosController cargarImagenView = (MenuProductosController)switchScene("cargarImagenView.fxml", 600,400);
-            cargarImagenView.setStage(this);
+            FormProductosController formProductosView = (FormProductosController)switchScene("FormProductosView.fxml", 1100, 625);
+            formProductosView.setOp(op);
+            formProductosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

@@ -10,12 +10,12 @@ package org.lisandroJimenez.model;
  * @author informatica
  */
 public class Distribuidores {
-    int distribuidorId;
-    String nombreDistribuidor;
-    String direccionDistribuidor;
-    String nitDistribuidor;
-    String telefonoDistribuidor;
-    String web;
+    private int distribuidorId;
+    private String nombreDistribuidor;
+    private String direccionDistribuidor;
+    private String nitDistribuidor;
+    private String telefonoDistribuidor;
+    private String web;
 
     public Distribuidores() {
     }
