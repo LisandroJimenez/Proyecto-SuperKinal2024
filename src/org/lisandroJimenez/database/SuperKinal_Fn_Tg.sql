@@ -31,7 +31,7 @@ end $$
 delimiter ;
 
 delimiter $$
-create procedure sp_asignarTotal(in tot decimal(10,2), in facId int)
+create procedure sp_asignarTotalFactura(in tot decimal(10,2), in facId int)
 begin 
 	update Facturas
 		set total = tot * (1 +  0.12) 
@@ -56,25 +56,52 @@ begin
 	declare total decimal(10,2) default 0.0;
     declare precio decimal(10,2);
     declare i int default 1;
-    declare curFacId, curProId int;
+    declare curCan,curProId, curComId int;
     
-    declare cursorDetalleFactura cursor for
-		Select DF.facturaId, DF.productoId from DetalleFactura DF;
+    declare cursorDetalleCompra cursor for
+		Select DC.cantidadCompra, DC.productoId, DC.compraId from DetalleCompra DC;
         
-	open cursorDetalleFactura;
+	open cursorDetalleCompra;
     
     totalLoop :loop
-    fetch cursorDetalleFactura into curFacId, curProId;
-	if facId = curFacId then
-		set precio = (select P.precio from Productos P where P.productoId = curProId);
+    fetch cursorDetalleCompra into curCan, curProId, curComId;
+	if comId = curComId then
+		set precio = (select P.precioCompra from Productos P where P.productoId = curProId);
         set total = total + precio;
     end if;
-    if i = (select count(*) from detalleFactura) then
+    if i = (select count(*) from DetalleCompra) then
 		leave totalLoop;
 	end if;
     set i = i + 1;
     end loop totalLoop;
-    call sp_asignarTotal(total, facId);
+    call sp_asignarTotalCompra(total, comId);
     return total;
 end $$
 delimiter ;
+
+
+delimiter $$
+create procedure sp_asignarTotalCompra(in tot decimal(10,2), in comId int)
+begin 
+	update Compras
+		set totalCompra = tot * (1 +  0.12) 
+			where compraId = comId; 
+end $$
+delimiter ;
+
+delimiter $$
+create trigger tg_totalCompra
+after insert on DetalleCompra
+for each row
+begin
+	declare total decimal(10,2);
+    set total = fn_calcularTotalCompras(new.compraId);
+end $$
+delimiter ;
+
+select * from DetalleCompra;
+call sp_agregarCompra();
+call sp_agregarDetalleCompra(1, 2, 2);
+select * from Compras;
+select * from Productos;
+call sp_ListarDetalleCompra()

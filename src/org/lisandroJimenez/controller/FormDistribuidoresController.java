@@ -85,7 +85,7 @@ public class FormDistribuidoresController implements Initializable {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_agregarDistribuidor(?, ?, ?, ?, ?)";
-            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement = conexion.prepareStatement(sql);
             statement.setString(1, tfNombre.getText());
             statement.setString(2, tfDireccion.getText());
             statement.setString(3, tfNit.getText());
@@ -119,7 +119,6 @@ public class FormDistribuidoresController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_editarDistribuidor(?,?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
-            PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfDistribuidorId.getText()));
             statement.setString(2, tfNombre.getText());
             statement.setString(3, tfDireccion.getText());

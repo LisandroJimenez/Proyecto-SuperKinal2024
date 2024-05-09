@@ -541,7 +541,11 @@ delimiter ;
 delimiter $$
  create procedure sp_ListarDetalleCompra()
 	begin 
-		select * from DetalleCompra;
+		select DC.cantidadCompra, 
+        C.compraId, C.fechaCompra, C.totalCompra,
+        P.nombreProducto from DetalleCompra DC
+        Join Compras C on DC.compraId = C.compraId
+        Join Productos P on DC.productoId = p.productoId;
     end $$
 delimiter ;
 -- eliminar 

@@ -5,32 +5,29 @@
  */
 package org.lisandroJimenez.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Usuario
  */
-public class DetalleCompras {
+public class DetalleCompras extends Compras{
     private int detalleCompraId;
     private int cantidadCompra;
     private int productoId;
-    private int compraId;
     private String producto;
-
+    private String compra;
+    
     public DetalleCompras() {
     }
 
-    public DetalleCompras(int detalleCompraId, int cantidadCompra, int productoId, int compraId) {
+    public DetalleCompras(int detalleCompraId, int cantidadCompra, int productoId, String producto, String compra, int compraId, Date fechaCompra, Double totalCompra) {
+        super(compraId, fechaCompra, totalCompra);
         this.detalleCompraId = detalleCompraId;
         this.cantidadCompra = cantidadCompra;
         this.productoId = productoId;
-        this.compraId = compraId;
-    }
-
-    public DetalleCompras(int detalleCompraId, int cantidadCompra, int compraId, String producto) {
-        this.detalleCompraId = detalleCompraId;
-        this.cantidadCompra = cantidadCompra;
-        this.compraId = compraId;
         this.producto = producto;
+        this.compra = compra;
     }
 
     public int getDetalleCompraId() {
@@ -57,14 +54,6 @@ public class DetalleCompras {
         this.productoId = productoId;
     }
 
-    public int getCompraId() {
-        return compraId;
-    }
-
-    public void setCompraId(int compraId) {
-        this.compraId = compraId;
-    }
-
     public String getProducto() {
         return producto;
     }
@@ -73,10 +62,16 @@ public class DetalleCompras {
         this.producto = producto;
     }
 
-    @Override
-    public String toString() {
-        return "DetalleCompras{" + "detalleCompraId=" + detalleCompraId + ", cantidadCompra=" + cantidadCompra + ", productoId=" + productoId + ", compraId=" + compraId + ", producto=" + producto + '}';
+    public String getCompra() {
+        return compra;
     }
+
+    public void setCompra(String compra) {
+        this.compra = compra;
+    }
+
     
+
     
+  
 }

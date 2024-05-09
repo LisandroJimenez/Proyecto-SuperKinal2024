@@ -60,65 +60,65 @@ public class FormProductosController implements Initializable {
     TextArea taDescripcion;
     @FXML
     ComboBox cmbDistribuidor, cmbCategoria;
+    @FXML
     ImageView imgCargar;
+    private File imageFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        cmbDistribuidor.setItems(listarDistribuidor());
+        cmbCategoria.setItems(listarCategoriasProducto());
         if (ProductoDTO.getProductoDTO().getProducto() != null) {
             cargarDatos(ProductoDTO.getProductoDTO().getProducto());
         }
-        cmbDistribuidor.setItems(listarDistribuidor());
-        cmbCategoria.setItems(listarCategoriasProducto());
     }
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnCancelar) {
             ProductoDTO.getProductoDTO().setProducto(null);
             stage.MenuProductosView();
-        }else if (event.getSource() == btnGuardar){
-            if(op == 1){
-                if(!tfNombre.getText().equals("") && tfStock.getText().equals("") && tfPrecio.getText().equals("") && tfPrecioU.getText().equals("") && tfPrecioM.getText().equals("")){
+        } else if (event.getSource() == btnGuardar) {
+            if (op == 1) {
+                if (!tfNombre.getText().equals("") && !tfStock.getText().equals("") && !tfPrecio.getText().equals("") && !tfPrecioU.getText().equals("") && !tfPrecioM.getText().equals("")) {
                     agregarProducto();
                     stage.MenuProductosView();
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-                }else{
+                } else {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
                     tfNombre.requestFocus();
                     return;
-                }       
-            }else if(op == 2){
-                if(!tfNombre.getText().equals("") && tfStock.getText().equals("") && tfPrecio.getText().equals("") && tfPrecioU.getText().equals("") && tfPrecioM.getText().equals("")){
-                    if(SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK){
+                }
+            } else if (op == 2) {
+                if (!tfNombre.getText().equals("") && !tfStock.getText().equals("") && !tfPrecio.getText().equals("") && !tfPrecioU.getText().equals("") && !tfPrecioM.getText().equals("")) {
+                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         editarProducto();
-                        stage.MenuClientesView();
+                        stage.MenuProductosView();
                     }
-                }else{
+                } else {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
                 }
             }
         }
     }
 
-
     @FXML
     public void handleOnDrag(DragEvent event) {
-        if(event.getDragboard().hasFiles()){
+        if (event.getDragboard().hasFiles()) {
             event.acceptTransferModes(TransferMode.ANY);
         }
     }
 
-     @FXML
-    public void handleOnDrop(DragEvent event){
-        try{
-            Image image = null;
+    @FXML
+    public void handleOnDrop(DragEvent event) {
+        try {
             files = event.getDragboard().getFiles();
-            FileInputStream file = new FileInputStream(files.get(0));
-            image = new Image(file);
-            if(imgCargar != null){
-            
+            imageFile = files.get(0);
+            FileInputStream file = new FileInputStream(imageFile);
+
+            Image image = new Image(file);
             imgCargar.setImage(image);
-            }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -130,20 +130,22 @@ public class FormProductosController implements Initializable {
         tfPrecio.setText(Double.toString(producto.getPrecioCompra()));
         tfPrecioU.setText(Double.toString(producto.getPrecioVentaUnitario()));
         tfPrecioM.setText(Double.toString(producto.getPrecioVentaMayor()));
-        Blob blobImagen = producto.getImagenProducto();
-        if (blobImagen != null) {
-            try {
-                InputStream inputStream = blobImagen.getBinaryStream();
-                Image image = new Image(inputStream);
-                imgCargar.setImage(image);
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            imgCargar.setImage(null);
+        taDescripcion.setText(producto.getDescripcionProducto());
+        imgCargar.setImage(mostrarImagen(producto.getImagenProducto()));
+        cmbDistribuidor.getSelectionModel().select(obtenerIndexDistribuidor(producto.getDistribuidorId()));
+        cmbCategoria.getSelectionModel().select(obtenerIndexCategoria(producto.getCategoriaProductosId()));
+        cmbCategoria.getSelectionModel().select(1);
+    }
+
+    public Image mostrarImagen(Blob blob) {
+        Image imagen = null;
+        try {
+            InputStream file = blob.getBinaryStream();
+            imagen = new Image(file);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        cmbDistribuidor.getSelectionModel().select(producto.getDistribuidor());
-        cmbCategoria.getSelectionModel().select(producto.getCategoriaProductos());
+        return imagen;
     }
 
     public void agregarProducto() {
@@ -157,8 +159,12 @@ public class FormProductosController implements Initializable {
             statement.setDouble(4, Double.parseDouble(tfPrecio.getText()));
             statement.setDouble(5, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(6, Double.parseDouble(tfPrecioM.getText()));
-            InputStream img = new FileInputStream(files.get(0));
-            statement.setBinaryStream(7, img);
+            InputStream img = new FileInputStream(imageFile);
+            if (imgCargar.getImage() == null) {
+                statement.setBinaryStream(7, null);
+            } else {
+                statement.setBinaryStream(7, img);
+            }
             statement.setInt(8, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
             statement.setInt(9, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());
             statement.execute();
@@ -192,14 +198,18 @@ public class FormProductosController implements Initializable {
             statement.setDouble(5, Double.parseDouble(tfPrecio.getText()));
             statement.setDouble(6, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(7, Double.parseDouble(tfPrecioM.getText()));
-            InputStream img = new FileInputStream(files.get(0));
-            statement.setBinaryStream(8, img);
+            if (imgCargar.getImage() == null) {
+                statement.setBinaryStream(8, null);
+            } else {
+                InputStream img = new FileInputStream(imageFile);
+                statement.setBinaryStream(8, img);
+            }
             statement.setInt(9, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
             statement.setInt(10, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());
             statement.execute();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
                 if (statement != null) {
@@ -215,7 +225,6 @@ public class FormProductosController implements Initializable {
         }
     }
 
-    
     public ObservableList<CategoriaProductos> listarCategoriasProducto() {
         ArrayList<CategoriaProductos> categoriaProductos = new ArrayList<>();
 
@@ -288,6 +297,30 @@ public class FormProductosController implements Initializable {
             }
         }
         return FXCollections.observableList(distribuidores);
+    }
+
+    public int obtenerIndexDistribuidor(int id) {
+        int index = 0;
+        for (int i = 0; i < cmbDistribuidor.getItems().size(); i++) {
+            int disCmb = ((Distribuidores) cmbDistribuidor.getItems().get(i)).getDistribuidorId();
+            if (disCmb == id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int obtenerIndexCategoria(int id) {
+        int index = 0;
+        for (int i = 0; i < cmbCategoria.getItems().size(); i++) {
+            int catCmb = ((CategoriaProductos) cmbCategoria.getItems().get(i)).getCategoriaProductosId();
+            if (catCmb == id) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public int getOp() {

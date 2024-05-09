@@ -29,12 +29,12 @@ import org.lisandroJimenez.utils.SuperKinalAlert;
  */
 public class FormClientesController implements Initializable {
 
-    private Main stage;
-    private int op;
     @FXML
     Button btnGuardar, btnCancelar;
     @FXML
     TextField tfClienteId, tfNombre, tfApellido, tfTelefono, tfDireccion, tfNit;
+    private Main stage;
+    private int op;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
