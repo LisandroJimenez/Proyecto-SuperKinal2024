@@ -46,7 +46,6 @@ import org.lisandroJimenez.utils.SuperKinalAlert;
  */
 public class FormProductosController implements Initializable {
 
-
     private Main stage;
     private int op;
     private static Connection conexion = null;
@@ -81,17 +80,16 @@ public class FormProductosController implements Initializable {
     }
 
     @FXML
-    public void handleOnDrop(DragEvent event){
-        try{
+    public void handleOnDrop(DragEvent event) {
+        try {
             files = event.getDragboard().getFiles();
             FileInputStream file = new FileInputStream(files.get(0));
             Image image = new Image(file);
             imgCargar.setImage(image);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
@@ -192,17 +190,22 @@ public class FormProductosController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfProductoId.getText()));
             statement.setString(2, tfNombre.getText());
-            statement.setString(3, taDescripcion.getText());
+            if (taDescripcion.getText().isEmpty()) {
+                statement.setString(3, null);
+            } else {
+                statement.setString(3, taDescripcion.getText());
+            }
             statement.setInt(4, Integer.parseInt(tfStock.getText()));
             statement.setDouble(5, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(6, Double.parseDouble(tfPrecioM.getText()));
             statement.setDouble(7, Double.parseDouble(tfPrecio.getText()));
-            if (imgCargar.getImage() == null) {
-                statement.setBinaryStream(8, null);
-            } else {
-
+            if (ProductoDTO.getProductoDTO().getProducto().getImagenProducto() != imgCargar.getImage()) {
                 InputStream img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(8, img);
+            } else {
+                statement.setBlob(8, ProductoDTO.getProductoDTO().getProducto().getImagenProducto());
+                // InputStream img = new FileInputStream(files.get(0));
+
             }
             statement.setInt(9, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
             statement.setInt(10, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());

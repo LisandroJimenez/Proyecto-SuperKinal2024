@@ -60,6 +60,7 @@ delimiter $$
             
 	set nuevaCompraId = LAST_INSERT_ID();
     call sp_agregarDetalleCompra(can, proId, nuevaCompraId);
+    select fn_calcularTotalCompras(nuevaCompraId);
     update Productos 
 		set cantidadStock = cantidadStock + can 
 		where productoId = proId;
@@ -191,12 +192,7 @@ create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30),
     end $$
 delimiter ;
 -- listar
-delimiter $$
-create procedure sp_listarEmpleados()
-	begin
-		select * from Empleados;
-    end $$
-delimiter ;
+
 -- buscar
 delimiter $$
 create procedure sp_buscarEmpleados(in empId int)
@@ -605,7 +601,7 @@ call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 call sp_buscarDistribuidor(1);
 call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarEmpleado('Jose ','Perez',  5000.00, '08:12', '17:00' , 1,1);
+call sp_agregarEmpleado('Lisandro ','Jimenez',  5000.00, '08:12', '17:00' , 1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
@@ -630,13 +626,15 @@ set global time_zone = '-6:00';
 delimiter $$
 create procedure sp_listarEmpleado()
 	begin
-		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+		select E1.empleadoId, Concat(E1.nombreEmpleado, E1.apellidoEmpleado)as 'Empleado', E1.sueldo, E1.horaEntrada, E1.horaSalida,
         C.nombreCargo,
-        E2.nombreEmpleado from Empleados E1
+        concat(E2.nombreEmpleado, E2.apellidoEmpleado)as 'Encargado' from Empleados E1
         join Cargos C on C.cargoId = E1.cargoId
         left join Empleados E2 on E1.encargadoId = E2.empleadoId;
     end $$
 delimiter ;
+
+
 
 call sp_listarEmpleado();
 

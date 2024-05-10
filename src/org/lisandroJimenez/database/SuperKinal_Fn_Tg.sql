@@ -79,6 +79,7 @@ begin
     close cursorDetalleCompra;
 
     call sp_asignarTotalCompra(total, comId);
+    
 
     return total;
 end $$
@@ -99,19 +100,11 @@ delimiter ;
 
 
 
-delimiter $$
-create trigger tg_agregarStock
-after insert on fn_calcularTotalCompras
-for each row
-begin
-	declare cantidad int;
-    set cantidad = cantidadStock + curCan;
-end$$
-delimiter ;
+
 select * from DetalleCompra;
-call sp_agregarDetalleCompra(1, 2);
+
 call sp_agregarCompra(1,2);
 select * from Compras;
 select * from Productos;
-select fn_calcularTotalCompras(12);
+select fn_calcularTotalCompras(2);
 call sp_ListarDetalleCompra()

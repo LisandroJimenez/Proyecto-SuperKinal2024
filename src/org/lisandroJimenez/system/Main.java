@@ -27,6 +27,7 @@ import org.lisandroJimenez.controller.MenuDistribuidoresController;
 import org.lisandroJimenez.controller.FormDistribuidoresController;
 import org.lisandroJimenez.controller.FormProductosController;
 import org.lisandroJimenez.controller.MenuComprasController;
+import org.lisandroJimenez.controller.MenuEmpleadosController;
 import org.lisandroJimenez.controller.MenuProductosController;
 import org.lisandroJimenez.controller.MenuPromocionesController;
 
@@ -196,6 +197,15 @@ public class Main extends Application {
         try{
             MenuComprasController menuComprasView = (MenuComprasController)switchScene("MenuComprasView.fxml", 950, 625);
             menuComprasView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void MenuEmpleadosView(){
+        try{
+            MenuEmpleadosController menuEmpleadosView = (MenuEmpleadosController)switchScene("MenuEmpleadosView.fxml", 1100, 625);
+            menuEmpleadosView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

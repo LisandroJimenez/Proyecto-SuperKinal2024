@@ -8,27 +8,29 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.MenuEmpleadosController">
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.MenuEmpleadosController">
    <children>
       <ImageView fitHeight="625.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/MenuEmpleados.png" />
          </image>
       </ImageView>
-      <TextField layoutX="27.0" layoutY="101.0" />
-      <TextField layoutX="27.0" layoutY="209.0" />
-      <TextField layoutX="27.0" layoutY="313.0" />
-      <TextField layoutX="27.0" layoutY="379.0" />
-      <TextField layoutX="265.0" layoutY="114.0" />
-      <TextField layoutX="518.0" layoutY="114.0" />
-      <ComboBox layoutX="27.0" layoutY="450.0" prefWidth="150.0" />
-      <ComboBox layoutX="27.0" layoutY="518.0" prefWidth="150.0" />
-      <TableView layoutX="221.0" layoutY="170.0" prefHeight="390.0" prefWidth="615.0">
+      <TextField fx:id="tfEmpleadoId" layoutX="27.0" layoutY="101.0" />
+      <TextField fx:id="tfSueldo" layoutX="27.0" layoutY="275.0" />
+      <TextField fx:id="tfHoraEntrada" layoutX="265.0" layoutY="114.0" />
+      <TextField fx:id="tfHoraSalida" layoutX="518.0" layoutY="114.0" />
+      <ComboBox fx:id="cmbEncargado" layoutX="27.0" layoutY="373.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbCargo" layoutX="27.0" layoutY="456.0" prefWidth="150.0" />
+      <TableView fx:id="tblEmpleados" layoutX="221.0" layoutY="170.0" onMouseClicked="#cargarDatosEditar" prefHeight="390.0" prefWidth="712.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="colEmpleado" prefWidth="126.0" text="Empleado" />
+            <TableColumn fx:id="colSueldo" prefWidth="116.0" text="Sueldo" />
+            <TableColumn fx:id="colHoraEntrada" prefWidth="114.0" text="HoraEntrada" />
+            <TableColumn fx:id="colHoraSalida" prefWidth="68.0" text="HoraSalida" />
+            <TableColumn fx:id="colCargo" prefWidth="142.0" text="NombreCargo" />
+            <TableColumn fx:id="colEncargado" prefWidth="145.0" text="Encargado" />
         </columns>
       </TableView>
+      <ComboBox fx:id="cmbEmpleado" layoutX="27.0" layoutY="201.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
