@@ -49,35 +49,41 @@ begin
 end $$
 delimiter ;
 -- --------------------------------------Compras----------------------------------------------------
-
 delimiter $$
+
 create function fn_calcularTotalCompras(comId int) returns decimal(10,2) deterministic
 begin
-	declare total decimal(10,2) default 0.0;
+    declare total decimal(10,2) default 0.0;
     declare precio decimal(10,2);
     declare i int default 1;
-    declare curCan,curProId, curComId int;
-    
+    declare curCan, curProId, curComId int;
+
     declare cursorDetalleCompra cursor for
-		Select DC.cantidadCompra, DC.productoId, DC.compraId from DetalleCompra DC;
-        
-	open cursorDetalleCompra;
-    
-    totalLoop :loop
-    fetch cursorDetalleCompra into curCan, curProId, curComId;
-	if comId = curComId then
-		set precio = (select P.precioCompra from Productos P where P.productoId = curProId);
-        set total = total + precio;
-    end if;
-    if i = (select count(*) from DetalleCompra) then
-		leave totalLoop;
-	end if;
-    set i = i + 1;
+        Select cantidadCompra, productoId, compraId from DetalleCompra where compraId = comId;
+
+    open cursorDetalleCompra;
+
+    totalLoop: loop
+        fetch cursorDetalleCompra into curCan, curProId, curComId;
+        if comId = curComId then
+            set precio = (select precioCompra from Productos where productoId = curProId);
+            set total = total + (precio * curCan);  
+        end if;
+        if i = (select count(*) from DetalleCompra where compraId = comId) then
+            leave totalLoop;
+        end if;
+        set i = i + 1;
     end loop totalLoop;
+
+    close cursorDetalleCompra;
+
     call sp_asignarTotalCompra(total, comId);
+
     return total;
 end $$
+
 delimiter ;
+
 
 
 delimiter $$
@@ -100,8 +106,9 @@ end $$
 delimiter ;
 
 select * from DetalleCompra;
-call sp_agregarCompra();
-call sp_agregarDetalleCompra(1, 2, 2);
+call sp_agregarDetalleCompra(1, 2);
+call sp_agregarCompra(1,2);
 select * from Compras;
 select * from Productos;
+select fn_calcularTotalCompras(12);
 call sp_ListarDetalleCompra()

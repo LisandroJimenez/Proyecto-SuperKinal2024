@@ -17,7 +17,7 @@
             <Image url="@../image/MenuProductos.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tblProductos" layoutX="26.0" layoutY="97.0" prefHeight="456.0" prefWidth="1000.0">
+      <TableView fx:id="tblProductos" layoutX="26.0" layoutY="97.0" onMouseClicked="#mostrarImagen" prefHeight="456.0" prefWidth="1000.0">
         <columns>
           <TableColumn fx:id="colProductoId" prefWidth="69.66665649414062" text="productoId" />
           <TableColumn fx:id="colNombre" prefWidth="107.33334350585938" text="nombreProducto" />
@@ -45,5 +45,6 @@
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" text="Editar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
+      <ImageView fx:id="imgMostrar" fitHeight="273.0" fitWidth="268.0" layoutX="1029.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

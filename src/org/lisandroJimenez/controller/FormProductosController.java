@@ -46,6 +46,7 @@ import org.lisandroJimenez.utils.SuperKinalAlert;
  */
 public class FormProductosController implements Initializable {
 
+
     private Main stage;
     private int op;
     private static Connection conexion = null;
@@ -62,7 +63,6 @@ public class FormProductosController implements Initializable {
     ComboBox cmbDistribuidor, cmbCategoria;
     @FXML
     ImageView imgCargar;
-    private File imageFile;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +72,26 @@ public class FormProductosController implements Initializable {
             cargarDatos(ProductoDTO.getProductoDTO().getProducto());
         }
     }
+
+    @FXML
+    public void handleOnDrag(DragEvent event) {
+        if (event.getDragboard().hasFiles()) {
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    @FXML
+    public void handleOnDrop(DragEvent event){
+        try{
+            files = event.getDragboard().getFiles();
+            FileInputStream file = new FileInputStream(files.get(0));
+            Image image = new Image(file);
+            imgCargar.setImage(image);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
@@ -102,39 +122,18 @@ public class FormProductosController implements Initializable {
         }
     }
 
-    @FXML
-    public void handleOnDrag(DragEvent event) {
-        if (event.getDragboard().hasFiles()) {
-            event.acceptTransferModes(TransferMode.ANY);
-        }
-    }
-
-    @FXML
-    public void handleOnDrop(DragEvent event) {
-        try {
-            files = event.getDragboard().getFiles();
-            imageFile = files.get(0);
-            FileInputStream file = new FileInputStream(imageFile);
-
-            Image image = new Image(file);
-            imgCargar.setImage(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void cargarDatos(Productos producto) {
         tfProductoId.setText(Integer.toString(producto.getProductoId()));
         tfNombre.setText(producto.getNombreProducto());
+        taDescripcion.setText(producto.getDescripcionProducto());
         tfStock.setText(Integer.toString(producto.getCantidadStock()));
-        tfPrecio.setText(Double.toString(producto.getPrecioCompra()));
         tfPrecioU.setText(Double.toString(producto.getPrecioVentaUnitario()));
         tfPrecioM.setText(Double.toString(producto.getPrecioVentaMayor()));
-        taDescripcion.setText(producto.getDescripcionProducto());
+        tfPrecio.setText(Double.toString(producto.getPrecioCompra()));
         imgCargar.setImage(mostrarImagen(producto.getImagenProducto()));
         cmbDistribuidor.getSelectionModel().select(obtenerIndexDistribuidor(producto.getDistribuidorId()));
         cmbCategoria.getSelectionModel().select(obtenerIndexCategoria(producto.getCategoriaProductosId()));
-        cmbCategoria.getSelectionModel().select(1);
+
     }
 
     public Image mostrarImagen(Blob blob) {
@@ -156,13 +155,13 @@ public class FormProductosController implements Initializable {
             statement.setString(1, tfNombre.getText());
             statement.setString(2, taDescripcion.getText());
             statement.setInt(3, Integer.parseInt(tfStock.getText()));
-            statement.setDouble(4, Double.parseDouble(tfPrecio.getText()));
-            statement.setDouble(5, Double.parseDouble(tfPrecioU.getText()));
-            statement.setDouble(6, Double.parseDouble(tfPrecioM.getText()));
-            InputStream img = new FileInputStream(imageFile);
+            statement.setDouble(4, Double.parseDouble(tfPrecioU.getText()));
+            statement.setDouble(5, Double.parseDouble(tfPrecioM.getText()));
+            statement.setDouble(6, Double.parseDouble(tfPrecio.getText()));
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(7, null);
             } else {
+                InputStream img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(7, img);
             }
             statement.setInt(8, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
@@ -195,13 +194,14 @@ public class FormProductosController implements Initializable {
             statement.setString(2, tfNombre.getText());
             statement.setString(3, taDescripcion.getText());
             statement.setInt(4, Integer.parseInt(tfStock.getText()));
-            statement.setDouble(5, Double.parseDouble(tfPrecio.getText()));
-            statement.setDouble(6, Double.parseDouble(tfPrecioU.getText()));
-            statement.setDouble(7, Double.parseDouble(tfPrecioM.getText()));
+            statement.setDouble(5, Double.parseDouble(tfPrecioU.getText()));
+            statement.setDouble(6, Double.parseDouble(tfPrecioM.getText()));
+            statement.setDouble(7, Double.parseDouble(tfPrecio.getText()));
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(8, null);
             } else {
-                InputStream img = new FileInputStream(imageFile);
+
+                InputStream img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(8, img);
             }
             statement.setInt(9, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());

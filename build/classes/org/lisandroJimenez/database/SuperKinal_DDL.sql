@@ -138,7 +138,9 @@ create table DetalleCompra( --  Lisandro
     compraId int not null, 
     primary key PK_detalleCompraId(detalleCompraId),
     constraint FK_DetalleCompra_Productos foreign key (productoId)
-		references Productos(productoId)
+		references Productos(productoId),
+	constraint FK_DetalleCompra_Compras foreign key (compraId) 
+		references Compras(compraId)
 );
 
 set global time_zone = '-6:00';

@@ -47,14 +47,19 @@ delimiter $$
  create procedure sp_listarCompra()
 	begin
 		select * from Compras;
+        
     end $$
 delimiter ;
  -- agregar
 delimiter $$
- create procedure sp_agregarCompra(in totCom decimal (10,2))
+ create procedure sp_agregarCompra(in proId int, in can int)
 	begin 
-		insert into Compras (fechaCompra, totalCompra) values
-			(date(now()), totCom);
+    DECLARE nuevaCompraId INT;
+		insert into Compras (fechaCompra) values
+			(date(now()));
+            
+	SET nuevaCompraId = LAST_INSERT_ID();
+    CALL sp_agregarDetalleCompra(proId, can, nuevaCompraId);
     end $$
 delimiter ;
  -- buscar
@@ -531,9 +536,9 @@ DELIMITER ;
  -- ----------------------------------------------------DetalleCompra------------------------------------------------------------------
  -- agregar
 delimiter $$
- create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)
+ create procedure sp_agregarDetalleCompra(in canC int, in proId int, in comId int)
 	begin 
-		insert into DetalleCompra(cantidadCompra, productoId, compraId)values
+		insert into DetalleCompra(cantidadCompra, productoId, compraID)values
 			(canC, proId, comId);
     end $$
 delimiter ;
@@ -583,7 +588,7 @@ call sp_editarCargo(1,'xd','xd');
 call sp_buscarCargo(1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCompra();
-call sp_agregarCompra(10.8);
+call sp_agregarCompra();
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCategoriaProducto();
 call sp_agregarcategoriaProducto('Hogar','Silla  de lujo 4x4');
@@ -615,6 +620,7 @@ call sp_listarPromocion();
 call sp_agregarPromocion('50.00', 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
 call sp_editarPromocion(1,  '30.5','d','2024-03-03', '2024-03-03',1);
 -- ----------------------------------------------------------------------------------------------
+call sp_listarDetalleCompra();
 set global time_zone = '-6:00'; 
 
 
@@ -630,4 +636,6 @@ create procedure sp_listarEmpleado()
 delimiter ;
 
 call sp_listarEmpleado();
+
+
 -- aaaa

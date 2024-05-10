@@ -52,11 +52,14 @@ delimiter $$
 delimiter ;
  -- agregar
 delimiter $$
- create procedure sp_agregarCompra()
+ create procedure sp_agregarCompra(in proId int, in can int)
 	begin 
     DECLARE nuevaCompraId INT;
 		insert into Compras (fechaCompra) values
 			(date(now()));
+            
+	SET nuevaCompraId = LAST_INSERT_ID();
+    CALL sp_agregarDetalleCompra(can, proId, nuevaCompraId);
     end $$
 delimiter ;
  -- buscar
@@ -69,12 +72,12 @@ delimiter $$
 delimiter ;
  -- editar
 delimiter $$
- create procedure sp_editarCompra(in comId int,in fecCom date,in totCom decimal (10,2))
+ create procedure sp_editarCompra(in fecCom date)
 	begin 
 		update Compras
 			set 
-				fechaCompra = fecCom,
-                totalCompra = totCom
+				fechaCompra = fecCom
+                
                 where compraId = comId;
     end $$
 delimiter ;
@@ -533,9 +536,9 @@ DELIMITER ;
  -- ----------------------------------------------------DetalleCompra------------------------------------------------------------------
  -- agregar
 delimiter $$
- create procedure sp_agregarDetalleCompra(in canC int, in proId int,in comId int)
+ create procedure sp_agregarDetalleCompra(in canC int, in proId int, in comId int)
 	begin 
-		insert into DetalleCompra(cantidadCompra, productoId, compraId)values
+		insert into DetalleCompra(cantidadCompra, productoId, compraID)values
 			(canC, proId, comId);
     end $$
 delimiter ;
@@ -585,7 +588,7 @@ call sp_editarCargo(1,'xd','xd');
 call sp_buscarCargo(1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCompra();
-call sp_agregarCompra(10.8);
+
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCategoriaProducto();
 call sp_agregarcategoriaProducto('Hogar','Silla  de lujo 4x4');
@@ -634,5 +637,6 @@ delimiter ;
 
 call sp_listarEmpleado();
 
-
+call sp_listarDetalleCompra();
+call sp_listarCompra();
 -- aaaa

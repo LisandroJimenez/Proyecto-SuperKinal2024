@@ -28,6 +28,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.dto.ProductoDTO;
@@ -35,7 +37,6 @@ import org.lisandroJimenez.model.CategoriaProductos;
 import org.lisandroJimenez.model.Distribuidores;
 import org.lisandroJimenez.model.Productos;
 import org.lisandroJimenez.system.Main;
-
 
 /**
  * FXML Controller class
@@ -54,16 +55,17 @@ public class MenuProductosController implements Initializable {
     TableColumn colProductoId, colNombre, colDescripcion, colStock, colPrecio, colPrecioU, colPrecioM, colDistribuidor, colCategoria;
     @FXML
     Button btnBack, btnAgregar, btnEditar;
-    
+    @FXML
+    ImageView imgMostrar;
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnBack) {
             stage.MenuPrincipalView();
-        }else if(event.getSource() == btnAgregar){
+        } else if (event.getSource() == btnAgregar) {
             stage.FormProductosView(1);
-        }else if(event.getSource() == btnEditar){
-            ProductoDTO.getProductoDTO().setProducto((Productos)tblProductos.getSelectionModel().getSelectedItem());
+        } else if (event.getSource() == btnEditar) {
+            ProductoDTO.getProductoDTO().setProducto((Productos) tblProductos.getSelectionModel().getSelectedItem());
             stage.FormProductosView(2);
         }
     }
@@ -116,6 +118,26 @@ public class MenuProductosController implements Initializable {
         return FXCollections.observableList(productos);
     }
 
+    public void mostrarImagen() {
+        Productos p = (Productos) tblProductos.getSelectionModel().getSelectedItem();
+        if (p != null) {
+            Blob img = p.getImagenProducto();
+            if (img != null) {
+                try {
+                    InputStream inputStream = img.getBinaryStream();
+                    Image image = new Image(inputStream);
+                    imgMostrar.setImage(image);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                imgMostrar.setImage(null);
+            }
+        }else{
+            imgMostrar.setImage(null);
+        }
+    }
+
     public void cargarDatos() {
         tblProductos.setItems(listarProducto());
         colProductoId.setCellValueFactory(new PropertyValueFactory<Productos, Integer>("productoId"));
@@ -130,8 +152,6 @@ public class MenuProductosController implements Initializable {
         tblProductos.getSortOrder().add(colProductoId);
 
     }
-
-    
 
     public Main getStage() {
         return stage;

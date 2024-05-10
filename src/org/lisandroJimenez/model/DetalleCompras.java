@@ -30,6 +30,13 @@ public class DetalleCompras extends Compras{
         this.compra = compra;
     }
 
+    public DetalleCompras(int cantidadCompra, int compraId, Date fechaCompra, Double totalCompra, String producto) {
+        super(compraId, fechaCompra, totalCompra);
+        this.cantidadCompra = cantidadCompra;
+        this.producto = producto;
+    }
+
+    
     public int getDetalleCompraId() {
         return detalleCompraId;
     }
