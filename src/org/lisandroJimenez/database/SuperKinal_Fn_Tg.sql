@@ -73,6 +73,7 @@ begin
             leave totalLoop;
         end if;
         set i = i + 1;
+        
     end loop totalLoop;
 
     close cursorDetalleCompra;
@@ -95,16 +96,18 @@ begin
 end $$
 delimiter ;
 
+
+
+
 delimiter $$
-create trigger tg_totalCompra
-after insert on DetalleCompra
+create trigger tg_agregarStock
+after insert on fn_calcularTotalCompras
 for each row
 begin
-	declare total decimal(10,2);
-    set total = fn_calcularTotalCompras(new.compraId);
-end $$
+	declare cantidad int;
+    set cantidad = cantidadStock + curCan;
+end$$
 delimiter ;
-
 select * from DetalleCompra;
 call sp_agregarDetalleCompra(1, 2);
 call sp_agregarCompra(1,2);

@@ -58,8 +58,11 @@ delimiter $$
 		insert into Compras (fechaCompra) values
 			(date(now()));
             
-	SET nuevaCompraId = LAST_INSERT_ID();
-    CALL sp_agregarDetalleCompra(can, proId, nuevaCompraId);
+	set nuevaCompraId = LAST_INSERT_ID();
+    call sp_agregarDetalleCompra(can, proId, nuevaCompraId);
+    update Productos 
+		set cantidadStock = cantidadStock + can 
+		where productoId = proId;
     end $$
 delimiter ;
  -- buscar

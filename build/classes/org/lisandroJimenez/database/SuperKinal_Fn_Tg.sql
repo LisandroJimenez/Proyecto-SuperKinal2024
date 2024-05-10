@@ -110,5 +110,5 @@ call sp_agregarDetalleCompra(1, 2);
 call sp_agregarCompra(1,2);
 select * from Compras;
 select * from Productos;
-select fn_calcularTotalCompras(11);
+select fn_calcularTotalCompras(12);
 call sp_ListarDetalleCompra()

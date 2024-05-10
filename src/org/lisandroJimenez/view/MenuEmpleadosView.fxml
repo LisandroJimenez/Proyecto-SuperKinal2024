@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.MenuEmpleadosController">
+   <children>
+      <ImageView fitHeight="625.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/MenuEmpleados.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="27.0" layoutY="101.0" />
+      <TextField layoutX="27.0" layoutY="209.0" />
+      <TextField layoutX="27.0" layoutY="313.0" />
+      <TextField layoutX="27.0" layoutY="379.0" />
+      <TextField layoutX="265.0" layoutY="114.0" />
+      <TextField layoutX="518.0" layoutY="114.0" />
+      <ComboBox layoutX="27.0" layoutY="450.0" prefWidth="150.0" />
+      <ComboBox layoutX="27.0" layoutY="518.0" prefWidth="150.0" />
+      <TableView layoutX="221.0" layoutY="170.0" prefHeight="390.0" prefWidth="615.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
