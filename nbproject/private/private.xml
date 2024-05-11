@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorios%20github/Proyecto-SuperKinal2024/src/org/lisandroJimenez/system/Main.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorios%20github/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuEmpleadosController.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorios%20github/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuTicketSoporteController.java</file>
-            <file>file:/C:/Users/Informatica/Desktop/Repositorios%20github/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuComprasController.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/model/DetalleFacturas.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuFacturasController.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/system/Main.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/model/Facturas.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuComprasController.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/FormProductosController.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/controller/MenuEmpleadosController.java</file>
+            <file>file:/C:/Users/Usuario/OneDrive/Escritorio/GitHub%20Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/model/DetalleCompras.java</file>
         </group>
     </open-files>
 </project-private>

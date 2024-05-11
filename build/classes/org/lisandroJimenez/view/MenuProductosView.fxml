@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.MenuProductosController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="1300.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/MenuProductos.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tblProductos" layoutX="26.0" layoutY="97.0" onMouseClicked="#mostrarImagen" prefHeight="456.0" prefWidth="1000.0">
+        <columns>
+          <TableColumn fx:id="colProductoId" prefWidth="69.66665649414062" text="productoId" />
+          <TableColumn fx:id="colNombre" prefWidth="107.33334350585938" text="nombreProducto" />
+            <TableColumn fx:id="colDescripcion" prefWidth="169.33331298828125" text="Descripcion" />
+            <TableColumn fx:id="colStock" prefWidth="70.66668701171875" text="stock" />
+            <TableColumn fx:id="colPrecio" prefWidth="85.0" text="precioCompra" />
+            <TableColumn fx:id="colPrecioU" prefWidth="86.6666259765625" text="precioUnidad" />
+            <TableColumn fx:id="colPrecioM" prefWidth="85.0" text="precioMayor" />
+            <TableColumn fx:id="colDistribuidor" prefWidth="163.66668701171875" text="distribuidor" />
+            <TableColumn fx:id="colCategoria" prefWidth="163.66668701171875" text="categoria" />
+        </columns>
+      </TableView>
+      <GridPane layoutX="376.0" layoutY="581.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#handleButtonAction" text="Agregar" GridPane.halignment="CENTER" />
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" text="cancelar" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" text="Editar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+         </children>
+      </GridPane>
+      <ImageView fx:id="imgMostrar" fitHeight="273.0" fitWidth="268.0" layoutX="1029.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

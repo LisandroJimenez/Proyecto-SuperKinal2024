@@ -48,6 +48,7 @@ public class FormProductosController implements Initializable {
 
     private Main stage;
     private int op;
+    InputStream img;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
@@ -83,8 +84,8 @@ public class FormProductosController implements Initializable {
     public void handleOnDrop(DragEvent event) {
         try {
             files = event.getDragboard().getFiles();
-            FileInputStream file = new FileInputStream(files.get(0));
-            Image image = new Image(file);
+            img = new FileInputStream(files.get(0));
+            Image image = new Image(img);
             imgCargar.setImage(image);
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,11 +137,14 @@ public class FormProductosController implements Initializable {
 
     public Image mostrarImagen(Blob blob) {
         Image imagen = null;
-        try {
-            InputStream file = blob.getBinaryStream();
-            imagen = new Image(file);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (blob != null) {
+
+            try {
+                img = blob.getBinaryStream();
+                imagen = new Image(img);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return imagen;
     }
@@ -158,9 +162,15 @@ public class FormProductosController implements Initializable {
             statement.setDouble(6, Double.parseDouble(tfPrecio.getText()));
             if (imgCargar.getImage() == null) {
                 statement.setBinaryStream(7, null);
+                //InputStream img = new FileInputStream(files.get(0));
+                //statement.setBinaryStream(8, img);
             } else {
-                InputStream img = new FileInputStream(files.get(0));
+
+                img = new FileInputStream(files.get(0));
                 statement.setBinaryStream(7, img);
+                //statement.setBlob(8, ProductoDTO.getProductoDTO().getProducto().getImagenProducto());
+                // InputStream img = new FileInputStream(files.get(0));
+
             }
             statement.setInt(8, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
             statement.setInt(9, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());
@@ -199,13 +209,12 @@ public class FormProductosController implements Initializable {
             statement.setDouble(5, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(6, Double.parseDouble(tfPrecioM.getText()));
             statement.setDouble(7, Double.parseDouble(tfPrecio.getText()));
-            if (ProductoDTO.getProductoDTO().getProducto().getImagenProducto() != imgCargar.getImage()) {
-                InputStream img = new FileInputStream(files.get(0));
-                statement.setBinaryStream(8, img);
+            if (imgCargar.getImage() == null) {
+                statement.setBinaryStream(8, null);
             } else {
-                statement.setBlob(8, ProductoDTO.getProductoDTO().getProducto().getImagenProducto());
-                // InputStream img = new FileInputStream(files.get(0));
-
+                // Si hay una imagen cargada, entonces establece el flujo binario
+                img = new FileInputStream(files.get(0));
+                statement.setBinaryStream(8, img);
             }
             statement.setInt(9, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
             statement.setInt(10, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());

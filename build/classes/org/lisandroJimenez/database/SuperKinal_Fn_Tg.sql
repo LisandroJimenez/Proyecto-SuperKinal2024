@@ -25,7 +25,7 @@ begin
 	end if;
     set i = i + 1;
     end loop totalLoop;
-    call sp_asignarTotalFactura(total, facId);
+    call sp_asignarTotal(total, facId);
     return total;
 end $$
 delimiter ;

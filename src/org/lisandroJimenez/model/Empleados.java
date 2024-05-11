@@ -13,7 +13,8 @@ import java.sql.Time;
  */
 public class Empleados {
     private int empleadoId;
-    private String Empleado;
+    private String nombre;
+    private String apellido;
     private Double sueldo;
     private Time HoraEntrada;
     private Time HoraSalida;
@@ -21,10 +22,12 @@ public class Empleados {
     private int encargadoId;
     private String cargo;
     private String encargado;
+    private String empleado;
 
-    public Empleados(int empleadoId, String Empleado, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId) {
+    public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId) {
         this.empleadoId = empleadoId;
-        this.Empleado = Empleado;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
@@ -32,15 +35,38 @@ public class Empleados {
         this.encargadoId = encargadoId;
     }
 
-    public Empleados(int empleadoId, String Empleado, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String encargado) {
+    public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String encargado) {
         this.empleadoId = empleadoId;
-        this.Empleado = Empleado;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
         this.cargo = cargo;
         this.encargado = encargado;
     }
+
+    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId, String empleado) {
+        this.empleadoId = empleadoId;
+        this.sueldo = sueldo;
+        this.HoraEntrada = HoraEntrada;
+        this.HoraSalida = HoraSalida;
+        this.cargoId = cargoId;
+        this.encargadoId = encargadoId;
+        this.empleado = empleado;
+    }
+
+    public Empleados(int empleadoId, String empleado, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String Encargado) {
+        this.empleadoId = empleadoId;
+        this.sueldo = sueldo;
+        this.HoraEntrada = HoraEntrada;
+        this.HoraSalida = HoraSalida;
+        this.cargo = cargo;
+        this.encargado = encargado;
+        this.empleado = empleado;
+    }
+    
+    
 
     public int getEmpleadoId() {
         return empleadoId;
@@ -50,12 +76,20 @@ public class Empleados {
         this.empleadoId = empleadoId;
     }
 
-    public String getEmpleado() {
-        return Empleado;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setEmpleado(String Empleado) {
-        this.Empleado = Empleado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public Double getSueldo() {
@@ -114,9 +148,13 @@ public class Empleados {
         this.encargado = encargado;
     }
 
+    
+
+    
+
     @Override
     public String toString() {
-        return "Id: " + empleadoId + " | " + Empleado;
+        return "Id: " + empleadoId + " | " + nombre + " " + apellido;
     }
 
     

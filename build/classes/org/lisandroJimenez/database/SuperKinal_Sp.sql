@@ -275,36 +275,13 @@ create procedure sp_editarCliente(in cliId int, in nom varchar(40),in ape varcha
 delimiter ;
 --  ------------------------------------------------------Facturas--------------------------------------------------------------------
 -- Agregar
-
 delimiter $$
-create procedure sp_agregarDetalleFactura(in facId int , in proId int)
-	begin 
-		insert into DetalleFactura(facturaId, productoId) values
-			(facId, proId);
-    end $$
-delimiter ;
-delimiter $$
-create procedure sp_agregarFactura(in cliId int, in empId int)
+create procedure sp_agregarFactura(in fe date, in ho time, in tot decimal(10, 2), in cliId int, in empId int)
 	begin
-		declare nuevaFacturaId int;
 		insert into Facturas (fecha, hora, total, clienteId, empleadoId) values
-			(date(now()), time(now()), total, cliId, empId);
-		set nuevaFacturaId = LAST_INSERT_ID();
-        call sp_agregarDetalleFactura(nuevaFacturaId, proId);
-        select fn_calcularTotalFacturas(nuevaCompraId);
-
+			(fe, ho, tot, cliId, empId);
     end $$
 delimiter ; 
-
-call sp_agregarFactura(1, 1);
-delimiter $$
-create procedure sp_asignarTotalFactura(in tot decimal(10,2), in facId int)
-begin 
-	update Facturas
-		set total = tot * (1 +  0.12) 
-			where facturaId = facId; 
-end $$
-delimiter ;
 -- listar
 delimiter $$
 create procedure sp_listarFacturas()
@@ -504,7 +481,14 @@ create procedure sp_editarPromocion(in promoId int, in prePro decimal(10, 2), in
     end $$
 delimiter ;
 -- ----------------------------------------------------detalle factura-----------------------------------------------------------------
-
+-- agregar
+DELIMITER $$
+create procedure sp_AgregarDetalleFactura(in factId int, in prodId int)
+begin
+	insert into DetalleFactura(facturaId, productoId) values
+		(factId, prodId);
+end $$
+DELIMITER ;
 -- listar
 DELIMITER $$
 create procedure sp_ListarDetalleFactura()
@@ -617,7 +601,7 @@ call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 call sp_buscarDistribuidor(1);
 call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarEmpleado('Pablo ','Jimenez',  5000.00, '08:12', '17:00' , 1,null);
+call sp_agregarEmpleado('Lisandro ','Jimenez',  5000.00, '08:12', '17:00' , 1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
