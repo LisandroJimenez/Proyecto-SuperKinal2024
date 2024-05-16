@@ -66,6 +66,15 @@ delimiter $$
 		where productoId = proId;
     end $$
 delimiter ;
+
+delimiter $$
+create procedure sp_asignarTotalCompra(in tot decimal(10,2), in comId int)
+begin 
+	update Compras
+		set totalCompra = tot * (1 +  0.12) 
+			where compraId = comId; 
+end $$
+delimiter ;
  -- buscar
 delimiter $$
  create procedure sp_buscarCompra(in comId int)
@@ -296,7 +305,7 @@ create procedure sp_agregarFactura(in cliId int, in empId int)
     end $$
 delimiter ; 
 
-call sp_agregarFactura(1, 1);
+
 delimiter $$
 create procedure sp_asignarTotalFactura(in tot decimal(10,2), in facId int)
 begin 
@@ -617,15 +626,15 @@ call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 call sp_buscarDistribuidor(1);
 call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarEmpleado('Pablo ','Jimenez',  5000.00, '08:12', '17:00' , 1,null);
+call sp_agregarEmpleado('Lisandro ','Jimenez',  5000.00, '08:12', '17:00' , 1,1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
 call sp_editarCliente(1,'2','2','2','2','2');
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarFactura('2024-05-05', '14:51',null, 1, 1);
+
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarTicketSoporte('Problemas con la red',1,1);
+call sp_agregarTicketSoporte('Problemas con la red',1,null);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarProducto();	
 call sp_editarProducto(1, 's', 'i', 9.00, 5.00,5.77,4.66, null, 1, 1);

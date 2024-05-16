@@ -202,7 +202,7 @@ public class MenuEmpleadosController implements Initializable {
             statement.setInt(7, ((Empleados) cmbEncargado.getSelectionModel().getSelectedItem()).getEncargadoId());
             statement.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         } finally {
             try {
                 if (statement != null) {

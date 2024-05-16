@@ -22,7 +22,7 @@ public class Empleados {
     private int encargadoId;
     private String cargo;
     private String encargado;
-    private String empleado;
+
 
     public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId) {
         this.empleadoId = empleadoId;
@@ -46,24 +46,24 @@ public class Empleados {
         this.encargado = encargado;
     }
 
-    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId, String empleado) {
+    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId ) {
         this.empleadoId = empleadoId;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
         this.cargoId = cargoId;
         this.encargadoId = encargadoId;
-        this.empleado = empleado;
+
     }
 
-    public Empleados(int empleadoId, String empleado, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String Encargado) {
+    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String Encargado) {
         this.empleadoId = empleadoId;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
         this.cargo = cargo;
         this.encargado = encargado;
-        this.empleado = empleado;
+
     }
     
     

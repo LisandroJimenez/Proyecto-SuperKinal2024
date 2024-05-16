@@ -144,4 +144,4 @@ create table DetalleCompra( --  Lisandro
 );
 
 set global time_zone = '-6:00';
-
+call sp_listarFactura();
