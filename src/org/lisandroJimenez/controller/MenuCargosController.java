@@ -136,6 +136,7 @@ public class MenuCargosController implements Initializable {
             statement.setInt(1, carId);
             statement.executeUpdate();
         } catch (SQLException e) {
+            SuperKinalAlert.getInstance().mostrarAlertasInfo(404);
             System.out.println(e.getMessage());
         } finally {
             try {

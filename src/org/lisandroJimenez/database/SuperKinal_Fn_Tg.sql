@@ -2,30 +2,46 @@ use superkinalin5cvdb;
 
 -- --------------------------------------------FACTURA -------------------------------------------
 delimiter $$
-create function fn_calcularTotalFactura(facId int) returns decimal(10,2) deterministic
+create function fn_calcularTotalFacturas (factId int) returns decimal(10,2) deterministic
 begin
+ 
 	declare total decimal(10,2) default 0.0;
     declare precio decimal(10,2);
     declare i int default 1;
-    declare curFacId, curProId int;
-    
-    declare cursorDetalleFactura cursor for
-		Select DF.facturaId, DF.productoId from DetalleFactura DF;
-        
-	open cursorDetalleFactura;
-    
+    declare curFacturaId, curProductoId int;
+    declare curPromPrecio decimal(10,2);
+
+    declare cursorDetalleFactura cursor for 
+    select DF.facturaId , DF.productoId from DetalleFactura DF;
+ 
+    open cursorDetalleFactura;
     totalLoop :loop
-    fetch cursorDetalleFactura into curFacId, curProId;
-	if facId = curFacId then
-		set precio = (select P.precio from Productos P where P.productoId = curProId);
+ 
+    fetch cursorDetalleFactura into curFacturaId, curProductoId;
+    select PR.precioPromocion into curPromPrecio
+        from Promociones PR
+        where PR.productoId = curProductoId
+        and NOW() between PR.fechaInicio and PR.fechaFinalizacion
+        order by PR.fechaInicio desc
+        Limit 1;
+ 
+	if factId = curFacturaId then
+			if curPromPrecio is not null then
+				set precio = curPromPrecio;
+            else 
+				set precio = (select P.precioVentaUnitario from Productos P where P.productoId = curProductoId);
+			end if;
         set total = total + precio;
     end if;
+ 
     if i = (select count(*) from detalleFactura) then
 		leave totalLoop;
 	end if;
+ 
     set i = i + 1;
     end loop totalLoop;
-    call sp_asignarTotalFactura(total, facId);
+ 
+    call sp_asignarTotalFactura(total, factId);
     return total;
 end $$
 delimiter ;
@@ -37,7 +53,7 @@ after insert on DetalleFactura
 for each row
 begin
 	declare total decimal(10,2);
-    set total = fn_calcularTotal(new.facturaId);
+    set total = fn_calcularTotalFacturas(new.facturaId);
 end $$
 delimiter ;
 -- --------------------------------------Compras----------------------------------------------------

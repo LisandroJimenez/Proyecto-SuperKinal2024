@@ -49,6 +49,7 @@ public class MenuEmpleadosController implements Initializable {
     TableView tblEmpleados;
     @FXML
     TableColumn colNombre,colApellido, colSueldo, colHoraEntrada, colHoraSalida, colCargo, colEncargado;
+    
     private Main stage;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
@@ -111,21 +112,6 @@ public class MenuEmpleadosController implements Initializable {
 
     }
 
-    public int obtenerIndexEncargado() {
-        int index = 0;
-        Empleados selectEmpleado = (Empleados) tblEmpleados.getSelectionModel().getSelectedItem();
-        if (selectEmpleado != null) {
-            ObservableList<Empleados> empleados = cmbEncargado.getItems();
-            for (int i = 0; i < empleados.size(); i++) {
-                Empleados empleado = empleados.get(i);
-                if (empleado.getNombre().equals(selectEmpleado.getEncargado())) {
-                    index = i;
-                    break;
-                }
-            }
-        }
-        return index;
-    }
 
     public int obtenerIndexCargo() {
         int index = 0;
@@ -199,7 +185,7 @@ public class MenuEmpleadosController implements Initializable {
             Time horaSalidaSQL = Time.valueOf(horaSalida);
             statement.setTime(5, horaSalidaSQL);
             statement.setInt(6, ((Cargos) cmbCargo.getSelectionModel().getSelectedItem()).getCargoId());
-            statement.setInt(7, ((Empleados) cmbEncargado.getSelectionModel().getSelectedItem()).getEncargadoId());
+            statement.setInt(7, ((Empleados) cmbEncargado.getSelectionModel().getSelectedItem()).getEncargadoId());       
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -216,6 +202,18 @@ public class MenuEmpleadosController implements Initializable {
 
             }
         }
+    }
+    public int obtenerIndexEncargado() {
+        int index = 0;
+        for (int i = 0; i < cmbEncargado.getItems().size(); i++) {
+            String encargadoCmb = cmbEncargado.getItems().get(i).toString();
+            String encargadoTbl = ((Empleados) tblEmpleados.getSelectionModel().getSelectedItem()).getEncargado();  
+            if (encargadoCmb.equals(encargadoTbl)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public void editarEmpleado() {

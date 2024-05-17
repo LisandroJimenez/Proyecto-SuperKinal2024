@@ -42,6 +42,12 @@ public class SuperKinalAlert {
             alert.setHeaderText("Confirmacion de registro");
             alert.setContentText("El registro se ha creado con exito!!!!!");
             alert.showAndWait();
+        }else if (code == 404){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error al Eliminar");
+            alert.setHeaderText("Error al Eliminar");
+            alert.setContentText("El registro no se puede eliminar porque es foranea");
+            alert.showAndWait();
         }
     }
 

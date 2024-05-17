@@ -18,50 +18,50 @@ public class Empleados {
     private Double sueldo;
     private Time HoraEntrada;
     private Time HoraSalida;
-    private int cargoId;
+    private int nombreCargoId;
     private int encargadoId;
-    private String cargo;
+    private String nombreCargo;
     private String encargado;
 
 
-    public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId) {
+    public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, int nombreCargoId, int encargadoId) {
         this.empleadoId = empleadoId;
         this.nombre = nombre;
         this.apellido = apellido;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
-        this.cargoId = cargoId;
+        this.nombreCargoId = nombreCargoId;
         this.encargadoId = encargadoId;
     }
 
-    public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String encargado) {
+    public Empleados(int empleadoId, String nombre, String apellido, Double sueldo, Time HoraEntrada, Time HoraSalida, String nombreCargo, String encargado) {
         this.empleadoId = empleadoId;
         this.nombre = nombre;
         this.apellido = apellido;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
-        this.cargo = cargo;
+        this.nombreCargo = nombreCargo;
         this.encargado = encargado;
     }
 
-    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, int cargoId, int encargadoId ) {
+    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, int nombreCargoId, int encargadoId ) {
         this.empleadoId = empleadoId;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
-        this.cargoId = cargoId;
+        this.nombreCargoId = nombreCargoId;
         this.encargadoId = encargadoId;
 
     }
 
-    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, String cargo, String Encargado) {
+    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, String nombreCargo, String Encargado) {
         this.empleadoId = empleadoId;
         this.sueldo = sueldo;
         this.HoraEntrada = HoraEntrada;
         this.HoraSalida = HoraSalida;
-        this.cargo = cargo;
+        this.nombreCargo = nombreCargo;
         this.encargado = encargado;
 
     }
@@ -117,11 +117,11 @@ public class Empleados {
     }
 
     public int getCargoId() {
-        return cargoId;
+        return nombreCargoId;
     }
 
-    public void setCargoId(int cargoId) {
-        this.cargoId = cargoId;
+    public void setCargoId(int nombreCargoId) {
+        this.nombreCargoId = nombreCargoId;
     }
 
     public int getEncargadoId() {
@@ -133,11 +133,11 @@ public class Empleados {
     }
 
     public String getCargo() {
-        return cargo;
+        return nombreCargo;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setCargo(String nombreCargo) {
+        this.nombreCargo = nombreCargo;
     }
 
     public String getEncargado() {

@@ -293,14 +293,14 @@ create procedure sp_agregarDetalleFactura(in facId int , in proId int)
     end $$
 delimiter ;
 delimiter $$
-create procedure sp_agregarFactura(in cliId int, in empId int)
+create procedure sp_agregarFactura(in cliId int, in empId int, in proId int)
 	begin
 		declare nuevaFacturaId int;
 		insert into Facturas (fecha, hora, total, clienteId, empleadoId) values
 			(date(now()), time(now()), total, cliId, empId);
 		set nuevaFacturaId = LAST_INSERT_ID();
         call sp_agregarDetalleFactura(nuevaFacturaId, proId);
-        select fn_calcularTotalFacturas(nuevaCompraId);
+        select fn_calcularTotalFacturas(nuevaFacturaId);
 
     end $$
 delimiter ; 
@@ -626,7 +626,8 @@ call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
 call sp_buscarDistribuidor(1);
 call sp_eliminarDistribuidor(2);
 -- ----------------------------------------------------------------------------------------------
-call sp_agregarEmpleado('Lisandro ','Jimenez',  5000.00, '08:12', '17:00' , 1,1);
+call sp_agregarEmpleado('joquin ','gsdfsdfs][',  5000.00, '08:12', '17:00' , 1,11);
+select * from Empleados;
 -- ----------------------------------------------------------------------------------------------
 call sp_listarCliente();
 call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
@@ -646,14 +647,14 @@ call sp_editarPromocion(1,  '30.5','d','2024-03-03', '2024-03-03',1);
 -- ----------------------------------------------------------------------------------------------
 call sp_listarDetalleCompra();
 set global time_zone = '-6:00'; 
-
+call sp_agregarFactura(1,1,1);
 
 delimiter $$
 create procedure sp_listarEmpleado()
 	begin
 		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
         C.nombreCargo,
-        concat(E2.nombreEmpleado, E2.apellidoEmpleado)as 'Encargado' from Empleados E1
+        concat('Id: ', E2.empleadoId, ' | ',  E2.nombreEmpleado, ' ',  E2.apellidoEmpleado)as 'Encargado' from Empleados E1
         join Cargos C on C.cargoId = E1.cargoId
         left join Empleados E2 on E1.encargadoId = E2.empleadoId;
     end $$

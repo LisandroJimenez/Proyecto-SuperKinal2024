@@ -17,7 +17,7 @@
             <Image url="@../image/FormularioClientes.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfUsuarioId" layoutX="52.0" layoutY="98.0" prefHeight="36.0" prefWidth="216.0" />
+      <TextField fx:id="tfClienteId" layoutX="52.0" layoutY="98.0" prefHeight="36.0" prefWidth="216.0" />
       <TextField fx:id="tfNombre" layoutX="52.0" layoutY="185.2" prefHeight="36.0" prefWidth="216.0" />
       <TextField fx:id="tfApellido" layoutX="52.0" layoutY="272.8" prefHeight="36.0" prefWidth="216.0" />
       <TextField fx:id="tfTelefono" layoutX="52.0" layoutY="360.0" prefHeight="36.0" prefWidth="216.0" />

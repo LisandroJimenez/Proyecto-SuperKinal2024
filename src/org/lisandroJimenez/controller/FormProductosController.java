@@ -52,7 +52,7 @@ public class FormProductosController implements Initializable {
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
-    private List<File> files = null;
+    private static List<File> files = null;
     @FXML
     Button btnGuardar, btnCancelar;
     @FXML
@@ -213,8 +213,13 @@ public class FormProductosController implements Initializable {
                 statement.setBinaryStream(8, null);
             } else {
                 // Si hay una imagen cargada, entonces establece el flujo binario
-                img = new FileInputStream(files.get(0));
-                statement.setBinaryStream(8, img);
+                //img = new FileInputStream(files.get(0));
+                if(files != null){
+                    img = new FileInputStream(files.get(0));
+                    statement.setBinaryStream(8, img);
+                }else{
+                    statement.setBlob(8, ProductoDTO.getProductoDTO().getProducto().getImagenProducto());
+                }
             }
             statement.setInt(9, ((Distribuidores) cmbDistribuidor.getSelectionModel().getSelectedItem()).getDistribuidorId());
             statement.setInt(10, ((CategoriaProductos) cmbCategoria.getSelectionModel().getSelectedItem()).getCategoriaProductosId());

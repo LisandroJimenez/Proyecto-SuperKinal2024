@@ -45,6 +45,7 @@ public class FormClientesController implements Initializable {
             cargarDatos(ClienteDTO.getClienteDTO().getCliente());
         }
     }
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnCancelar) {
@@ -65,6 +66,7 @@ public class FormClientesController implements Initializable {
                 if (!tfNombre.getText().equals("") && !tfApellido.getText().equals("") && !tfDireccion.getText().equals("")) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         EditarClientes();
+                        ClienteDTO.getClienteDTO().setCliente(null);
                         stage.MenuClientesView();
                     }
                 } else {
@@ -114,11 +116,11 @@ public class FormClientesController implements Initializable {
             statement = conexion.prepareStatement(sql);
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfClienteId.getText()));
-            statement.setString(1, tfNombre.getText());
-            statement.setString(2, tfApellido.getText());
-            statement.setString(3, tfTelefono.getText());
-            statement.setString(4, tfDireccion.getText());
-            statement.setString(5, tfNit.getText());
+            statement.setString(2, tfNombre.getText());
+            statement.setString(3, tfApellido.getText());
+            statement.setString(4, tfTelefono.getText());
+            statement.setString(5, tfDireccion.getText());
+            statement.setString(6, tfNit.getText());
             statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
