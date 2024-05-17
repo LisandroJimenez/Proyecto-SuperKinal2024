@@ -30,14 +30,6 @@ begin
 end $$
 delimiter ;
 
-delimiter $$
-create procedure sp_asignarTotalFactura(in tot decimal(10,2), in facId int)
-begin 
-	update Facturas
-		set total = tot * (1 +  0.12) 
-			where facturaId = facId; 
-end $$
-delimiter ;
 
 delimiter $$
 create trigger tg_totalFactura
@@ -86,16 +78,6 @@ end $$
 
 delimiter ;
 
-
-
-delimiter $$
-create procedure sp_asignarTotalCompra(in tot decimal(10,2), in comId int)
-begin 
-	update Compras
-		set totalCompra = tot * (1 +  0.12) 
-			where compraId = comId; 
-end $$
-delimiter ;
 
 
 
