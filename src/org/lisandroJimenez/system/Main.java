@@ -26,6 +26,8 @@ import org.lisandroJimenez.controller.MenuTicketSoporteController;
 import org.lisandroJimenez.controller.MenuDistribuidoresController;
 import org.lisandroJimenez.controller.FormDistribuidoresController;
 import org.lisandroJimenez.controller.FormProductosController;
+import org.lisandroJimenez.controller.FormUsuarioController;
+import org.lisandroJimenez.controller.LoginController;
 import org.lisandroJimenez.controller.MenuComprasController;
 import org.lisandroJimenez.controller.MenuEmpleadosController;
 import org.lisandroJimenez.controller.MenuProductosController;
@@ -48,7 +50,7 @@ public class Main extends Application {
         stage.setTitle("Super Kinal app");
         Image icon = new Image("org/lisandroJimenez/image/icono.png");
         stage.getIcons().add(icon);
-        MenuPrincipalView();
+        LoginView();
         stage.show();
         
     }
@@ -202,10 +204,29 @@ public class Main extends Application {
         }
     }
     
-    public void MenuEmpleadosView(){
+    public void MenuEmpleadosView(int op){
         try{
             MenuEmpleadosController menuEmpleadosView = (MenuEmpleadosController)switchScene("MenuEmpleadosView.fxml", 1100, 625);
+            menuEmpleadosView.setOp(op);
             menuEmpleadosView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void LoginView(){
+        try{
+            LoginController loginView = (LoginController)switchScene("LoginView.fxml", 450, 650);
+            loginView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void FormUsuarioView(){
+        try{
+            FormUsuarioController formUsuarioView = (FormUsuarioController)switchScene("FormUsuarioView.fxml", 450, 650);
+            formUsuarioView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

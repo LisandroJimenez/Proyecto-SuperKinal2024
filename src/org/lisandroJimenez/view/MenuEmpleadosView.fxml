@@ -8,35 +8,52 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.MenuEmpleadosController">
+
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.MenuEmpleadosController">
    <children>
       <ImageView fitHeight="625.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/MenuEmpleados.png" />
          </image>
       </ImageView>
-      <TextField fx:id="tfEmpleadoId" layoutX="27.0" layoutY="101.0" />
-      <TextField fx:id="tfSueldo" layoutX="27.0" layoutY="313.0" />
-      <TextField fx:id="tfHoraEntrada" layoutX="265.0" layoutY="114.0" />
-      <TextField fx:id="tfHoraSalida" layoutX="518.0" layoutY="114.0" />
-      <ComboBox fx:id="cmbEncargado" layoutX="27.0" layoutY="384.0" prefWidth="150.0" />
-      <ComboBox fx:id="cmbCargo" layoutX="27.0" layoutY="467.0" prefWidth="150.0" />
-      <TableView fx:id="tblEmpleados" layoutX="194.0" layoutY="152.0" onMouseClicked="#cargarDatosEditar" prefHeight="390.0" prefWidth="754.0">
+      <TextField fx:id="tfNombre" layoutX="25.0" layoutY="172.0" />
+      <TextField fx:id="tfApellido" layoutX="25.0" layoutY="247.0" />
+      <TextField fx:id="tfSueldo" layoutX="25.0" layoutY="313.0" />
+      <TextField fx:id="tfHoraEntrada" layoutX="260.0" layoutY="114.0" />
+      <TextField fx:id="tfHoraSalida" layoutX="512.0" layoutY="114.0" />
+      <TextField fx:id="tfEmpleadoId" layoutX="25.0" layoutY="102.0" />
+      <ComboBox fx:id="cmbEncargado" layoutX="25.0" layoutY="385.0" prefWidth="150.0" />
+      <ComboBox fx:id="cmbCargo" layoutX="25.0" layoutY="457.0" prefWidth="150.0" />
+      <TableView fx:id="tblEmpleados" layoutX="181.0" layoutY="147.0" onMouseClicked="#cargarDatosEditar" prefHeight="405.0" prefWidth="805.0">
         <columns>
-          <TableColumn fx:id="colNombre" prefWidth="114.0" text="Nombre" />
-            <TableColumn fx:id="colApellido" prefWidth="118.0" text="Apellido" />
-            <TableColumn fx:id="colSueldo" prefWidth="93.0" text="Sueldo" />
-            <TableColumn fx:id="colHoraEntrada" prefWidth="99.0" text="HoraEntrada" />
-            <TableColumn fx:id="colHoraSalida" prefWidth="78.0" text="HoraSalida" />
-            <TableColumn fx:id="colCargo" prefWidth="121.0" text="nombreCargo" />
-            <TableColumn fx:id="colEncargado" prefWidth="130.0" text="Encargado" />
+          <TableColumn fx:id="colEmpleadoId" prefWidth="83.0" text="empleadoId" />
+          <TableColumn fx:id="colNombre" prefWidth="90.0" text="Nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="86.0" text="Apellido" />
+            <TableColumn fx:id="colSueldo" prefWidth="77.0" text="Sueldo" />
+            <TableColumn fx:id="colHoraEntrada" prefWidth="97.0" text="HoraEntrada" />
+            <TableColumn fx:id="colHoraSalida" prefWidth="98.0" text="HoraSalida" />
+            <TableColumn fx:id="colCargo" prefWidth="128.0" text="Cargo" />
+            <TableColumn fx:id="colEncargado" prefWidth="145.0" text="Encargado" />
         </columns>
       </TableView>
-      <Button fx:id="btnCancelar" layoutX="980.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />
-      <Button fx:id="btnGuardar" layoutX="980.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Guardar" />
-      <Button fx:id="btnVaciarForm" layoutX="980.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="vaciar Form" />
-      <TextField fx:id="tfNombre" layoutX="28.0" layoutY="175.0" />
-      <TextField fx:id="tfApellido" layoutX="28.0" layoutY="249.0" />
+      <GridPane layoutX="993.0" layoutY="217.0" prefHeight="152.0" prefWidth="100.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="btnRegresar" mnemonicParsing="false" onAction="#handleButtonAction" text="Regresar" GridPane.halignment="CENTER" />
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#handleButtonAction" text="Guardar" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button fx:id="btnVaciar" mnemonicParsing="false" onAction="#handleButtonAction" text="Vaciar" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
    </children>
 </AnchorPane>

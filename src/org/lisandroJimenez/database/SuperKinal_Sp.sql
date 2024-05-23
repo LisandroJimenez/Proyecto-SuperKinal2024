@@ -201,10 +201,19 @@ create procedure sp_agregarEmpleado(in nomEmp varchar(30),in apeEmp varchar(30),
     end $$
 delimiter ;
 -- listar
-
+delimiter $$
+create procedure sp_listarEmpleado()
+	begin
+		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
+        concat('Id: ', C.cargoId, ' | ', C.nombreCargo)as 'Cargo',
+        concat('Id: ', E2.empleadoId, ' | ',  E2.nombreEmpleado, ' ',  E2.apellidoEmpleado)as 'Encargado' from Empleados E1
+        join Cargos C on C.cargoId = E1.cargoId
+        left join Empleados E2 on E1.encargadoId = E2.empleadoId;
+    end $$
+delimiter ;
 -- buscar
 delimiter $$
-create procedure sp_buscarEmpleados(in empId int)
+create procedure sp_buscarEmpleado(in empId int)
 	begin
 		select * from Empleados
 			where empleadoId = empId;
@@ -212,7 +221,7 @@ create procedure sp_buscarEmpleados(in empId int)
 delimiter ;
 -- eliminar
 delimiter $$
-create procedure sp_eliminarEmpleados(in empId int)
+create procedure sp_eliminarEmpleado(in empId int)
 	begin
 		delete 
 			from Empleados
@@ -221,13 +230,13 @@ create procedure sp_eliminarEmpleados(in empId int)
 delimiter ;
 -- editar
 delimiter $$
-create procedure sp_editarEmpleados(in empId int, in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encarId int)
+create procedure sp_editarEmpleado(in empId int, in nomEmp varchar(30),in apeEmp varchar(30), in sue decimal(10, 2), in hoEn time, in hoSa time, in carId int, in encarId int)
 	begin
 		update Empleados
 			set 
             nombreEmpleado = nomEmp,
-            apeEmp = apellidoEmpleado,
-            sueldo = suel,
+            apellidoEmpleado = apeEmp,
+            sueldo = sue,
             horaEntrada = hoEn,
             horaSalida = hoSa,
             cargoId = carId,
@@ -606,64 +615,32 @@ create procedure sp_editarDetalleCompra(in detCId int, in canC int, in proId int
     end $$
 delimiter ;
 -- ----------------------------------------------------------------------------------------------
-call sp_listarCargo();
-call sp_agregarCargo('Gerente', 'Supervisar las compras');
-call sp_editarCargo(1,'xd','xd');
-call sp_buscarCargo(1);
--- ----------------------------------------------------------------------------------------------
-call sp_listarCompra();
-
--- ----------------------------------------------------------------------------------------------
-call sp_listarCategoriaProducto();
-call sp_agregarcategoriaProducto('Hogar','Silla  de lujo 4x4');
-call sp_editarCategoriaProducto(1, 'Hola', 'si');
-call sp_buscarCategoriaProducto(1);
-call sp_eliminarCategoriaProducto(2);
--- ----------------------------------------------------------------------------------------------
-call sp_listarDistribuidor();
-call sp_agregarDistribuidor('Las sillas', 'San Juan', '29384085-9', '2384-4875','LasSillas.com');
-call sp_editarDistribuidor(2, 's', 'i', 'y', 'n', 'o');
-call sp_buscarDistribuidor(1);
-call sp_eliminarDistribuidor(2);
--- ----------------------------------------------------------------------------------------------
-call sp_agregarEmpleado('joquin ','gsdfsdfs][',  5000.00, '08:12', '17:00' , 1,11);
-select * from Empleados;
--- ----------------------------------------------------------------------------------------------
-call sp_listarCliente();
-call sp_agregarCliente('Aldair', 'Araujo', '4578-8513', 'Mixco','18273946-9');
-call sp_editarCliente(1,'2','2','2','2','2');
--- ----------------------------------------------------------------------------------------------
-
--- ----------------------------------------------------------------------------------------------
-call sp_agregarTicketSoporte('Problemas con la red',1,null);
--- ----------------------------------------------------------------------------------------------
-call sp_listarProducto();	
-call sp_editarProducto(1, 's', 'i', 9.00, 5.00,5.77,4.66, null, 1, 1);
-call sp_agregarProducto('Silla de madera', 'silla de madera con diseños', 80 ,  80.7, 70.00, 85.00 ,null ,  1 ,  1 );
--- ----------------------------------------------------------------------------------------------
-call sp_listarPromocion();
-call sp_agregarPromocion('50.00', 'Ahorra con la compra de La silla ',  '2024-04-22',  '2024-04-05', 1);
-call sp_editarPromocion(1,  '30.5','d','2024-03-03', '2024-03-03',1);
--- ----------------------------------------------------------------------------------------------
-call sp_listarDetalleCompra();
-set global time_zone = '-6:00'; 
-call sp_agregarFactura(1,1,1);
 
 delimiter $$
-create procedure sp_listarEmpleado()
+create procedure sp_agregarUsuario(in usu varchar(50),in con varchar(100),in nivAccId int,in empId int)
 	begin
-		select E1.empleadoId, E1.nombreEmpleado, E1.apellidoEmpleado, E1.sueldo, E1.horaEntrada, E1.horaSalida,
-        C.nombreCargo,
-        concat('Id: ', E2.empleadoId, ' | ',  E2.nombreEmpleado, ' ',  E2.apellidoEmpleado)as 'Encargado' from Empleados E1
-        join Cargos C on C.cargoId = E1.cargoId
-        left join Empleados E2 on E1.encargadoId = E2.empleadoId;
+		insert into Usuarios(usuario, contrasenia, nivelAccesoId, empleadoId) values
+			(usu, con, nivAccId, empId);
+	end $$ 
+delimiter ; 
+
+call sp_agregarUsuario('Ljimenez', '1234', 1, 1);
+select * from Usuarios;
+
+delimiter $$
+create procedure sp_buscarUsuario(us varchar(50))
+	begin 
+		select * from Usuarios
+        where usuario = us;
     end $$
 delimiter ;
 
+delimiter $$
+create procedure sp_listarNivelAcceso()
+	begin
+		select * from NivelesAcceso;
+    end $$
 
+delimiter ;
 
-call sp_listarEmpleado();
-
-call sp_listarDetalleCompra();
-call sp_listarCompra();
--- aaaa
+call sp_listarNivelAcceso();

@@ -53,7 +53,7 @@ public class MenuPrincipalController implements Initializable {
         }else if(event.getSource() == btnCompras){
             stage.MenuComprasView();
         }else if(event.getSource() == btnEmpleados){
-            stage.MenuEmpleadosView();
+            stage.MenuEmpleadosView(2);
         }
     }
     

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.FormUsuarioController">
+   <children>
+      <ImageView fitHeight="650.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/LoginUsuario.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfUser" layoutX="52.9" layoutY="190.7" prefHeight="38.7" prefWidth="232.2" />
+      <ComboBox fx:id="cmbEmpleados" layoutX="53.0" layoutY="397.0" prefHeight="38.7" prefWidth="232.2" />
+      <ComboBox fx:id="cmbNivel" layoutX="53.0" layoutY="502.0" prefHeight="38.7" prefWidth="232.2" />
+      <Button fx:id="btnRegistrar" layoutX="78.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="78.0" text="Registrar" />
+      <Button fx:id="btnEmpleados" layoutX="215.0" layoutY="557.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="71.0" text="Crear Empleado" wrapText="true" />
+      <TextField fx:id="tfPassword" layoutX="53.0" layoutY="294.0" prefHeight="38.7" prefWidth="232.2" />
+   </children>
+</AnchorPane>

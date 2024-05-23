@@ -46,25 +46,6 @@ public class Empleados {
         this.encargado = encargado;
     }
 
-    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, int nombreCargoId, int encargadoId ) {
-        this.empleadoId = empleadoId;
-        this.sueldo = sueldo;
-        this.HoraEntrada = HoraEntrada;
-        this.HoraSalida = HoraSalida;
-        this.nombreCargoId = nombreCargoId;
-        this.encargadoId = encargadoId;
-
-    }
-
-    public Empleados(int empleadoId, Double sueldo, Time HoraEntrada, Time HoraSalida, String nombreCargo, String Encargado) {
-        this.empleadoId = empleadoId;
-        this.sueldo = sueldo;
-        this.HoraEntrada = HoraEntrada;
-        this.HoraSalida = HoraSalida;
-        this.nombreCargo = nombreCargo;
-        this.encargado = encargado;
-
-    }
     
     
 
