@@ -60,7 +60,6 @@ delimiter $$
             
 	set nuevaCompraId = LAST_INSERT_ID();
     call sp_agregarDetalleCompra(can, proId, nuevaCompraId);
-    select fn_calcularTotalCompras(nuevaCompraId);
     update Productos 
 		set cantidadStock = cantidadStock + can 
 		where productoId = proId;
@@ -299,6 +298,9 @@ create procedure sp_agregarDetalleFactura(in facId int , in proId int)
 	begin 
 		insert into DetalleFactura(facturaId, productoId) values
 			(facId, proId);
+		update Productos 
+		set cantidadStock = cantidadStock -1
+		where productoId = proId;
     end $$
 delimiter ;
 delimiter $$
@@ -306,11 +308,12 @@ create procedure sp_agregarFactura(in cliId int, in empId int, in proId int)
 	begin
 		declare nuevaFacturaId int;
 		insert into Facturas (fecha, hora, total, clienteId, empleadoId) values
-			(date(now()), time(now()), total, cliId, empId);
+		(date(now()), time(now()), total, cliId, empId);
 		set nuevaFacturaId = LAST_INSERT_ID();
-        call sp_agregarDetalleFactura(nuevaFacturaId, proId);
-        select fn_calcularTotalFacturas(nuevaFacturaId);
-
+		call sp_agregarDetalleFactura(nuevaFacturaId, proId);
+		update Productos 
+		set cantidadStock = cantidadStock -1
+		where productoId = proId;
     end $$
 delimiter ; 
 
@@ -323,9 +326,10 @@ begin
 			where facturaId = facId; 
 end $$
 delimiter ;
+
 -- listar
 delimiter $$
-create procedure sp_listarFacturas()
+create procedure sp_listarFactura()
 	begin
 		select * from Facturas;
     end $$
@@ -528,10 +532,16 @@ DELIMITER $$
 create procedure sp_ListarDetalleFactura()
 begin
 	select 
-		DetalleFactura.detalleFacturaId,
-        DetalleFactura.facturaId,
-        DetalleFactura.productoId
-			from DetalleFactura;
+        F.facturaId,
+        concat('Id: ', P.productoId, ' | ', P.nombreProducto) as 'Producto',
+        concat('Id: ', C.clienteId, ' | ', C.nombre)as 'Cliente', 
+        concat('Id: ', E.empleadoId, ' | ', E.nombreEmpleado ) as 'Empleado',
+        F.fecha, F.hora, F.total
+			from DetalleFactura
+		Join Productos P on DetalleFactura.productoId = P.productoId
+        Join Facturas F on DetalleFactura.facturaId = F.facturaId
+        Join Clientes C on F.clienteId = C.clienteId
+        Join Empleados E on F.empleadoId = E.empleadoId;
 end $$
 DELIMITER ;
 -- eliminar
@@ -624,8 +634,7 @@ create procedure sp_agregarUsuario(in usu varchar(50),in con varchar(100),in niv
 	end $$ 
 delimiter ; 
 
-call sp_agregarUsuario('Ljimenez', '1234', 1, 1);
-select * from Usuarios;
+
 
 delimiter $$
 create procedure sp_buscarUsuario(us varchar(50))
@@ -642,5 +651,3 @@ create procedure sp_listarNivelAcceso()
     end $$
 
 delimiter ;
-
-call sp_listarNivelAcceso();

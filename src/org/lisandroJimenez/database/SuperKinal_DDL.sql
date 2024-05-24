@@ -6,28 +6,28 @@ create database if not exists superkinalin5cvdb;
 use superkinalin5cvdb;
 
 
-create table Cargos( -- Cristian  O
+create table Cargos( 
 	cargoId int not null auto_increment,
     nombreCargo varchar(30) not null,
     descripcionCargo varchar(100)not null,
     primary key PK_cargoId(cargoId)
 );
 
-create table compras( -- Lisandro  
+create table compras( 
 	compraId int not null auto_increment,
     fechaCompra date not null,
     totalCompra decimal(10,2),
     primary key PK_compraId(compraId)
 );
 
-create table CategoriaProductos(-- cristian
+create table CategoriaProductos(
 	categoriaProductosId int not null auto_increment,
     nombreCategoria varchar(30) not null,
     descripcionCategoria varchar(100)not null,
     primary key PK_categoriaProdutosId(categoriaProductosId)
 );
 
-create table Distribuidores( -- Cristian
+create table Distribuidores( 
 	distribuidorId int not null auto_increment,
     nombreDistribuidor varchar(30) not null,
     direccionDistribuidor varchar(200) not null,
@@ -37,7 +37,7 @@ create table Distribuidores( -- Cristian
     primary key PK_distribuidorId (distribuidorId)
 );
 
-create table Empleados( -- joaquin 
+create table Empleados( 
 	empleadoId int not null auto_increment,
     nombreEmpleado varchar(30)not null,
     apellidoEmpleado varchar(30)not null,
@@ -63,7 +63,7 @@ create table Clientes(
     primary key PK_clienteId(clienteId)
 );
 
-create table Facturas(	-- joaquin
+create table Facturas(	
 	facturaId int not null auto_increment,
     fecha date not null,
     hora time not null,
@@ -77,7 +77,7 @@ create table Facturas(	-- joaquin
 		references Empleados(empleadoId)
 );
 
-create table TicketSoporte( -- aldair
+create table TicketSoporte(  
 	ticketSoporteId int not null auto_increment,
     descripcionTicket varchar(250) not null,
     estatus varchar(30)not null,
@@ -90,7 +90,7 @@ create table TicketSoporte( -- aldair
 		references Facturas(facturaId)
 );
 
-create table Productos( -- Lisandro
+create table Productos(  
 	productoId int not null auto_increment,
     nombreProducto varchar(50)not null,
     descripcionProducto varchar(100),
@@ -108,7 +108,7 @@ create table Productos( -- Lisandro
 		references CategoriaProductos(categoriaProductosId)
 );
 
-create table Promociones( -- joaquin
+create table Promociones(  
 	promocionId int not null auto_increment,
     precioPromocion Decimal (10,2) not null,
     descripcionPromocion Varchar (100),
@@ -120,7 +120,7 @@ create table Promociones( -- joaquin
 		references Productos(productoId)
 );
 
-create table DetalleFactura( -- aldair
+create table DetalleFactura(  
 	detalleFacturaId int not null auto_increment,
     facturaId int not null,
     productoId int not null,
@@ -131,7 +131,7 @@ create table DetalleFactura( -- aldair
 		references Productos(productoId)
 );
 
-create table DetalleCompra( --  Lisandro
+create table DetalleCompra(   
 	detalleCompraId int not null auto_increment,
     cantidadCompra int not null,
     productoId int not null,
@@ -148,6 +148,7 @@ create table NivelesAcceso(
     nivelAcceso varchar(40)not null,
     primary key PK_nivelAccesoId(nivelAccesoId)
 );
+
 create table Usuarios(
 	usuarioId int not null auto_increment,
     usuario varchar(50)not null,

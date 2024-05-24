@@ -29,6 +29,7 @@ import org.lisandroJimenez.controller.FormProductosController;
 import org.lisandroJimenez.controller.FormUsuarioController;
 import org.lisandroJimenez.controller.LoginController;
 import org.lisandroJimenez.controller.MenuComprasController;
+import org.lisandroJimenez.controller.MenuFacturasController;
 import org.lisandroJimenez.controller.MenuEmpleadosController;
 import org.lisandroJimenez.controller.MenuProductosController;
 import org.lisandroJimenez.controller.MenuPromocionesController;
@@ -50,6 +51,7 @@ public class Main extends Application {
         stage.setTitle("Super Kinal app");
         Image icon = new Image("org/lisandroJimenez/image/icono.png");
         stage.getIcons().add(icon);
+        
         LoginView();
         stage.show();
         
@@ -227,6 +229,15 @@ public class Main extends Application {
         try{
             FormUsuarioController formUsuarioView = (FormUsuarioController)switchScene("FormUsuarioView.fxml", 450, 650);
             formUsuarioView.setStage(this);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void MenuFacturasView(){
+        try{
+            MenuFacturasController menuFacturasView = (MenuFacturasController)switchScene("MenuFacturasView.fxml", 950, 625);
+            menuFacturasView.setStage(this);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

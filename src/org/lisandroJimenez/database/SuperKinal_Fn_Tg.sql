@@ -94,15 +94,14 @@ end $$
 
 delimiter ;
 
+delimiter $$
+create trigger tg_totalCompra
+after insert on DetalleCompra
+for each row
+begin
+	declare total decimal(10,2);
+    set total = fn_calcularTotalCompras(new.compraId);
+end $$
+delimiter ;
 
 
-
-
-
-select * from DetalleCompra;
-
-call sp_agregarCompra(1,2);
-select * from Compras;
-select * from Productos;
-select fn_calcularTotalCompras(2);
-call sp_ListarDetalleCompra()

@@ -64,7 +64,13 @@ public class MenuEmpleadosController implements Initializable {
 
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresar) {
-            stage.MenuPrincipalView();
+            if(op == 2){
+                stage.MenuPrincipalView();
+                
+            }else{
+                stage.FormUsuarioView();
+            }
+
         } else if (event.getSource() == btnVaciar) {
             vaciarCampos();
         } else if (event.getSource() == btnGuardar) {

@@ -21,24 +21,29 @@ public class Facturas {
     private Double total;//
     private String cliente;
     private String empleado;
+    private String factura;
 
-    public Facturas(int facturaId, Date fecha, Time hora, int clienteId, int empleadoId, Double total) {
-        this.facturaId = facturaId;
+    public Facturas(Date fecha, Time hora, String cliente, String empleado, Double total) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.cliente = cliente;
+        this.empleado = empleado;
+        this.total = total;
+    }
+
+    public Facturas(Date fecha, Time hora, int clienteId, int empleadoId, Double total, String cliente, String empleado) {
         this.fecha = fecha;
         this.hora = hora;
         this.clienteId = clienteId;
         this.empleadoId = empleadoId;
         this.total = total;
-    }
-
-    public Facturas(int facturaId, Date fecha, Time hora, Double total, String cliente, String empleado) {
-        this.facturaId = facturaId;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.total = total;
         this.cliente = cliente;
         this.empleado = empleado;
     }
+
+    
+    
+    
 
     public int getFacturaId() {
         return facturaId;
@@ -102,6 +107,21 @@ public class Facturas {
 
     public void setEmpleado(String empleado) {
         this.empleado = empleado;
+    }
+
+    public String getFactura() {
+        return factura;
+    }
+
+    public void setFactura(String factura) {
+        this.factura = factura;
+    }
+
+    
+    
+    @Override
+    public String toString() {
+        return "Id: " + factura;
     }
     
     

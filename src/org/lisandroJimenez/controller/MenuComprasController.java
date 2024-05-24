@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,11 +43,11 @@ import org.lisandroJimenez.utils.SuperKinalAlert;
 public class MenuComprasController implements Initializable {
 
     @FXML
-    ComboBox cmbProductos;
+    ComboBox cmbProductos, cmbCompraId;
     @FXML
     Button btnGuardar, btnCancelar, btnVaciar;
     @FXML
-    TextField tfTotal, tfCantidad, tfCompraId;
+    TextField tfTotal, tfCantidad;
     @FXML
     DatePicker dpFecha;
     @FXML
@@ -61,6 +62,7 @@ public class MenuComprasController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatos();
+        cmbCompraId.setItems(listarCompraIds());
         cmbProductos.setItems(listarProducto());
     }
 
@@ -70,19 +72,14 @@ public class MenuComprasController implements Initializable {
         } else if (event.getSource() == btnVaciar) {
             vaciarCampos();
         } else if (event.getSource() == btnGuardar) {
-            if (tfCompraId.getText().equals("")) {
+            if (cmbCompraId.getSelectionModel().getSelectedItem() == null) {
                 agregarCompra();
                 cargarDatos();
                 SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-            }else{     
-                if (dpFecha.getValue() != null) {
-                    if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
-                        editarCompra();
-                        cargarDatos();
-                    }
-                } else {
-                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
-                }
+            } else {
+                agregarDetalleCompra();
+                cargarDatos();
+                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
             }
         }
     }
@@ -100,7 +97,7 @@ public class MenuComprasController implements Initializable {
     public void cargarDatosEditar() {
         DetalleCompras DC = (DetalleCompras) tblCompras.getSelectionModel().getSelectedItem();
         if (DC != null) {
-            tfCompraId.setText(Integer.toString(DC.getCompraId()));
+            cmbCompraId.getSelectionModel().select(obtenerIndexCompra());
             tfTotal.setText(Double.toString(DC.getTotalCompra()));
             tfCantidad.setText(Integer.toString(DC.getCantidadCompra()));
             cmbProductos.getSelectionModel().select(obtenerIndexProducto());
@@ -115,7 +112,7 @@ public class MenuComprasController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfCantidad.getText()));
             statement.setInt(2, ((Productos) cmbProductos.getSelectionModel().getSelectedItem()).getProductoId());
-            statement.setInt(3, Integer.parseInt(tfCompraId.getText()));
+            statement.setInt(3, (Integer) cmbCompraId.getSelectionModel().getSelectedItem());
             statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -156,20 +153,6 @@ public class MenuComprasController implements Initializable {
                 System.out.println(e.getMessage());
 
             }
-        }
-    }
-    
-    public void editarCompra(){
-        try {
-            conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_editarCompra(?)";
-            statement = conexion.prepareStatement(sql);
-            statement.setInt(1, Integer.parseInt(tfCompraId.getText()));
-            statement.setDate(2,Date.valueOf(dpFecha.getValue()));
-            statement.execute();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -213,17 +196,29 @@ public class MenuComprasController implements Initializable {
 
     public int obtenerIndexProducto() {
         int index = 0;
-        DetalleCompras selectedDetalleCompra = (DetalleCompras) tblCompras.getSelectionModel().getSelectedItem();
-        if (selectedDetalleCompra != null) {
-            ObservableList<Productos> productos = cmbProductos.getItems();
-            for (int i = 0; i < productos.size(); i++) {
-                Productos producto = productos.get(i);
-                if (producto.getNombreProducto().equals(selectedDetalleCompra.getProducto())) {
-                    index = i;
-                    break;
-                }
+        for (int i = 0; i < cmbProductos.getItems().size(); i++) {
+            String productoCmb = cmbProductos.getItems().get(i).toString();
+            String compraTbl = ((DetalleCompras) tblCompras.getSelectionModel().getSelectedItem()).getProducto();
+            if (productoCmb.equals(compraTbl)) {
+                index = i;
+                break;
             }
         }
+
+        return index;
+    }
+
+    public int obtenerIndexCompra() {
+        int index = 0;
+        for (int i = 0; i < cmbCompraId.getItems().size(); i++) {
+            String productoCmb = cmbCompraId.getItems().get(i).toString();
+            int compraTbl = ((DetalleCompras) tblCompras.getSelectionModel().getSelectedItem()).getCompraId();
+            if (productoCmb.equals(compraTbl)) {
+                index = i;
+                break;
+            }
+        }
+
         return index;
     }
 
@@ -270,8 +265,41 @@ public class MenuComprasController implements Initializable {
         return FXCollections.observableList(productos);
     }
 
+    public ObservableList<Integer> listarCompraIds() {
+        HashSet<Integer> compraIds = new HashSet<>();
+
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_ListarDetalleCompra()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int compraId = resultSet.getInt("compraId");
+                compraIds.add(compraId);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return FXCollections.observableList(new ArrayList<>(compraIds));
+    }
+
     public void vaciarCampos() {
-        tfCompraId.clear();
+        cmbCompraId.getSelectionModel().clearSelection();
         tfTotal.clear();
         tfCantidad.clear();
         cmbProductos.getSelectionModel().clearSelection();

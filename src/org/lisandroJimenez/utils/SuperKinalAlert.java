@@ -60,6 +60,12 @@ public class SuperKinalAlert {
             alert.setHeaderText("Contraseña Incorrecta");
             alert.setContentText("Verifique la contraseña");
             alert.showAndWait();
+        }else if (code == 406) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Producto Agotado");
+            alert.setHeaderText("Producto Agotado");
+            alert.setContentText("Lo sentimos, ya no hay producto en el Stock");
+            alert.showAndWait();
         }
     }
 
