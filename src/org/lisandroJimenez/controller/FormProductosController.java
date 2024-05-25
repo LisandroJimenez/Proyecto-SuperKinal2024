@@ -155,7 +155,12 @@ public class FormProductosController implements Initializable {
             String sql = "call sp_agregarProducto(?,?,?,?,?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setString(1, tfNombre.getText());
-            statement.setString(2, taDescripcion.getText());
+            if (taDescripcion.getText() == null) {
+                statement.setString(2, null);
+            } else {
+
+                statement.setString(2, taDescripcion.getText());
+            }
             statement.setInt(3, Integer.parseInt(tfStock.getText()));
             statement.setDouble(4, Double.parseDouble(tfPrecioU.getText()));
             statement.setDouble(5, Double.parseDouble(tfPrecioM.getText()));
@@ -200,9 +205,10 @@ public class FormProductosController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfProductoId.getText()));
             statement.setString(2, tfNombre.getText());
-            if (taDescripcion.getText().isEmpty()) {
+            if (taDescripcion.getText() == null) {
                 statement.setString(3, null);
             } else {
+
                 statement.setString(3, taDescripcion.getText());
             }
             statement.setInt(4, Integer.parseInt(tfStock.getText()));
@@ -214,10 +220,10 @@ public class FormProductosController implements Initializable {
             } else {
                 // Si hay una imagen cargada, entonces establece el flujo binario
                 //img = new FileInputStream(files.get(0));
-                if(files != null){
+                if (files != null) {
                     img = new FileInputStream(files.get(0));
                     statement.setBinaryStream(8, img);
-                }else{
+                } else {
                     statement.setBlob(8, ProductoDTO.getProductoDTO().getProducto().getImagenProducto());
                 }
             }

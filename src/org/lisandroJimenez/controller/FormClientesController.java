@@ -88,7 +88,7 @@ public class FormClientesController implements Initializable {
             statement.setString(3, tfTelefono.getText());
             statement.setString(4, tfDireccion.getText());
             statement.setString(5, tfNit.getText());
-            statement.executeUpdate();
+            statement.execute();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

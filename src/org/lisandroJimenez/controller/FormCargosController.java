@@ -69,7 +69,7 @@ public class FormCargosController implements Initializable {
                     return;
                 }
             } else if (op == 2) {
-                if (!tfNombreCargo.getText().equals("") && !taDescripcionCargo.getText().equals("")) {
+                if (!tfCargoId.getText().isEmpty() &&!tfNombreCargo.getText().equals("") && !taDescripcionCargo.getText().equals("")) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         EditarCargo();
                         stage.MenuCargosView();

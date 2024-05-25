@@ -7,9 +7,11 @@ package org.lisandroJimenez.controller;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -27,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.model.Cliente;
+import org.lisandroJimenez.model.DetalleFacturas;
 import org.lisandroJimenez.model.TicketSoporte;
 import org.lisandroJimenez.system.Main;
 import org.lisandroJimenez.utils.SuperKinalAlert;
@@ -58,6 +61,7 @@ public class MenuTicketSoporteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         cargarCmbEstatus();
         cmbClientes.setItems(listarClientes());
+        cmbFactura.setItems(listarFactura());
         cargarDatos();
     }
 
@@ -76,23 +80,37 @@ public class MenuTicketSoporteController implements Initializable {
         tblTicketSoporte.getSortOrder().add(colTicketId);
 
     }
-    
-    public void cargarDatosEditar(){
-        TicketSoporte ts = (TicketSoporte)tblTicketSoporte.getSelectionModel().getSelectedItem();
-        if(ts != null){
+
+    public void cargarDatosEditar() {
+        TicketSoporte ts = (TicketSoporte) tblTicketSoporte.getSelectionModel().getSelectedItem();
+        if (ts != null) {
             tfTicketId.setText(Integer.toString(ts.getTicketSoporteId()));
             taDescripcion.setText(ts.getDescripcionTicket());
             cmbEstatus.getSelectionModel().select(0);
             cmbClientes.getSelectionModel().select(obtenerIndexCliente());
+            cmbFactura.getSelectionModel().select(obtenerIndexFactura());
         }
     }
-    
-    public int obtenerIndexCliente(){
+
+    public int obtenerIndexCliente() {
         int index = 0;
-        for(int i = 0; i<= cmbClientes.getItems().size(); i++){
+        for (int i = 0; i <= cmbClientes.getItems().size(); i++) {
             String clienteCmb = cmbClientes.getItems().get(i).toString();
-            String clienteTbl = ((TicketSoporte)tblTicketSoporte.getSelectionModel().getSelectedItem()).getCliente();
-            if(clienteCmb.equals(clienteTbl)){
+            String clienteTbl = ((TicketSoporte) tblTicketSoporte.getSelectionModel().getSelectedItem()).getCliente();
+            if (clienteCmb.equals(clienteTbl)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    public int obtenerIndexFactura() {
+        int index = 0;
+        for (int i = 0; i < cmbFactura.getItems().size(); i++) {
+            String facturaCmb = cmbFactura.getItems().get(i).toString();
+            int facturasTbl = ((TicketSoporte) tblTicketSoporte.getSelectionModel().getSelectedItem()).getFacturaId();
+            if (facturaCmb.equals(facturasTbl)) {
                 index = i;
                 break;
             }
@@ -146,7 +164,7 @@ public class MenuTicketSoporteController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setString(1, taDescripcion.getText());
             statement.setInt(2, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(3, 1);
+            statement.setInt(3, ((DetalleFacturas) cmbFactura.getSelectionModel().getSelectedItem()).getFacturaId());
             statement.execute();
 
         } catch (SQLException e) {
@@ -165,8 +183,8 @@ public class MenuTicketSoporteController implements Initializable {
             }
         }
     }
-    
-    public void editarTicket(){
+
+    public void editarTicket() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_editarTicketSoporte(?,?,?,?,?)";
@@ -174,7 +192,7 @@ public class MenuTicketSoporteController implements Initializable {
             statement.setInt(1, Integer.parseInt(tfTicketId.getText()));
             statement.setString(2, taDescripcion.getText());
             statement.setString(3, cmbEstatus.getSelectionModel().getSelectedItem().toString());
-            statement.setInt(4, ((Cliente)cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
+            statement.setInt(4, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
             statement.setInt(5, 1);
             statement.execute();
 
@@ -233,23 +251,68 @@ public class MenuTicketSoporteController implements Initializable {
         }
         return FXCollections.observableList(clientes);
     }
-    
-    public void vaciarCampos(){
+
+    public ObservableList<DetalleFacturas> listarFactura() {
+        ArrayList<DetalleFacturas> factura = new ArrayList<>();
+
+        try {
+            conexion = Conexion.getInstance().obtenerConexion();
+            String sql = "call sp_ListarDetalleFactura()";
+            statement = conexion.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int facturaId = resultSet.getInt("facturaId");
+                String producto = resultSet.getString("Producto");
+                String cliente = resultSet.getString("Cliente");
+                String empleado = resultSet.getString("Empleado");
+                Date fecha = resultSet.getDate("fecha");
+                Time hora = resultSet.getTime("hora");
+                Double total = resultSet.getDouble("total");
+                factura.add(new DetalleFacturas(producto, facturaId, fecha, hora, cliente, empleado, total));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (conexion != null) {
+                    conexion.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return FXCollections.observableList(factura);
+    }
+
+    public void vaciarCampos() {
         tfTicketId.clear();
         taDescripcion.clear();
         cmbEstatus.getSelectionModel().clearSelection();
         cmbClientes.getSelectionModel().clearSelection();
+        cmbFactura.getSelectionModel().clearSelection();
     }
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnBack) {
             stage.MenuPrincipalView();
-        }else if(event.getSource() == btnGuardar){
-            if(tfTicketId.getText().equals("")){      
-                agregarTicket();
-                cargarDatos();
-                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-            }else{     
+        } else if (event.getSource() == btnGuardar) {
+            if (tfTicketId.getText().equals("")) {
+                if (tfTicketId.getText().isEmpty() && cmbClientes.getSelectionModel().getSelectedItem() == null && cmbFactura.getSelectionModel().getSelectedItem() == null & taDescripcion.getText().isEmpty()) {
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                } else {
+                    agregarTicket();
+                    cargarDatos();
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+
+                }
+            } else {
                 if (!taDescripcion.getText().equals("")) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         editarTicket();
@@ -259,7 +322,7 @@ public class MenuTicketSoporteController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
                 }
             }
-        }else if(event.getSource()== btnVaciarForm){
+        } else if (event.getSource() == btnVaciarForm) {
             vaciarCampos();
         }
     }

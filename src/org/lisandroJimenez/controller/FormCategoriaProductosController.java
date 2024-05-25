@@ -67,7 +67,7 @@ public class FormCategoriaProductosController implements Initializable {
                     return;
                 }
             } else if (op == 2) {
-                if (!tfNombreCategoria.getText().equals("") && !taDescripcionCategoria.getText().equals("")) {
+                if (!tfCategoriaId.getText().isEmpty() &&!tfNombreCategoria.getText().equals("") && !taDescripcionCategoria.getText().equals("")) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         EditarCategoriaProducto();
                         stage.MenuCategoriaProductosView();

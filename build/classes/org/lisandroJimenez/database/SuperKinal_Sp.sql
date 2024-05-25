@@ -651,3 +651,5 @@ create procedure sp_listarNivelAcceso()
     end $$
 
 delimiter ;
+
+select * from NivelesAcceso;

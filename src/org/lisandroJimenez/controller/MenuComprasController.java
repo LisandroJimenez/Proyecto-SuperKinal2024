@@ -73,13 +73,25 @@ public class MenuComprasController implements Initializable {
             vaciarCampos();
         } else if (event.getSource() == btnGuardar) {
             if (cmbCompraId.getSelectionModel().getSelectedItem() == null) {
-                agregarCompra();
-                cargarDatos();
-                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+                if (cmbProductos.getSelectionModel().getSelectedItem() == null && tfCantidad.getText().isEmpty()) {
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                    cmbProductos.requestFocus();
+                    return;
+                } else {
+                    agregarCompra();
+                    cargarDatos();
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+                }
             } else {
-                agregarDetalleCompra();
-                cargarDatos();
-                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+                if(cmbCompraId.getSelectionModel().getSelectedItem() == null && cmbProductos.getSelectionModel().getSelectedItem() == null){
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                    cmbProductos.requestFocus();
+                    return;
+                }else{
+                    agregarDetalleCompra();
+                    cargarDatos();
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+                }
             }
         }
     }

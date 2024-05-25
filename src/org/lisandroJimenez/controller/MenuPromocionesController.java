@@ -59,22 +59,28 @@ public class MenuPromocionesController implements Initializable {
     ComboBox cmbProducto;
     @FXML
     Button btnBack, btnGuardar, btnVaciarForm;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cmbProducto.setItems(listarProducto());
         cargarDatos();
     }
-    
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnBack) {
             stage.MenuPrincipalView();
-        }else if(event.getSource() == btnGuardar){
-            if(tfPromocionId.getText().equals("")){      
-                agregarPromocion();
-                cargarDatos();
-                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-            }else{     
+        } else if (event.getSource() == btnGuardar) {
+            if (tfPromocionId.getText().equals("")) {
+                if (tfPromocionId.getText().isEmpty() && tfPrecio.getText().isEmpty() && cmbProducto.getSelectionModel().getSelectedItem() == null) {
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
+                } else {
+                    agregarPromocion();
+                    cargarDatos();
+                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
+
+                }
+            } else {
                 if (!taDescripcion.getText().equals("")) {
                     if (SuperKinalAlert.getInstance().mostrarAlertaConfirmacion(106).get() == ButtonType.OK) {
                         editarPromocion();
@@ -84,7 +90,7 @@ public class MenuPromocionesController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
                 }
             }
-        }else if(event.getSource()== btnVaciarForm){
+        } else if (event.getSource() == btnVaciarForm) {
             vaciarCampos();
         }
     }
@@ -168,7 +174,7 @@ public class MenuPromocionesController implements Initializable {
         }
         return FXCollections.observableList(promociones);
     }
-    
+
     public void agregarPromocion() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
@@ -176,7 +182,12 @@ public class MenuPromocionesController implements Initializable {
 
             statement = conexion.prepareStatement(sql);
             statement.setDouble(1, Double.parseDouble(tfPrecio.getText()));
-            statement.setString(2, taDescripcion.getText());
+            if (taDescripcion.getText() == null) {
+                statement.setString(2, null);
+            } else {
+
+                statement.setString(2, taDescripcion.getText());
+            }
             statement.setDate(3, Date.valueOf(dpFechaInicio.getValue()));
             statement.setDate(4, Date.valueOf(dpFechaFinalizacion.getValue()));
             statement.setInt(5, ((Productos) cmbProducto.getSelectionModel().getSelectedItem()).getProductoId());
@@ -198,15 +209,20 @@ public class MenuPromocionesController implements Initializable {
             }
         }
     }
-    
-    public void editarPromocion(){
+
+    public void editarPromocion() {
         try {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_editarPromocion(?,?,?,?,?,?)";
             statement = conexion.prepareStatement(sql);
             statement.setInt(1, Integer.parseInt(tfPromocionId.getText()));
             statement.setDouble(2, Double.parseDouble(tfPrecio.getText()));
-            statement.setString(3, taDescripcion.getText());
+            if (taDescripcion.getText() == null) {
+                statement.setString(3, null);
+            } else {
+
+                statement.setString(3, taDescripcion.getText());
+            }
             statement.setDate(4, Date.valueOf(dpFechaInicio.getValue()));
             statement.setDate(5, Date.valueOf(dpFechaFinalizacion.getValue()));
             statement.setInt(6, ((Productos) cmbProducto.getSelectionModel().getSelectedItem()).getProductoId());
@@ -228,7 +244,7 @@ public class MenuPromocionesController implements Initializable {
             }
         }
     }
-    
+
     public ObservableList<Productos> listarProducto() {
         ArrayList<Productos> productos = new ArrayList<>();
 
