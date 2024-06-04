@@ -13,10 +13,11 @@ import java.sql.Time;
  * @author Usuario
  */
 public class Facturas {
+
     private int facturaId;
     private Date fecha;
     private Time hora;
-    private  int clienteId; 
+    private int clienteId;
     private int empleadoId;
     private Double total;//
     private String cliente;
@@ -24,6 +25,15 @@ public class Facturas {
     private String factura;
 
     public Facturas(Date fecha, Time hora, String cliente, String empleado, Double total) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.cliente = cliente;
+        this.empleado = empleado;
+        this.total = total;
+    }
+
+    public Facturas(String factura, Date fecha, Time hora, String cliente, String empleado, Double total) {
+        this.factura = factura;
         this.fecha = fecha;
         this.hora = hora;
         this.cliente = cliente;
@@ -41,9 +51,9 @@ public class Facturas {
         this.empleado = empleado;
     }
 
-    
-    
-    
+    public Facturas(String factura) {
+        this.factura = factura;
+    }
 
     public int getFacturaId() {
         return facturaId;
@@ -117,12 +127,9 @@ public class Facturas {
         this.factura = factura;
     }
 
-    
-    
     @Override
     public String toString() {
-        return "Id: " + factura;
+        return String.valueOf(facturaId);
     }
-    
-    
+
 }

@@ -19,8 +19,7 @@ public class Compras {
     public Compras() {
     }
 
-    public Compras(int compraId, Date fechaCompra, Double totalCompra) {
-        this.compraId = compraId;
+    public Compras(Date fechaCompra, Double totalCompra) {
         this.fechaCompra = fechaCompra;
         this.totalCompra = totalCompra;
     }
@@ -51,7 +50,7 @@ public class Compras {
 
     @Override
     public String toString() {
-        return "Compras{" + '}';
+        return String.valueOf(compraId);
     }
     
     

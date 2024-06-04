@@ -1,24 +1,29 @@
 package org.lisandroJimenez.model;
 
-
 import java.sql.Date;
 import java.sql.Time;
 import org.lisandroJimenez.model.Facturas;
 
 public class DetalleFacturas extends Facturas {
+
     private int detalleFacturaId;
     private String producto;
     private int productoId;
     private int facturaId;
 
+
     public DetalleFacturas(String producto, int facturaId, Date fecha, Time hora, String cliente, String empleado, Double total) {
         super(fecha, hora, cliente, empleado, total);
-        this.producto = producto;
         this.facturaId = facturaId;
+        this.producto = producto;
     }
 
-    public DetalleFacturas(Date fecha, Time hora, int clienteId, int empleadoId, Double total, String cliente, String empleado) {
-        super(fecha, hora, clienteId, empleadoId, total, cliente, empleado);
+    public int getFacturaId() {
+        return facturaId;
+    }
+
+    public void setFacturaId(int facturaId) {
+        this.facturaId = facturaId;
     }
 
     public int getDetalleFacturaId() {
@@ -45,19 +50,10 @@ public class DetalleFacturas extends Facturas {
         this.productoId = productoId;
     }
 
-    public int getFacturaId() {
-        return facturaId;
-    }
 
-    public void setFacturaId(int facturaId) {
-        this.facturaId = facturaId;
-    }
 
-    
-
-    
     @Override
     public String toString() {
-        return "" + facturaId; 
+        return String.valueOf(facturaId);
     }
 }

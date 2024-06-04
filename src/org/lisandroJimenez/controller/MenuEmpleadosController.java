@@ -64,10 +64,10 @@ public class MenuEmpleadosController implements Initializable {
 
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnRegresar) {
-            if(op == 2){
+            if (op == 2) {
                 stage.MenuPrincipalView();
-                
-            }else{
+
+            } else {
                 stage.FormUsuarioView();
             }
 
@@ -77,11 +77,13 @@ public class MenuEmpleadosController implements Initializable {
             if (tfEmpleadoId.getText().equals("")) {
                 if (op == 3) {
                     agregarEmpleado();
+                    cmbEncargado.setItems(listarEmpleado());
                     cargarDatos();
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
                     stage.FormUsuarioView();
-                }else {
+                } else {
                     agregarEmpleado();
+                    cmbEncargado.setItems(listarEmpleado());
                     cargarDatos();
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
                 }
@@ -168,7 +170,9 @@ public class MenuEmpleadosController implements Initializable {
                 Time horaS = resultSet.getTime("horaSalida");
                 String cargo = resultSet.getString("Cargo");
                 String encargado = resultSet.getString("Encargado");
+
                 empleados.add(new Empleados(empleadoId, nombre, apellido, sueldo, horaE, horaS, cargo, encargado));
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

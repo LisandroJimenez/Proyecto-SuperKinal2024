@@ -60,9 +60,6 @@ delimiter $$
             
 	set nuevaCompraId = LAST_INSERT_ID();
     call sp_agregarDetalleCompra(can, proId, nuevaCompraId);
-    update Productos 
-		set cantidadStock = cantidadStock + can 
-		where productoId = proId;
     end $$
 delimiter ;
 
@@ -307,13 +304,10 @@ delimiter $$
 create procedure sp_agregarFactura(in cliId int, in empId int, in proId int)
 	begin
 		declare nuevaFacturaId int;
-		insert into Facturas (fecha, hora, total, clienteId, empleadoId) values
-		(date(now()), time(now()), total, cliId, empId);
+		insert into Facturas (fecha, hora , clienteId, empleadoId) values
+		(date(now()), time(now()), cliId, empId);
 		set nuevaFacturaId = LAST_INSERT_ID();
 		call sp_agregarDetalleFactura(nuevaFacturaId, proId);
-		update Productos 
-		set cantidadStock = cantidadStock -1
-		where productoId = proId;
     end $$
 delimiter ; 
 
@@ -532,18 +526,19 @@ DELIMITER $$
 create procedure sp_ListarDetalleFactura()
 begin
 	select 
-        F.facturaId,
+        DF.facturaId,
         concat('Id: ', P.productoId, ' | ', P.nombreProducto) as 'Producto',
-        concat('Id: ', C.clienteId, ' | ', C.nombre)as 'Cliente', 
-        concat('Id: ', E.empleadoId, ' | ', E.nombreEmpleado ) as 'Empleado',
+        concat('Id: ', C.clienteId, ' ', C.nombre,' ', C.Apellido)as 'Cliente', 
+        concat('Id: ', E.empleadoId, ' | ', E.nombreEmpleado, ' ', E.apellidoEmpleado ) as 'Empleado',
         F.fecha, F.hora, F.total
-			from DetalleFactura
-		Join Productos P on DetalleFactura.productoId = P.productoId
-        Join Facturas F on DetalleFactura.facturaId = F.facturaId
+			from DetalleFactura DF
+		Join Productos P on DF.productoId = P.productoId
+        Join Facturas F on DF.facturaId = F.facturaId
         Join Clientes C on F.clienteId = C.clienteId
         Join Empleados E on F.empleadoId = E.empleadoId;
 end $$
 DELIMITER ;
+     
 -- eliminar
 DELIMITER $$
 create procedure sp_EliminarDetalleFactura(in detId int)
@@ -583,19 +578,24 @@ delimiter $$
 	begin 
 		insert into DetalleCompra(cantidadCompra, productoId, compraID)values
 			(canC, proId, comId);
+            update Productos 
+		set cantidadStock = cantidadStock + canC 
+		where productoId = proId;
     end $$
 delimiter ;
  -- listar
 delimiter $$
  create procedure sp_ListarDetalleCompra()
 	begin 
-		select DC.cantidadCompra, 
-        C.compraId, C.fechaCompra, C.totalCompra,
-        P.nombreProducto from DetalleCompra DC
+		select DC.compraId,DC.cantidadCompra, 
+		C.fechaCompra, C.totalCompra,
+        concat('Id: ', P.productoId, ' | ', P.nombreProducto)as 'nombreProducto'from DetalleCompra DC
         Join Compras C on DC.compraId = C.compraId
         Join Productos P on DC.productoId = p.productoId;
     end $$
 delimiter ;
+
+
 -- eliminar 
 delimiter $$
 create procedure sp_eliminarDetalleCompra(in detCId int)

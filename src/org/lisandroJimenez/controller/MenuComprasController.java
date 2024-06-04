@@ -83,11 +83,11 @@ public class MenuComprasController implements Initializable {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
                 }
             } else {
-                if(cmbCompraId.getSelectionModel().getSelectedItem() == null && cmbProductos.getSelectionModel().getSelectedItem() == null){
+                if (cmbCompraId.getSelectionModel().getSelectedItem() == null && cmbProductos.getSelectionModel().getSelectedItem() == null) {
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(400);
                     cmbProductos.requestFocus();
                     return;
-                }else{
+                } else {
                     agregarDetalleCompra();
                     cargarDatos();
                     SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
@@ -99,7 +99,7 @@ public class MenuComprasController implements Initializable {
     public void cargarDatos() {
         tblCompras.setItems(listarCompra());
         colCompraId.setCellValueFactory(new PropertyValueFactory<DetalleCompras, Integer>("compraId"));
-        colProducto.setCellValueFactory(new PropertyValueFactory<DetalleCompras, String>("Producto"));
+        colProducto.setCellValueFactory(new PropertyValueFactory<DetalleCompras, String>("producto"));
         colFecha.setCellValueFactory(new PropertyValueFactory<DetalleCompras, Date>("fechaCompra"));
         colCantidad.setCellValueFactory(new PropertyValueFactory<DetalleCompras, Integer>("cantidadCompra"));
         colTotal.setCellValueFactory(new PropertyValueFactory<DetalleCompras, Double>("totalCompra"));
@@ -177,13 +177,13 @@ public class MenuComprasController implements Initializable {
             statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int cantidadCompra = resultSet.getInt("cantidadCompra");
                 int compraId = resultSet.getInt("compraId");
+                int cantidadCompra = resultSet.getInt("cantidadCompra");
                 Date fecha = resultSet.getDate("fechaCompra");
                 Double total = resultSet.getDouble("totalCompra");
                 String producto = resultSet.getString("nombreProducto");
 
-                compra.add(new DetalleCompras(cantidadCompra, compraId, fecha, total, producto));
+                compra.add(new DetalleCompras(compraId, cantidadCompra, fecha, total, producto));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -222,17 +222,17 @@ public class MenuComprasController implements Initializable {
 
     public int obtenerIndexCompra() {
         int index = 0;
+        int compraTbl = ((DetalleCompras) tblCompras.getSelectionModel().getSelectedItem()).getCompraId();
         for (int i = 0; i < cmbCompraId.getItems().size(); i++) {
-            String productoCmb = cmbCompraId.getItems().get(i).toString();
-            int compraTbl = ((DetalleCompras) tblCompras.getSelectionModel().getSelectedItem()).getCompraId();
-            if (productoCmb.equals(compraTbl)) {
+            int compraCmb = (int) cmbCompraId.getItems().get(i);
+            if (compraCmb == compraTbl) {
                 index = i;
                 break;
             }
         }
-
         return index;
     }
+    
 
     public ObservableList<Productos> listarProducto() {
         ArrayList<Productos> productos = new ArrayList<>();

@@ -14,27 +14,28 @@ import java.sql.Date;
 public class DetalleCompras extends Compras{
     private int detalleCompraId;
     private int cantidadCompra;
-    private int productoId;
     private String producto;
-    private String compra;
+    private int compraId;
     
     public DetalleCompras() {
     }
 
-    public DetalleCompras(int detalleCompraId, int cantidadCompra, int productoId, String producto, String compra, int compraId, Date fechaCompra, Double totalCompra) {
-        super(compraId, fechaCompra, totalCompra);
-        this.detalleCompraId = detalleCompraId;
+    public DetalleCompras(int compraId, int cantidadCompra,Date fechaCompra, Double totalCompra, String producto) {
+        super(fechaCompra, totalCompra);
+        this.compraId = compraId;
         this.cantidadCompra = cantidadCompra;
-        this.productoId = productoId;
         this.producto = producto;
-        this.compra = compra;
     }
 
-    public DetalleCompras(int cantidadCompra, int compraId, Date fechaCompra, Double totalCompra, String producto) {
-        super(compraId, fechaCompra, totalCompra);
-        this.cantidadCompra = cantidadCompra;
-        this.producto = producto;
+    public int getCompraId() {
+        return compraId;
     }
+
+    public void setCompraId(int compraId) {
+        this.compraId = compraId;
+    }
+
+    
 
     
     public int getDetalleCompraId() {
@@ -53,13 +54,6 @@ public class DetalleCompras extends Compras{
         this.cantidadCompra = cantidadCompra;
     }
 
-    public int getProductoId() {
-        return productoId;
-    }
-
-    public void setProductoId(int productoId) {
-        this.productoId = productoId;
-    }
 
     public String getProducto() {
         return producto;
@@ -69,15 +63,12 @@ public class DetalleCompras extends Compras{
         this.producto = producto;
     }
 
-    public String getCompra() {
-        return compra;
-    }
 
-    public void setCompra(String compra) {
-        this.compra = compra;
-    }
 
-    
+    @Override
+    public String toString() {
+        return String.valueOf(compraId);
+    }
 
     
   

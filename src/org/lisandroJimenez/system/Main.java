@@ -51,10 +51,7 @@ public class Main extends Application {
         stage.setTitle("Super Kinal app");
         Image icon = new Image("org/lisandroJimenez/image/icono.png");
         stage.getIcons().add(icon);
-        // por si se guardo 
-        // user: Jcortez
-        // password: 1234
-        LoginView();
+        MenuPrincipalView();
         stage.show();
         
     }

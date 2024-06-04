@@ -33,6 +33,7 @@ import org.lisandroJimenez.dto.ProductoDTO;
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.model.DetalleFacturas;
 import org.lisandroJimenez.model.Empleados;
+import org.lisandroJimenez.model.Facturas;
 import org.lisandroJimenez.model.Productos;
 import org.lisandroJimenez.system.Main;
 import org.lisandroJimenez.utils.SuperKinalAlert;
@@ -75,22 +76,20 @@ public class MenuFacturasController implements Initializable {
         if (event.getSource() == btnRegresar) {
             stage.MenuPrincipalView();
         } else if (event.getSource() == btnGuardar) {
-            Productos producto = (Productos) cmbProductos.getSelectionModel().getSelectedItem();
-            if (producto.getCantidadStock() <= 0) {
-                SuperKinalAlert.getInstance().mostrarAlertasInfo(406);
+            if (cmbFacturaId.getSelectionModel().getSelectedItem() == null) {
+                agregarFactura();
+                cmbFacturaId.setItems(listarFacturaIds());
+                cargarDatos();
+                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
             } else {
-                if (cmbFacturaId.getSelectionModel().getSelectedItem() == null) {
-                    agregarFactura();
-                    cargarDatos();
-                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-                } else if (cmbClientes.getSelectionModel().getSelectedItem() == null && cmbEmpleados.getSelectionModel().getSelectedItem() == null) {
-                    agregarDetalleFactura();
-                    cargarDatos();
-                    SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
-                }
-
+                agregarDetalleFactura();
+                cmbFacturaId.setItems(listarFacturaIds());
+                cargarDatos();
+                SuperKinalAlert.getInstance().mostrarAlertasInfo(401);
             }
 
+        } else if (event.getSource() == btnVaciar) {
+            vaciarCampos();
         }
     }
 
@@ -136,10 +135,10 @@ public class MenuFacturasController implements Initializable {
 
     public int obtenerIndexFactura() {
         int index = 0;
+        int facturaTbl = ((DetalleFacturas) tblFacturas.getSelectionModel().getSelectedItem()).getFacturaId();
         for (int i = 0; i < cmbFacturaId.getItems().size(); i++) {
-            String facturaCmb = cmbFacturaId.getItems().get(i).toString();
-            int facturasTbl = ((DetalleFacturas) tblFacturas.getSelectionModel().getSelectedItem()).getFacturaId();
-            if (facturaCmb.equals(facturasTbl)) {
+            int facturaCmb = (int) cmbFacturaId.getItems().get(i);
+            if (facturaCmb == facturaTbl) {
                 index = i;
                 break;
             }
@@ -150,9 +149,9 @@ public class MenuFacturasController implements Initializable {
     public void cargarDatos() {
         tblFacturas.setItems(listarFactura());
         colFacturaId.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, Integer>("facturaId"));
-        colProducto.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, String>("Producto"));
-        colCliente.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, String>("Cliente"));
-        colEmpleado.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, String>("Empleado"));
+        colProducto.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, String>("producto"));
+        colCliente.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, String>("cliente"));
+        colEmpleado.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, String>("empleado"));
         colFecha.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, Date>("fecha"));
         colHora.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, Time>("hora"));
         colTotal.setCellValueFactory(new PropertyValueFactory<DetalleFacturas, Double>("total"));
@@ -332,7 +331,7 @@ public class MenuFacturasController implements Initializable {
     }
 
     public ObservableList<Integer> listarFacturaIds() {
-        HashSet<Integer> facturaIds = new HashSet<>(); 
+        HashSet<Integer> facturaIds = new HashSet<>();
 
         try {
             conexion = Conexion.getInstance().obtenerConexion();
@@ -341,7 +340,7 @@ public class MenuFacturasController implements Initializable {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int facturaId = resultSet.getInt("facturaId");
-                facturaIds.add(facturaId); 
+                facturaIds.add(facturaId);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -368,11 +367,11 @@ public class MenuFacturasController implements Initializable {
             conexion = Conexion.getInstance().obtenerConexion();
             String sql = "call sp_agregarDetalleFactura(?,?)";
             statement = conexion.prepareStatement(sql);
-            DetalleFacturas facturaSeleccionada = (DetalleFacturas) cmbFacturaId.getSelectionModel().getSelectedItem();
+            Integer facturaSeleccionada = (Integer) cmbFacturaId.getSelectionModel().getSelectedItem();
             Productos productoSeleccionado = (Productos) cmbProductos.getSelectionModel().getSelectedItem();
 
             if (facturaSeleccionada != null && productoSeleccionado != null) {
-                statement.setInt(1, facturaSeleccionada.getFacturaId());
+                statement.setInt(1, facturaSeleccionada);
                 statement.setInt(2, productoSeleccionado.getProductoId());
                 statement.execute();
             }
@@ -423,6 +422,16 @@ public class MenuFacturasController implements Initializable {
 
             }
         }
+    }
+
+    public void vaciarCampos() {
+        tfHora.clear();
+        tfTotal.clear();
+        dpFecha.setValue(null);
+        cmbFacturaId.getSelectionModel().clearSelection();
+        cmbProductos.getSelectionModel().clearSelection();
+        cmbClientes.getSelectionModel().clearSelection();
+        cmbEmpleados.getSelectionModel().clearSelection();
     }
 
     public Main getStage() {
