@@ -35,6 +35,7 @@ import org.lisandroJimenez.model.DetalleFacturas;
 import org.lisandroJimenez.model.Empleados;
 import org.lisandroJimenez.model.Facturas;
 import org.lisandroJimenez.model.Productos;
+import org.lisandroJimenez.report.GenerarReporte;
 import org.lisandroJimenez.system.Main;
 import org.lisandroJimenez.utils.SuperKinalAlert;
 
@@ -46,7 +47,7 @@ import org.lisandroJimenez.utils.SuperKinalAlert;
 public class MenuFacturasController implements Initializable {
 
     @FXML
-    Button btnRegresar, btnGuardar, btnVaciar;
+    Button btnRegresar, btnGuardar, btnVaciar, btnVerFactura;
     @FXML
     TextField tfHora, tfTotal;
     @FXML
@@ -90,6 +91,8 @@ public class MenuFacturasController implements Initializable {
 
         } else if (event.getSource() == btnVaciar) {
             vaciarCampos();
+        }else if(event.getSource() == btnVerFactura){
+            GenerarReporte.getInstance().generarFactura(((Facturas)tblFacturas.getSelectionModel().getSelectedItem()).getFacturaId());
         }
     }
 

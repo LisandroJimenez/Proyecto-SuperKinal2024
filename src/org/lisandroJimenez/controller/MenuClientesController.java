@@ -26,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.dto.ClienteDTO;
 import org.lisandroJimenez.model.Cliente;
+import org.lisandroJimenez.report.GenerarReporte;
 import org.lisandroJimenez.system.Main;
 import org.lisandroJimenez.utils.SuperKinalAlert;
 
@@ -41,7 +42,7 @@ public class MenuClientesController implements Initializable {
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
     @FXML
-    Button btnBack, btnAgregar, btnEliminar, btnEditar, btnBuscar;
+    Button btnVerClientes, btnBack, btnAgregar, btnEliminar, btnEditar, btnBuscar;
     @FXML
     TableView tblClientes;
     @FXML
@@ -83,6 +84,9 @@ public class MenuClientesController implements Initializable {
                 colDireccion.setCellValueFactory(new PropertyValueFactory<Cliente, String>("direccion"));
                 colNit.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Nit"));
             }
+        }else if(event.getSource() == btnVerClientes){
+            GenerarReporte.getInstance().generarCliente();
+
         }
     }
 

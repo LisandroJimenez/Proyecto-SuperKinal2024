@@ -43,7 +43,7 @@
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Editar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Eliminar" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Agregar" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="79.0" text="Reportes" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button fx:id="btnVerClientes" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Reportes" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Regresar" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
          </children>
       </GridPane>

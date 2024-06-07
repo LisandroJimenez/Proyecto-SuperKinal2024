@@ -36,6 +36,7 @@ import org.lisandroJimenez.dto.ProductoDTO;
 import org.lisandroJimenez.model.CategoriaProductos;
 import org.lisandroJimenez.model.Distribuidores;
 import org.lisandroJimenez.model.Productos;
+import org.lisandroJimenez.report.GenerarReporte;
 import org.lisandroJimenez.system.Main;
 
 /**
@@ -54,7 +55,7 @@ public class MenuProductosController implements Initializable {
     @FXML
     TableColumn colProductoId, colNombre, colDescripcion, colStock, colPrecio, colPrecioU, colPrecioM, colDistribuidor, colCategoria;
     @FXML
-    Button btnBack, btnAgregar, btnEditar;
+    Button btnVerProductos, btnBack, btnAgregar, btnEditar;
     @FXML
     ImageView imgMostrar;
 
@@ -67,6 +68,8 @@ public class MenuProductosController implements Initializable {
         } else if (event.getSource() == btnEditar) {
             ProductoDTO.getProductoDTO().setProducto((Productos) tblProductos.getSelectionModel().getSelectedItem());
             stage.FormProductosView(2);
+        }else if (event.getSource() == btnVerProductos){
+            GenerarReporte.getInstance().generarProducto();
         }
     }
 

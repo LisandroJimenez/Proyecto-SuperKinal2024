@@ -162,5 +162,7 @@ create table Usuarios(
 		Empleados(empleadoId)
 );
 
-
+select * from Productos P
+join Distribuidores D on P.distribuidorId = D.distribuidorId
+join CategoriaProductos C on P.categoriaProductosId = C.categoriaProductosId;
 set global time_zone = '-6:00';

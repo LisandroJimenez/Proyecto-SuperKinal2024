@@ -46,5 +46,6 @@
          </children>
       </GridPane>
       <ImageView fx:id="imgMostrar" fitHeight="273.0" fitWidth="268.0" layoutX="1029.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="btnVerProductos" layoutX="243.0" layoutY="584.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Reportes Productos" />
    </children>
 </AnchorPane>
