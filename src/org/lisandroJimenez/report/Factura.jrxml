@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Factura" pageWidth="400" pageHeight="800" columnWidth="360" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec2f620e-1dce-46d7-9b6c-4ec62c5404c6">
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Factura" pageWidth="420" pageHeight="800" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec2f620e-1dce-46d7-9b6c-4ec62c5404c6">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SuperKinal"/>
-	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="facId" class="java.lang.Integer"/>
 	<queryString language="SQL">
 		<![CDATA[select * from DetalleFactura DF
@@ -80,8 +71,16 @@ where F.facturaId = $P{facId}]]>
 		<property name="com.jaspersoft.studio.field.name" value="Total"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="Facturas"/>
 	</field>
+	<field name="precioVentaMayor" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="precioVentaMayor"/>
+		<property name="com.jaspersoft.studio.field.name" value="precioVentaMayor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Productos"/>
+	</field>
 	<variable name="TotalSinIVa" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{precioVentaUnitario}]]></variableExpression>
+	</variable>
+	<variable name="Cantidad" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{nombreProducto}]]></variableExpression>
 	</variable>
 	<group name="direccion">
 		<groupExpression><![CDATA[$F{direccion}]]></groupExpression>
@@ -123,7 +122,7 @@ where F.facturaId = $P{facId}]]>
 		<band height="165" splitType="Stretch">
 			<image>
 				<reportElement x="-20" y="-20" width="170" height="155" uuid="0343ea71-b3e5-4633-bb3a-9c3a9576ceb5"/>
-				<imageExpression><![CDATA["C:/Users/Informatica/Desktop/Repositorios github/Proyecto-SuperKinal2024/src/org/lisandroJimenez/image/icono.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/Users/Usuario/OneDrive/Escritorio/GitHub Casa/Proyecto-SuperKinal2024/src/org/lisandroJimenez/image/icono.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="150" y="40" width="190" height="70" uuid="9543ff6c-b552-425f-b4c2-9d3a9f761ff6"/>
@@ -192,7 +191,7 @@ where F.facturaId = $P{facId}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="39" splitType="Stretch">
 			<textField>
 				<reportElement x="20" y="0" width="160" height="30" uuid="cccfdd88-21d9-484a-896b-67258853afa1">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="76a8ed30-c436-4c36-b405-86c5327ca7d6"/>
@@ -209,7 +208,8 @@ where F.facturaId = $P{facId}]]>
 				<textElement>
 					<font size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Q. " +$F{precioVentaUnitario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precioVentaUnitario} 
+]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="-1" y="5" width="21" height="21" uuid="4ee23474-7b83-4b5c-b775-c6f763d4f44d"/>
@@ -218,44 +218,45 @@ where F.facturaId = $P{facId}]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="100" splitType="Stretch">
+		<band height="95" splitType="Stretch">
 			<textField>
-				<reportElement x="240" y="1" width="100" height="30" uuid="61949555-e37d-4515-8759-8fd799cd8c5d"/>
+				<reportElement x="220" y="5" width="110" height="30" uuid="61949555-e37d-4515-8759-8fd799cd8c5d"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Q. "+$V{TotalSinIVa}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="0" width="120" height="30" uuid="2c343940-f6b1-4684-bc84-f66385708902"/>
+				<reportElement x="-10" y="5" width="120" height="30" uuid="2c343940-f6b1-4684-bc84-f66385708902"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<text><![CDATA[Precio Sin Iva:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="20" y="30" width="100" height="30" uuid="5ed3ddfb-a33a-43eb-b5ae-fd4660525c2e"/>
+				<reportElement x="-10" y="35" width="100" height="30" uuid="5ed3ddfb-a33a-43eb-b5ae-fd4660525c2e"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<text><![CDATA[IVA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="240" y="30" width="100" height="30" uuid="2cb0d8ea-3cbc-4f70-b77e-cef67f89c20c"/>
+				<reportElement x="220" y="35" width="210" height="30" uuid="2cb0d8ea-3cbc-4f70-b77e-cef67f89c20c"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Q. "+$V{TotalSinIVa} * 0.12]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Q. " + new DecimalFormat("#,##0.00").format($V{TotalSinIVa} * 0.12)
+]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="65" width="100" height="30" uuid="41dd1192-959d-4c5c-a633-7ac413fa4f6c"/>
+				<reportElement x="220" y="65" width="110" height="30" uuid="41dd1192-959d-4c5c-a633-7ac413fa4f6c"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Q. "+$F{Total}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="20" y="60" width="100" height="30" uuid="78306393-f90f-46d5-9a86-2bbf6d1bf6f7"/>
+				<reportElement x="-10" y="65" width="100" height="30" uuid="78306393-f90f-46d5-9a86-2bbf6d1bf6f7"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>

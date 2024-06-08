@@ -51,7 +51,7 @@ public class Main extends Application {
         stage.setTitle("Super Kinal app");
         Image icon = new Image("org/lisandroJimenez/image/icono.png");
         stage.getIcons().add(icon);
-        MenuPrincipalView();
+        FormUsuarioView();
         stage.show();
         
     }
