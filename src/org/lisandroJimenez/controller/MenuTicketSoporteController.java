@@ -30,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.lisandroJimenez.dao.Conexion;
 import org.lisandroJimenez.model.Cliente;
 import org.lisandroJimenez.model.DetalleFacturas;
+import org.lisandroJimenez.model.Facturas;
 import org.lisandroJimenez.model.TicketSoporte;
 import org.lisandroJimenez.system.Main;
 import org.lisandroJimenez.utils.SuperKinalAlert;
@@ -61,7 +62,7 @@ public class MenuTicketSoporteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         cargarCmbEstatus();
         cmbClientes.setItems(listarClientes());
-        cmbFactura.setItems(listarFactura());
+        cmbFactura.setItems(listarFacturas());
         cargarDatos();
     }
 
@@ -164,7 +165,8 @@ public class MenuTicketSoporteController implements Initializable {
             statement = conexion.prepareStatement(sql);
             statement.setString(1, taDescripcion.getText());
             statement.setInt(2, ((Cliente) cmbClientes.getSelectionModel().getSelectedItem()).getClienteId());
-            statement.setInt(3, ((DetalleFacturas) cmbFactura.getSelectionModel().getSelectedItem()).getFacturaId());
+            Facturas facturaSeleccionada = (Facturas) cmbFactura.getSelectionModel().getSelectedItem();
+            statement.setInt(3, facturaSeleccionada.getFacturaId());
             statement.execute();
 
         } catch (SQLException e) {
@@ -252,24 +254,24 @@ public class MenuTicketSoporteController implements Initializable {
         return FXCollections.observableList(clientes);
     }
 
-    public ObservableList<DetalleFacturas> listarFactura() {
-        ArrayList<DetalleFacturas> factura = new ArrayList<>();
+    public ObservableList<Facturas> listarFacturas() {
+        ArrayList<Facturas> facturas = new ArrayList<>();
 
         try {
             conexion = Conexion.getInstance().obtenerConexion();
-            String sql = "call sp_ListarDetalleFactura()";
+            String sql = "call sp_listarFactura()";
             statement = conexion.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int facturaId = resultSet.getInt("facturaId");
-                String producto = resultSet.getString("Producto");
-                String cliente = resultSet.getString("Cliente");
-                String empleado = resultSet.getString("Empleado");
+                int cliente = resultSet.getInt("clienteId");
+                int empleado = resultSet.getInt("empleadoId");
                 Date fecha = resultSet.getDate("fecha");
                 Time hora = resultSet.getTime("hora");
                 Double total = resultSet.getDouble("total");
-                factura.add(new DetalleFacturas(producto, facturaId, fecha, hora, cliente, empleado, total));
+                facturas.add(new Facturas(facturaId, fecha, hora, cliente, empleado, total));
             }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -287,7 +289,7 @@ public class MenuTicketSoporteController implements Initializable {
                 System.out.println(e.getMessage());
             }
         }
-        return FXCollections.observableList(factura);
+        return FXCollections.observableList(facturas);
     }
 
     public void vaciarCampos() {

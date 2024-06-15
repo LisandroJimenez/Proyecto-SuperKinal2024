@@ -523,11 +523,11 @@ delimiter ;
 
 -- listar
 DELIMITER $$
-create procedure sp_ListarDetalleFactura()
+create procedure sp_ListarDetalleFactura(in facId int)
 begin
 	select 
         DF.facturaId,
-        concat('Id: ', P.productoId, ' | ', P.nombreProducto) as 'Producto',
+        concat('Id: ', P.productoId, ' | ', P.nombreProducto) as 'Producto', P.precioVentaUnitario,
         concat('Id: ', C.clienteId, ' ', C.nombre,' ', C.Apellido)as 'Cliente', 
         concat('Id: ', E.empleadoId, ' | ', E.nombreEmpleado, ' ', E.apellidoEmpleado ) as 'Empleado',
         F.fecha, F.hora, F.total
@@ -535,10 +535,11 @@ begin
 		Join Productos P on DF.productoId = P.productoId
         Join Facturas F on DF.facturaId = F.facturaId
         Join Clientes C on F.clienteId = C.clienteId
-        Join Empleados E on F.empleadoId = E.empleadoId;
+        Join Empleados E on F.empleadoId = E.empleadoId
+        where DF.facturaId = facId;
 end $$
 DELIMITER ;
-     
+select * from facturas;
 -- eliminar
 DELIMITER $$
 create procedure sp_EliminarDetalleFactura(in detId int)
@@ -651,5 +652,6 @@ create procedure sp_listarNivelAcceso()
     end $$
 
 delimiter ;
+
 
 select * from NivelesAcceso;

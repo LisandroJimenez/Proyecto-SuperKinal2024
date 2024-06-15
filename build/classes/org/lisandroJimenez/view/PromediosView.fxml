@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.PromediosController">
+   <children>
+      <ImageView fitHeight="616.0" fitWidth="883.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Grafica1VIew.png" />
+         </image>
+      </ImageView>
+      <BarChart fx:id="bcProductos" layoutX="14.0" layoutY="15.0" prefHeight="544.0" prefWidth="853.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" tickLabelFill="#ffffff" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" tickLabelFill="WHITE" />
+        </yAxis>
+      </BarChart>
+      <Button fx:id="btnRegresar" layoutX="28.0" layoutY="568.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Button" />
+   </children>
+</AnchorPane>

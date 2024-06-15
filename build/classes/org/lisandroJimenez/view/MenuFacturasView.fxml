@@ -27,7 +27,7 @@
             <TableColumn fx:id="colEmpleado" minWidth="0.0" prefWidth="122.0" text="Empleado" />
             <TableColumn fx:id="colFecha" minWidth="0.0" prefWidth="109.0" text="fecha" />
             <TableColumn fx:id="colHora" minWidth="0.0" prefWidth="110.0" text="Hora" />
-            <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="125.0" text="Total" />
+            <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="125.0" text="precioVentaUnitario" />
          </columns>
       </TableView>
       <Button fx:id="btnRegresar" layoutX="347.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />
@@ -39,5 +39,6 @@
       <ComboBox fx:id="cmbClientes" layoutX="14.0" layoutY="346.0" prefHeight="30.0" prefWidth="150.0" />
       <ComboBox fx:id="cmbEmpleados" layoutX="14.0" layoutY="440.0" prefHeight="30.0" prefWidth="150.0" />
       <Button fx:id="btnVerFactura" layoutX="50.0" layoutY="489.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Ver Factura" />
+      <Button fx:id="btnFactura" layoutX="50.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Seleccionar" />
    </children>
 </AnchorPane>

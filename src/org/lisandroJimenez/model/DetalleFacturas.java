@@ -10,14 +10,26 @@ public class DetalleFacturas extends Facturas {
     private String producto;
     private int productoId;
     private int facturaId;
+    private Double precioVentaUnitario;
 
 
-    public DetalleFacturas(String producto, int facturaId, Date fecha, Time hora, String cliente, String empleado, Double total) {
+    public DetalleFacturas(String producto, int facturaId, Date fecha, Time hora, String cliente, String empleado,Double total,  Double precioVentaUnitario) {
         super(fecha, hora, cliente, empleado, total);
         this.facturaId = facturaId;
         this.producto = producto;
+        this.precioVentaUnitario = precioVentaUnitario;
     }
 
+    public double getPrecioVentaUnitario() {
+        return precioVentaUnitario;
+    }
+
+    public void setPrecioVentaUnitario(double precioVentaUnitario) {
+        this.precioVentaUnitario = precioVentaUnitario;
+    }
+
+    
+    
     public int getFacturaId() {
         return facturaId;
     }

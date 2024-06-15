@@ -31,7 +31,23 @@ public class Facturas {
         this.empleado = empleado;
         this.total = total;
     }
+    public Facturas(Date fecha, Time hora, String cliente, String empleado) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.cliente = cliente;
+        this.empleado = empleado;
+    }
 
+    public Facturas(int facturaId, Date fecha, Time hora, int clienteId, int empleadoId, Double total) {
+        this.facturaId = facturaId;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.clienteId = clienteId;
+        this.empleadoId = empleadoId;
+        this.total = total;
+    }
+
+    
     public Facturas(String factura, Date fecha, Time hora, String cliente, String empleado, Double total) {
         this.factura = factura;
         this.fecha = fecha;
