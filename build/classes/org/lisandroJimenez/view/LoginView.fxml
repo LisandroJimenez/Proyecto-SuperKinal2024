@@ -7,8 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.LoginController">
    <children>
       <ImageView fitHeight="650.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -17,7 +16,7 @@
       </ImageView>
       <TextField fx:id="tfUser" layoutX="52.9" layoutY="257.8" prefHeight="40.7" prefWidth="243.9" />
       <PasswordField fx:id="tfPassword" layoutX="53.0" layoutY="366.0" prefHeight="40.7" prefWidth="243.9" />
-      <Button fx:id="btnIniciar" layoutX="182.0" layoutY="485.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Iniciar Sesion" />
-      <Button fx:id="btnRegistrar" disable="true" layoutX="193.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Registrar" />
+      <Button fx:id="btnIniciar" layoutX="175.0" layoutY="481.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="32.0" prefWidth="100.0" text="Iniciar Sesion" />
+      <Button fx:id="btnRegistrar" disable="true" layoutX="175.0" layoutY="528.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="32.0" prefWidth="100.0" text="Registrar" />
    </children>
 </AnchorPane>

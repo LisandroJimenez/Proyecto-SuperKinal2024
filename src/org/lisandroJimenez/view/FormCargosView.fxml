@@ -17,7 +17,7 @@
       </ImageView>
       <TextField fx:id="tfCargoId" layoutX="52.0" layoutY="123.0" prefHeight="36.0" prefWidth="216.0" />
       <TextField fx:id="tfNombreCargo" layoutX="52.0" layoutY="211.0" prefHeight="36.0" prefWidth="216.0" />
-      <TextArea fx:id="taDescripcionCargo" layoutX="52.0" layoutY="298.5" prefHeight="182.5" prefWidth="216.0" />
+      <TextArea fx:id="taDescripcionCargo" layoutX="52.0" layoutY="298.5" prefHeight="182.5" prefWidth="216.0" wrapText="true" />
       <Button fx:id="btnGuardar" alignment="CENTER" layoutX="119.0" layoutY="507.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-color: #DAEEE0; -fx-background-radius: 10;" text="Guardar">
          <font>
             <Font size="15.0" />

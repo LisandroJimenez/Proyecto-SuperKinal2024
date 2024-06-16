@@ -20,11 +20,11 @@
       </ImageView>
       <TableView fx:id="tblClientes" layoutX="64.0" layoutY="120.0" prefHeight="427.0" prefWidth="809.0">
         <columns>
-          <TableColumn fx:id="colClienteId" prefWidth="60.0" text="clienteId" />
+          <TableColumn fx:id="colClienteId" prefWidth="60.0" text="ID" />
           <TableColumn fx:id="colNombre" prefWidth="150.0" text="nombre" />
             <TableColumn fx:id="colApellido" prefWidth="150.0" text="apellido" />
-            <TableColumn fx:id="colTelefono" prefWidth="150.0" text="telefono" />
-            <TableColumn fx:id="colDireccion" prefWidth="150.0" text="direccion" />
+            <TableColumn fx:id="colTelefono" prefWidth="150.0" text="Teléfono" />
+            <TableColumn fx:id="colDireccion" prefWidth="150.0" text="Dirección" />
             <TableColumn fx:id="colNit" prefWidth="150.0" text="NIT" />
         </columns>
       </TableView>

@@ -32,12 +32,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btnGuardar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-color: #DAEEE0; -fx-background-radius: 10;" text="Guardar" GridPane.halignment="CENTER">
+            <Button fx:id="btnGuardar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-radius: 10;" text="Guardar" GridPane.halignment="CENTER">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="btnCancelar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-color: #DAEEE0; -fx-background-radius: 10;" text="Cancelar" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button fx:id="btnCancelar" alignment="CENTER" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-radius: 10;" text="Cancelar" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial Unicode MS" size="15.0" />
                </font>

@@ -33,7 +33,7 @@ import org.lisandroJimenez.controller.MenuFacturasController;
 import org.lisandroJimenez.controller.MenuEmpleadosController;
 import org.lisandroJimenez.controller.MenuProductosController;
 import org.lisandroJimenez.controller.MenuPromocionesController;
-import org.lisandroJimenez.controller.PromediosController;
+
 
 /**
  *
@@ -52,7 +52,7 @@ public class Main extends Application {
         stage.setTitle("Super Kinal app");
         Image icon = new Image("org/lisandroJimenez/image/icono.png");
         stage.getIcons().add(icon);
-        MenuPrincipalView();
+        LoginView();
         stage.show();
         
     }

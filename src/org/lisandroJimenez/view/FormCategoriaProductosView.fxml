@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="450.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.FormCategoriaProductosController">
+<AnchorPane id="AnchorPane" prefHeight="620.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.FormCategoriaProductosController">
    <children>
       <ImageView fitHeight="620.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -18,7 +17,7 @@
       </ImageView>
       <TextField fx:id="tfCategoriaId" layoutX="51.1" layoutY="136.3" prefHeight="36.0" prefWidth="216.0" />
       <TextField fx:id="tfNombreCategoria" layoutX="51.1" layoutY="224.0" prefHeight="36.0" prefWidth="216.0" />
-      <TextArea fx:id="taDescripcionCategoria" layoutX="51.1" layoutY="328.6" prefHeight="182.5" prefWidth="216.0" />
+      <TextArea fx:id="taDescripcionCategoria" layoutX="51.1" layoutY="328.6" prefHeight="182.5" prefWidth="216.0" wrapText="true" />
       <Button fx:id="btnGuardar" alignment="CENTER" layoutX="130.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="82.0" style="-fx-background-color: #DAEEE0; -fx-background-radius: 10;" text="Guardar">
          <font>
             <Font size="15.0" />

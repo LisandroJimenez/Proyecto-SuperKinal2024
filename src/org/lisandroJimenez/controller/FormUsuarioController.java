@@ -39,7 +39,7 @@ public class FormUsuarioController implements Initializable {
     @FXML
     ComboBox cmbEmpleados, cmbNivel;
     @FXML
-    Button btnRegistrar, btnEmpleados;
+    Button btnRegresar, btnRegistrar, btnEmpleados;
     private Main stage;
     private static Connection conexion = null;
     private static PreparedStatement statement = null;
@@ -56,6 +56,8 @@ public class FormUsuarioController implements Initializable {
             stage.LoginView();
         }else if(event.getSource() == btnEmpleados){
             stage.MenuEmpleadosView(3);
+        }else if(event.getSource() == btnRegresar){
+            stage.LoginView();
         }
     }
     public ObservableList<Empleados> listarEmpleado() {

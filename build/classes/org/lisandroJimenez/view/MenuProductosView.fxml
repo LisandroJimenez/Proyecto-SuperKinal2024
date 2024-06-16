@@ -19,18 +19,18 @@
       </ImageView>
       <TableView fx:id="tblProductos" layoutX="26.0" layoutY="97.0" onMouseClicked="#mostrarImagen" prefHeight="456.0" prefWidth="1000.0">
         <columns>
-          <TableColumn fx:id="colProductoId" prefWidth="69.66665649414062" text="productoId" />
-          <TableColumn fx:id="colNombre" prefWidth="107.33334350585938" text="nombreProducto" />
-            <TableColumn fx:id="colDescripcion" prefWidth="169.33331298828125" text="Descripcion" />
-            <TableColumn fx:id="colStock" prefWidth="70.66668701171875" text="stock" />
-            <TableColumn fx:id="colPrecio" prefWidth="85.0" text="precioCompra" />
-            <TableColumn fx:id="colPrecioU" prefWidth="86.6666259765625" text="precioUnidad" />
-            <TableColumn fx:id="colPrecioM" prefWidth="85.0" text="precioMayor" />
+          <TableColumn fx:id="colProductoId" prefWidth="51.0" text="ID" />
+          <TableColumn fx:id="colNombre" prefWidth="130.0" text="Nombre" />
+            <TableColumn fx:id="colDescripcion" prefWidth="130.0" text="Descripcion" />
+            <TableColumn fx:id="colStock" text="Stock" />
+            <TableColumn fx:id="colPrecio" prefWidth="95.0" text="precioCompra" />
+            <TableColumn fx:id="colPrecioU" prefWidth="95.0" text="precioUnidad" />
+            <TableColumn fx:id="colPrecioM" prefWidth="95.0" text="precioMayor" />
             <TableColumn fx:id="colDistribuidor" prefWidth="163.66668701171875" text="distribuidor" />
-            <TableColumn fx:id="colCategoria" prefWidth="163.66668701171875" text="categoria" />
+            <TableColumn fx:id="colCategoria" prefWidth="159.0" text="categoria" />
         </columns>
       </TableView>
-      <GridPane layoutX="376.0" layoutY="581.0">
+      <GridPane layoutX="417.0" layoutY="567.0" prefHeight="59.0" prefWidth="300.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -40,12 +40,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#handleButtonAction" text="Agregar" GridPane.halignment="CENTER" />
-            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" text="cancelar" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" text="Editar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="85.0" text="Agregar" GridPane.halignment="CENTER" />
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="85.0" text="cancelar" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="85.0" text="Editar" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
          </children>
       </GridPane>
       <ImageView fx:id="imgMostrar" fitHeight="273.0" fitWidth="268.0" layoutX="1029.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnVerProductos" layoutX="243.0" layoutY="584.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Reportes Productos" />
+      <Button fx:id="btnVerProductos" layoutX="26.0" layoutY="555.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Reportes Productos" />
    </children>
 </AnchorPane>

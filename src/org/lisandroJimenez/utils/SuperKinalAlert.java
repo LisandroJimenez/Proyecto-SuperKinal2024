@@ -89,7 +89,7 @@ public class SuperKinalAlert {
     }
 
     public void alertaSaludo(String usuario) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION );
         alert.setTitle("Bienvenido!!!!!");
         alert.setHeaderText("Bienvenido");
         alert.setContentText("Bienvenido a Super Kinal " + usuario);

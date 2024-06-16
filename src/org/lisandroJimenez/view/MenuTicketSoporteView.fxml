@@ -24,8 +24,8 @@
       <ComboBox fx:id="cmbFactura" layoutX="551.0" layoutY="127.0" prefWidth="150.0" />
       <TableView fx:id="tblTicketSoporte" layoutX="285.0" layoutY="200.0" onMouseClicked="#cargarDatosEditar" prefHeight="323.0" prefWidth="542.0">
         <columns>
-          <TableColumn fx:id="colTicketId" prefWidth="75.0" text="TicketId" />
-          <TableColumn fx:id="colDescripcion" prefWidth="150.0" text="Descripcion" />
+          <TableColumn fx:id="colTicketId" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="colDescripcion" prefWidth="150.0" text="Descripción" />
             <TableColumn fx:id="colEstatus" prefWidth="110.0" text="Estatus" />
             <TableColumn fx:id="colCliente" prefWidth="130.0" text="Cliente" />
             <TableColumn fx:id="colFactura" prefWidth="75.0" text="Factura" />

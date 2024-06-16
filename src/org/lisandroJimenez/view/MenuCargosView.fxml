@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.lisandroJimenez.controller.MenuCargosController">
+<AnchorPane id="AnchorPane" prefHeight="625.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lisandroJimenez.controller.MenuCargosController">
    <children>
       <ImageView fitHeight="625.0" fitWidth="1100.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -21,9 +20,9 @@
       </ImageView>
       <TableView fx:id="tblCargos" layoutX="74.0" layoutY="130.0" prefHeight="427.0" prefWidth="660.0">
          <columns>
-            <TableColumn fx:id="colCargoId" prefWidth="60.0" text="cargoId" />
-            <TableColumn fx:id="colNombreCargo" prefWidth="300.0" text="nombreCargo" />
-            <TableColumn fx:id="colDescripcionCargo" prefWidth="300.0" text="DescripcionCargo" />
+            <TableColumn fx:id="colCargoId" prefWidth="60.0" text="ID" />
+            <TableColumn fx:id="colNombreCargo" prefWidth="300.0" text="Nombre del Cargo" />
+            <TableColumn fx:id="colDescripcionCargo" prefWidth="300.0" text="Descripción del Cargo" />
          </columns>
       </TableView>
       <GridPane layoutX="855.0" layoutY="245.0" prefHeight="320.0" prefWidth="132.0">
@@ -35,14 +34,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Editar" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Eliminar" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Agregar" GridPane.halignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="79.0" text="Reportes" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Regresar" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" text="Regresar" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <TextField fx:id="tfBuscar" layoutX="571.0" layoutY="97.0" prefHeight="25.0" prefWidth="251.0" promptText="Ingrese la ID del cargo a Buscar" />

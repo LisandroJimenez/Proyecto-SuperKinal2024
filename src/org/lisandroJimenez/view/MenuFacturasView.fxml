@@ -19,15 +19,15 @@
       </ImageView>
       <DatePicker fx:id="dpFecha" layoutX="242.0" layoutY="112.0" prefHeight="40.0" prefWidth="165.0" />
       <TextField fx:id="tfTotal" layoutX="638.0" layoutY="112.0" prefHeight="40.0" prefWidth="138.0" text="Q." />
-      <TableView fx:id="tblFacturas" layoutX="170.0" layoutY="160.0" onMouseClicked="#cargarDatosEditar" prefHeight="393.0" prefWidth="775.0">
+      <TableView fx:id="tblFacturas" layoutX="166.0" layoutY="162.0" onMouseClicked="#cargarDatosEditar" prefHeight="393.0" prefWidth="775.0">
          <columns>
-            <TableColumn fx:id="colFacturaId" prefWidth="59.0" text="FacturaId" />
+            <TableColumn fx:id="colFacturaId" prefWidth="59.0" text="ID" />
             <TableColumn fx:id="colProducto" prefWidth="124.0" text="Producto" />
             <TableColumn fx:id="colCliente" minWidth="0.0" prefWidth="125.0" text="Cliente" />
             <TableColumn fx:id="colEmpleado" minWidth="0.0" prefWidth="122.0" text="Empleado" />
             <TableColumn fx:id="colFecha" minWidth="0.0" prefWidth="109.0" text="fecha" />
             <TableColumn fx:id="colHora" minWidth="0.0" prefWidth="110.0" text="Hora" />
-            <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="125.0" text="precioVentaUnitario" />
+            <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="125.0" text="Precio Por Unidad" />
          </columns>
       </TableView>
       <Button fx:id="btnRegresar" layoutX="347.0" layoutY="567.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="79.0" style="-fx-background-radius: 15;" text="Regresar" />

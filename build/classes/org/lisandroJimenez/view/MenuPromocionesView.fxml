@@ -27,12 +27,12 @@
       <Button fx:id="btnBack" layoutX="51.0" layoutY="548.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Regresar" />
       <TableView fx:id="tblPromociones" layoutX="249.0" layoutY="169.0" onMouseClicked="#cargarDatosEditar" prefHeight="391.0" prefWidth="713.0">
          <columns>
-            <TableColumn fx:id="colPromocionId" prefWidth="83.0" text="promocionId" />
-            <TableColumn fx:id="colPrecio" prefWidth="108.0" text="PrecioPromocion" />
-            <TableColumn fx:id="colDescripcion" prefWidth="184.0" text="DescripcionPromocion" />
-            <TableColumn fx:id="colFechaInicio" prefWidth="104.0" text="FechaInicio" />
-            <TableColumn fx:id="colFechaFinalizacion" prefWidth="104.0" text="FechaFinalizacion" />
-            <TableColumn fx:id="colProducto" prefWidth="128.0" text="Producto" />
+            <TableColumn fx:id="colPromocionId" prefWidth="59.0" text="ID" />
+            <TableColumn fx:id="colPrecio" prefWidth="115.0" text="Precio " />
+            <TableColumn fx:id="colDescripcion" prefWidth="150.0" text="Descripción" />
+            <TableColumn fx:id="colFechaInicio" prefWidth="120.0" text="Fecha de Inicio" />
+            <TableColumn fx:id="colFechaFinalizacion" prefWidth="147.0" text="Fecha de Finalización" />
+            <TableColumn fx:id="colProducto" prefWidth="121.0" text="Producto" />
          </columns>
       </TableView>
       <Button fx:id="btnGuardar" layoutX="125.0" layoutY="548.0" mnemonicParsing="false" onAction="#handleButtonAction" text="Guardar" />

@@ -20,7 +20,7 @@
       <DatePicker fx:id="dpFecha" layoutX="14.0" layoutY="118.0" prefHeight="40.0" prefWidth="220.0" />
       <TextField fx:id="tfTotal" layoutX="287.0" layoutY="118.0" prefHeight="40.0" prefWidth="220.0" text="Q." />
       <TextField fx:id="tfCantidad" layoutX="25.0" layoutY="352.0" prefHeight="30.0" prefWidth="160.0" />
-      <TableView fx:id="tblCompras" layoutX="201.0" layoutY="183.0" onMouseClicked="#cargarDatosEditar" prefHeight="368.0" prefWidth="728.0">
+      <TableView fx:id="tblCompras" layoutX="194.0" layoutY="183.0" onMouseClicked="#cargarDatosEditar" prefHeight="368.0" prefWidth="735.0">
          <columns>
             <TableColumn fx:id="colCompraId" prefWidth="75.0" text="compraId" />
             <TableColumn fx:id="colProducto" prefWidth="154.0" text="Producto" />

@@ -1,5 +1,5 @@
 
-drop database if exists superkinalin5cvdb;
+-- drop database if exists superkinalin5cvdb;
 
 create database if not exists superkinalin5cvdb;
 

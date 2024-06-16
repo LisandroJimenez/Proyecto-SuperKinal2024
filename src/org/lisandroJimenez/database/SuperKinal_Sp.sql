@@ -654,4 +654,8 @@ create procedure sp_listarNivelAcceso()
 delimiter ;
 
 
+insert into NivelesAcceso(nivelAcceso) values
+('Admin'),
+('Usuario');
+
 select * from NivelesAcceso;
