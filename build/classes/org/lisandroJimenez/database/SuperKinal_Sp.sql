@@ -658,4 +658,13 @@ insert into NivelesAcceso(nivelAcceso) values
 ('Admin'),
 ('Usuario');
 
+select * from cargos;
+
+insert into Cargos(nombreCargo, descripcionCargo)values
+('Programador', 'desarrollador full stack');
+insert into Empleados(nombreEmpleado,apellidoEmpleado, sueldo, horaEntrada, horaSalida, cargoId, encargadoId)values
+('Lisandro','Jimenez', '2000', '12:00', '17:00', '1', null);
+insert into Usuarios(usuario, contrasenia, nivelAccesoId, empleadoId)values
+('Lisandro', '1234', '1', '1');
+
 select * from NivelesAcceso;

@@ -50,23 +50,25 @@ public class LoginController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnIniciar) {
             if (op == 0) {
-                Usuario usuario = buscarUsuario();
-                if (usuario != null) {
-                    if (PasswordUtils.getInstance().checkPassword(tfPassword.getText(), usuario.getContrasenia())) {
-                        if (usuario.getNivelAccesoId() == 1) {
-                            btnRegistrar.setDisable(false);
-                            btnIniciar.setText("Ir al menu");
-                            op = 1;
-                        } else if (usuario.getNivelAccesoId() == 2) {
-                            stage.MenuPrincipalView();
-                            SuperKinalAlert.getInstance().alertaSaludo(usuario.getUsuario());
+                if (tfUser != null && tfPassword != null) {
+                    Usuario usuario = buscarUsuario();
+                    if (usuario != null) {
+                        if (PasswordUtils.getInstance().checkPassword(tfPassword.getText(), usuario.getContrasenia())) {
+                            if (usuario.getNivelAccesoId() == 1) {
+                                btnRegistrar.setDisable(false);
+                                btnIniciar.setText("Ir al menu");
+                                op = 1;
+                            } else if (usuario.getNivelAccesoId() == 2) {
+                                stage.MenuPrincipalView();
+                                SuperKinalAlert.getInstance().alertaSaludo(usuario.getUsuario());
+                            }
+                        } else {
+                            SuperKinalAlert.getInstance().mostrarAlertasInfo(403);
                         }
-                    } else {
-                        SuperKinalAlert.getInstance().mostrarAlertasInfo(403);
-                    }
 
-                } else {
-                    SuperKinalAlert.getInstance().mostrarAlertasInfo(402);
+                    } else {
+                        SuperKinalAlert.getInstance().mostrarAlertasInfo(402);
+                    }
                 }
 
             } else {

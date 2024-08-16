@@ -17,7 +17,7 @@ public class Conexion {
     private static Conexion instance;
     private String url = "jdbc:mysql://localhost:3306/SuperKinalIN5CVDB?serverTimeZone=GMT-6&useSSL=false";
     private String user = "lisandroJimenez";
-    private String password= "1234";
+    private String password= "admin";
     private Conexion() {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
